@@ -2137,6 +2137,18 @@ void Notes::noteChanged(QListViewItem *lvi)
     qDebug("void Notes::noteChanged(QListViewItem *lvi)");
 #endif
 
+    if (!notesTree->childCount())
+    {
+#ifdef DEBUG
+        qDebug("no childs");
+#endif
+
+		noteSketch->clearStrokes();
+        noteFormatedText->setText("");
+        noteText->setText("");
+        return;
+    }
+
 	if (!lvi)
 	{
 #ifdef DEBUG
@@ -2145,23 +2157,11 @@ void Notes::noteChanged(QListViewItem *lvi)
 		return;
 	}
 
-    if (!notesTree->childCount())
-    {
-#ifdef DEBUG
-        qDebug("no childs");
-#endif
-
-        noteFormatedText->setText("");
-        noteText->setText("");
-        return;
-    }
-
     NotesViewItem *nvi = static_cast<NotesViewItem *>(lvi);
 
     // Note is sketch
     if (nvi->isSketch())
     {
-		qDebug("s");
         noteSketch->setStrokes(nvi->getStrokes());
         noteSketch->repaint();
         noteSketch->show();
@@ -2421,8 +2421,9 @@ bool Notes::quickAdd()
 	}
 	newItem->setTextData(wn.Note->text());
 	// Make new item current
-    notesTree->ensureItemVisible(newItem);
-    notesTree->setCurrentItem(newItem);
+	//notesTree->ensureItemVisible(newItem);
+    //notesTree->setCurrentItem(newItem);
+    noteChanged(newItem);
 
 	emit noEmptyNoteTree();
 	
@@ -2556,7 +2557,8 @@ bool Notes::addFirst()
 
         emit noEmptyNoteTree();
 
-        notesTree->setCurrentItem(notesTree->firstChild());
+		noteChanged(notesTree->firstChild());
+        //notesTree->setCurrentItem(notesTree->firstChild());
 
         return true;
     }
@@ -2619,8 +2621,10 @@ bool Notes::deleteNote()
     else
         parentItem->takeItem(clipboardNote);
 
-    if (!notesTree->childCount())
+    if (!notesTree->childCount()) {
+		noteChanged(0);
         emit emptyNoteTree();
+	}
     else
     {
         // Make current item

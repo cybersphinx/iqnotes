@@ -23,7 +23,11 @@ int main(int argc, char ** argv)
 
     App mw;
 
+#ifdef DEMO
+	mw.openTree(-2, "");
+#else
 	mw.openFile(true);
+#endif
 	a.showMainWidget(&mw);
     int r = a.exec();
 }

@@ -1,6 +1,7 @@
 TEMPLATE	= app
 #CONFIG		= qt warn_on debug
 CONFIG		= qt warn_on release
+#DEFINES		= DEMO
 HEADERS		= app.h notes.h defineEntry.h entry.h noteType.h writeDefinedEntry.h notesFile.h \
 		    chooseEntry.h colorDialog.h qsketch.h writeSketchNote.h setTask.h \
                     setEvent.h sort.h choosePic.h rijndael.h md5.h preferences.h openFile.h \

@@ -33,6 +33,7 @@ class QToolButton;
 class FileSelector;
 class DocLnk;
 class QToolBar;
+class QMenuBar;
 
 class Preferences
 {
@@ -206,6 +207,7 @@ private:
     
     Notes *notes;
     QToolBar *toolbar;
+	QMenuBar *menu;
     QPopupMenu *filePopupMenu, *notePopupMenu, *viewPopupMenu, *optionsPopupMenu, *helpPopupMenu, *treePopupMenu, *taskListPopupMenu, *eventListPopupMenu, *copyNotePopupMenu, *pasteNotePopupMenu;
     int newID, openID, saveID, closeID, sortID, expandTreeID, collapseTreeID, reminderID, copyNoteID, pasteNoteID, setPictureID, setTaskID, setEventID, unsetTaskEventID, setReminderID, unsetReminderID, taskListID, eventListID, renameNoteID, noteID, treeID, viewID, toggleToolBarID, toggleFullScreenID, optionsID;
     QAction *editA, *cutA,

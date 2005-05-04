@@ -451,6 +451,21 @@ void QSketch::setStrokes(Strokes *strokes1)
     modified = true;
 }
 
+void QSketch::clearStrokes() {
+	if (strokes && !externalStrokes)
+        delete strokes;
+
+	strokes = new Strokes;
+    externalStrokes = false;
+
+	if (sketchCache)
+		delete sketchCache;
+	sketchCache = 0;
+
+	modified = true;
+	repaint();
+}
+
 void QSketch::setMoveMode(bool move)
 {
     moveMode = move;

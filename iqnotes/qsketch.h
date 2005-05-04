@@ -113,6 +113,7 @@ public:
     // Object doesn't delete strokes!!!!!!!!
     Strokes *getStrokes() { return strokes; }
     void setStrokes(Strokes *strokes1);
+	void clearStrokes();
 
     void setReadOnly() { readOnly = true; }
 

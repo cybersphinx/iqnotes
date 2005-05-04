@@ -72,22 +72,24 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     
     // File menu
     filePopupMenu = new QPopupMenu(this);
+	menu = new QPEMenuBar(this);
 
-    int fileID = menuBar()->insertItem("File", filePopupMenu);
-    //menuBar()->setAccel(Qt::Key_F11, fileID);
-
+    int fileID = menu->insertItem("File", filePopupMenu);
+	
+#ifndef DEMO
     newID = filePopupMenu->insertItem("New", this, SLOT(newFile()), CTRL+Key_N);
     openID = filePopupMenu->insertItem("Open", this, SLOT(openFile()), CTRL+Key_O);
     saveID = filePopupMenu->insertItem("Save", this, SLOT(saveFile()), CTRL+Key_S);
     // file->insertItem("Save as", this, SLOT(saveAsFile()));
     closeID = filePopupMenu->insertItem("Close", this, SLOT(closeFileMenu()));
     filePopupMenu->insertSeparator();
-
+#endif
+	
     filePopupMenu->insertItem("Quit", this, SLOT(goodBye()));
 
     // Tree menu
     treePopupMenu = new QPopupMenu(this);
-    treeID = menuBar()->insertItem("Tree", treePopupMenu);
+    treeID = menu->insertItem("Tree", treePopupMenu);
 
     searchA = new QAction("Search", Resource::loadPixmap("iqnotes/find"), QString::null, 0, this, 0 );
     connect(searchA, SIGNAL(activated()), this, SLOT(search()));
@@ -151,7 +153,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     // Note menu
     notePopupMenu = new QPopupMenu(this);
-    noteID = menuBar()->insertItem("Note", notePopupMenu);
+    noteID = menu->insertItem("Note", notePopupMenu);
 
 	renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()));
 
@@ -194,7 +196,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     // View menu
     viewPopupMenu = new QPopupMenu(this);
-    viewID = menuBar()->insertItem("View", viewPopupMenu);
+    viewID = menu->insertItem("View", viewPopupMenu);
 
     toolbar->addSeparator();
 
@@ -224,7 +226,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     
     // Options menu
     optionsPopupMenu = new QPopupMenu(this);
-    optionsID = menuBar()->insertItem("Options", optionsPopupMenu);
+    optionsID = menu->insertItem("Options", optionsPopupMenu);
 
     optionsPopupMenu->insertItem("Define new entry", this, SLOT(defineNewEntry()));
     optionsPopupMenu->insertItem("Change entry", this, SLOT(changeEntry()));
@@ -236,7 +238,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     // Help menu
     helpPopupMenu = new QPopupMenu(this);
-    menuBar()->insertItem("Help", helpPopupMenu);
+    menu->insertItem("Help", helpPopupMenu);
 
     helpPopupMenu->insertItem("About", this, SLOT(about()));
 
@@ -524,12 +526,12 @@ void App::noNoteTree()
     noFileOpened = true;
     isEmptyNoteTree();
 
-    menuBar()->setItemEnabled(saveID, false);
-    menuBar()->setItemEnabled(closeID, false);
-    menuBar()->setItemEnabled(treeID, false);
-    menuBar()->setItemEnabled(noteID, false);
-    menuBar()->setItemEnabled(viewID, false);
-    menuBar()->setItemEnabled(optionsID, false);
+    menu->setItemEnabled(saveID, false);
+    menu->setItemEnabled(closeID, false);
+    menu->setItemEnabled(treeID, false);
+    menu->setItemEnabled(noteID, false);
+    menu->setItemEnabled(viewID, false);
+    menu->setItemEnabled(optionsID, false);
 
     quickAddA->setEnabled(false);
     addBeforeA->setEnabled(false);
@@ -546,40 +548,40 @@ void App::isEmptyNoteTree()
     multiTB->setEnabled(false);
     editA->setEnabled(false);
     cutA->setEnabled(false);
-    menuBar()->setItemEnabled(copyNoteID, false);
+    menu->setItemEnabled(copyNoteID, false);
     if (notes->isClipboardEmpty())
-        menuBar()->setItemEnabled(pasteNoteID, false);
+        menu->setItemEnabled(pasteNoteID, false);
     else
-        menuBar()->setItemEnabled(pasteNoteID, true);
+        menu->setItemEnabled(pasteNoteID, true);
     
     searchA->setEnabled(false);
 
-    menuBar()->setItemEnabled(sortID, false);
-    menuBar()->setItemEnabled(expandTreeID, false);
-    menuBar()->setItemEnabled(collapseTreeID, false);
-    menuBar()->setItemEnabled(taskListID, false);
-    menuBar()->setItemEnabled(eventListID, false);
-    menuBar()->setItemEnabled(reminderID, false);
+    menu->setItemEnabled(sortID, false);
+    menu->setItemEnabled(expandTreeID, false);
+    menu->setItemEnabled(collapseTreeID, false);
+    menu->setItemEnabled(taskListID, false);
+    menu->setItemEnabled(eventListID, false);
+    menu->setItemEnabled(reminderID, false);
 
-	menuBar()->setItemEnabled(renameNoteID, false);
-    menuBar()->setItemEnabled(setPictureID, false);
-    menuBar()->setItemEnabled(setTaskID, false);
-    menuBar()->setItemEnabled(setEventID, false);
-    menuBar()->setItemEnabled(unsetTaskEventID, false);
-    menuBar()->setItemEnabled(setReminderID, false);
-    menuBar()->setItemEnabled(unsetReminderID, false);
+	menu->setItemEnabled(renameNoteID, false);
+    menu->setItemEnabled(setPictureID, false);
+    menu->setItemEnabled(setTaskID, false);
+    menu->setItemEnabled(setEventID, false);
+    menu->setItemEnabled(unsetTaskEventID, false);
+    menu->setItemEnabled(setReminderID, false);
+    menu->setItemEnabled(unsetReminderID, false);
 
     quickAddA->setEnabled(true);
     addBeforeA->setEnabled(true);
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(saveID, true);
-    menuBar()->setItemEnabled(closeID, true);
-    menuBar()->setItemEnabled(treeID, true);
-    menuBar()->setItemEnabled(noteID, true);
-    menuBar()->setItemEnabled(viewID, true);
-    menuBar()->setItemEnabled(optionsID, true);
+    menu->setItemEnabled(saveID, true);
+    menu->setItemEnabled(closeID, true);
+    menu->setItemEnabled(treeID, true);
+    menu->setItemEnabled(noteID, true);
+    menu->setItemEnabled(viewID, true);
+    menu->setItemEnabled(optionsID, true);
 }
 
 void App::isNotEmptyNoteTree()
@@ -587,37 +589,37 @@ void App::isNotEmptyNoteTree()
     multiTB->setEnabled(true);
     editA->setEnabled(true);
     cutA->setEnabled(true);
-    menuBar()->setItemEnabled(copyNoteID, true);
-    menuBar()->setItemEnabled(pasteNoteID, true);
+    menu->setItemEnabled(copyNoteID, true);
+    menu->setItemEnabled(pasteNoteID, true);
 
     searchA->setEnabled(true);
 
-    menuBar()->setItemEnabled(sortID, true);
-    menuBar()->setItemEnabled(expandTreeID, true);
-    menuBar()->setItemEnabled(collapseTreeID, true);
-    menuBar()->setItemEnabled(taskListID, true);
-    menuBar()->setItemEnabled(eventListID, true);
-    menuBar()->setItemEnabled(reminderID, true);
+    menu->setItemEnabled(sortID, true);
+    menu->setItemEnabled(expandTreeID, true);
+    menu->setItemEnabled(collapseTreeID, true);
+    menu->setItemEnabled(taskListID, true);
+    menu->setItemEnabled(eventListID, true);
+    menu->setItemEnabled(reminderID, true);
 
-	menuBar()->setItemEnabled(renameNoteID, true);
-    menuBar()->setItemEnabled(setPictureID, true);
-    menuBar()->setItemEnabled(setTaskID, true);
-    menuBar()->setItemEnabled(setEventID, true);
-    menuBar()->setItemEnabled(unsetTaskEventID, true);
-    menuBar()->setItemEnabled(setReminderID, true);
-    menuBar()->setItemEnabled(unsetReminderID, true);
+	menu->setItemEnabled(renameNoteID, true);
+    menu->setItemEnabled(setPictureID, true);
+    menu->setItemEnabled(setTaskID, true);
+    menu->setItemEnabled(setEventID, true);
+    menu->setItemEnabled(unsetTaskEventID, true);
+    menu->setItemEnabled(setReminderID, true);
+    menu->setItemEnabled(unsetReminderID, true);
 
     quickAddA->setEnabled(true);
     addBeforeA->setEnabled(true);
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(saveID, true);
-    menuBar()->setItemEnabled(closeID, true);
-    menuBar()->setItemEnabled(treeID, true);
-    menuBar()->setItemEnabled(noteID, true);
-    menuBar()->setItemEnabled(viewID, true);
-    menuBar()->setItemEnabled(optionsID, true);
+    menu->setItemEnabled(saveID, true);
+    menu->setItemEnabled(closeID, true);
+    menu->setItemEnabled(treeID, true);
+    menu->setItemEnabled(noteID, true);
+    menu->setItemEnabled(viewID, true);
+    menu->setItemEnabled(optionsID, true);
 
     /*
     hideTreeA->setEnabled(true);
@@ -642,18 +644,18 @@ void App::taskListShown()
     addChildA->setEnabled(false);
 
     menuBar()->setItemEnabled(expandTreeID, false);
-    menuBar()->setItemEnabled(collapseTreeID, false);
+    menu->setItemEnabled(collapseTreeID, false);
 
-    //    menuBar()->setItemEnabled(sortID, false);
-    menuBar()->setItemEnabled(eventListID, false);
-    menuBar()->setItemEnabled(reminderID, false);
+    //    menu->setItemEnabled(sortID, false);
+    menu->setItemEnabled(eventListID, false);
+    menu->setItemEnabled(reminderID, false);
 
-    menuBar()->setItemEnabled(setEventID, false);
-    menuBar()->setItemEnabled(unsetTaskEventID, false);
+    menu->setItemEnabled(setEventID, false);
+    menu->setItemEnabled(unsetTaskEventID, false);
 
     cutA->setEnabled(false);
-    menuBar()->setItemEnabled(copyNoteID, false);
-    menuBar()->setItemEnabled(pasteNoteID, false);
+    menu->setItemEnabled(copyNoteID, false);
+    menu->setItemEnabled(pasteNoteID, false);
 }
 
 void App::taskListClosed()
@@ -671,19 +673,19 @@ void App::taskListClosed()
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(expandTreeID, true);
-    menuBar()->setItemEnabled(collapseTreeID, true);
+    menu->setItemEnabled(expandTreeID, true);
+    menu->setItemEnabled(collapseTreeID, true);
 
-    //    menuBar()->setItemEnabled(sortID, true);
-    menuBar()->setItemEnabled(eventListID, true);
-    menuBar()->setItemEnabled(reminderID, true);
+    //    menu->setItemEnabled(sortID, true);
+    menu->setItemEnabled(eventListID, true);
+    menu->setItemEnabled(reminderID, true);
 
-    menuBar()->setItemEnabled(setEventID, true);
-    menuBar()->setItemEnabled(unsetTaskEventID, true);
+    menu->setItemEnabled(setEventID, true);
+    menu->setItemEnabled(unsetTaskEventID, true);
 
     cutA->setEnabled(true);
-    menuBar()->setItemEnabled(copyNoteID, true);
-    menuBar()->setItemEnabled(pasteNoteID, true);
+    menu->setItemEnabled(copyNoteID, true);
+    menu->setItemEnabled(pasteNoteID, true);
 }
 
 void App::eventListShown()
@@ -701,19 +703,19 @@ void App::eventListShown()
     addAfterA->setEnabled(false);
     addChildA->setEnabled(false);
 
-    menuBar()->setItemEnabled(expandTreeID, false);
-    menuBar()->setItemEnabled(collapseTreeID, false);
-    menuBar()->setItemEnabled(reminderID, false);
+    menu->setItemEnabled(expandTreeID, false);
+    menu->setItemEnabled(collapseTreeID, false);
+    menu->setItemEnabled(reminderID, false);
 
-    //    menuBar()->setItemEnabled(sortID, false);
-    menuBar()->setItemEnabled(taskListID, false);
+    //    menu->setItemEnabled(sortID, false);
+    menu->setItemEnabled(taskListID, false);
 
-    menuBar()->setItemEnabled(setTaskID, false);
-    menuBar()->setItemEnabled(unsetTaskEventID, false);
+    menu->setItemEnabled(setTaskID, false);
+    menu->setItemEnabled(unsetTaskEventID, false);
 
     cutA->setEnabled(false);
-    menuBar()->setItemEnabled(copyNoteID, false);
-    menuBar()->setItemEnabled(pasteNoteID, false);
+    menu->setItemEnabled(copyNoteID, false);
+    menu->setItemEnabled(pasteNoteID, false);
 }
 
 void App::eventListClosed()
@@ -731,19 +733,19 @@ void App::eventListClosed()
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(expandTreeID, true);
-    menuBar()->setItemEnabled(collapseTreeID, true);
+    menu->setItemEnabled(expandTreeID, true);
+    menu->setItemEnabled(collapseTreeID, true);
 
-    //    menuBar()->setItemEnabled(sortID, true);
-    menuBar()->setItemEnabled(taskListID, true);
-    menuBar()->setItemEnabled(reminderID, true);
+    //    menu->setItemEnabled(sortID, true);
+    menu->setItemEnabled(taskListID, true);
+    menu->setItemEnabled(reminderID, true);
 
-    menuBar()->setItemEnabled(setTaskID, true);
-    menuBar()->setItemEnabled(unsetTaskEventID, true);
+    menu->setItemEnabled(setTaskID, true);
+    menu->setItemEnabled(unsetTaskEventID, true);
 
     cutA->setEnabled(true);
-    menuBar()->setItemEnabled(copyNoteID, true);
-    menuBar()->setItemEnabled(pasteNoteID, true);
+    menu->setItemEnabled(copyNoteID, true);
+    menu->setItemEnabled(pasteNoteID, true);
 }
 
 void App::searchTreeShown()
@@ -757,15 +759,15 @@ void App::searchTreeShown()
     addAfterA->setEnabled(false);
     addChildA->setEnabled(false);
 
-    menuBar()->setItemEnabled(taskListID, false);
-    menuBar()->setItemEnabled(eventListID, false);
-    menuBar()->setItemEnabled(reminderID, false);
+    menu->setItemEnabled(taskListID, false);
+    menu->setItemEnabled(eventListID, false);
+    menu->setItemEnabled(reminderID, false);
 
-    menuBar()->setItemEnabled(sortID, false);
+    menu->setItemEnabled(sortID, false);
 
     cutA->setEnabled(false);
-    menuBar()->setItemEnabled(copyNoteID, false);
-    menuBar()->setItemEnabled(pasteNoteID, false);
+    menu->setItemEnabled(copyNoteID, false);
+    menu->setItemEnabled(pasteNoteID, false);
 }
 
 void App::searchTreeClosed()
@@ -779,15 +781,15 @@ void App::searchTreeClosed()
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(taskListID, true);
-    menuBar()->setItemEnabled(eventListID, true);
-    menuBar()->setItemEnabled(reminderID, true);
+    menu->setItemEnabled(taskListID, true);
+    menu->setItemEnabled(eventListID, true);
+    menu->setItemEnabled(reminderID, true);
 
-    menuBar()->setItemEnabled(sortID, true);
+    menu->setItemEnabled(sortID, true);
 
     cutA->setEnabled(true);
-    menuBar()->setItemEnabled(copyNoteID, true);
-    menuBar()->setItemEnabled(pasteNoteID, true);
+    menu->setItemEnabled(copyNoteID, true);
+    menu->setItemEnabled(pasteNoteID, true);
 }
 
 void App::reminderShown()
@@ -805,18 +807,18 @@ void App::reminderShown()
     addAfterA->setEnabled(false);
     addChildA->setEnabled(false);
 
-    menuBar()->setItemEnabled(expandTreeID, false);
-    menuBar()->setItemEnabled(collapseTreeID, false);
+    menu->setItemEnabled(expandTreeID, false);
+    menu->setItemEnabled(collapseTreeID, false);
 
-    //    menuBar()->setItemEnabled(sortID, false);
-    menuBar()->setItemEnabled(taskListID, false);
-    menuBar()->setItemEnabled(eventListID, false);
+    //    menu->setItemEnabled(sortID, false);
+    menu->setItemEnabled(taskListID, false);
+    menu->setItemEnabled(eventListID, false);
 
-    menuBar()->setItemEnabled(unsetReminderID, false);
+    menu->setItemEnabled(unsetReminderID, false);
 
     cutA->setEnabled(false);
-    menuBar()->setItemEnabled(copyNoteID, false);
-    menuBar()->setItemEnabled(pasteNoteID, false);
+    menu->setItemEnabled(copyNoteID, false);
+    menu->setItemEnabled(pasteNoteID, false);
 }
 
 void App::reminderClosed()
@@ -834,18 +836,18 @@ void App::reminderClosed()
     addAfterA->setEnabled(true);
     addChildA->setEnabled(true);
 
-    menuBar()->setItemEnabled(expandTreeID, true);
-    menuBar()->setItemEnabled(collapseTreeID, true);
+    menu->setItemEnabled(expandTreeID, true);
+    menu->setItemEnabled(collapseTreeID, true);
 
-    //    menuBar()->setItemEnabled(sortID, true);
-    menuBar()->setItemEnabled(taskListID, true);
-    menuBar()->setItemEnabled(eventListID, true);
+    //    menu->setItemEnabled(sortID, true);
+    menu->setItemEnabled(taskListID, true);
+    menu->setItemEnabled(eventListID, true);
 
-    menuBar()->setItemEnabled(unsetReminderID, true);
+    menu->setItemEnabled(unsetReminderID, true);
 
     cutA->setEnabled(true);
-    menuBar()->setItemEnabled(copyNoteID, true);
-    menuBar()->setItemEnabled(pasteNoteID, true);
+    menu->setItemEnabled(copyNoteID, true);
+    menu->setItemEnabled(pasteNoteID, true);
 }
 
 void App::openTree(int index, const QString &file)
@@ -1114,24 +1116,27 @@ void App::setModified(bool m)
     {
         modified = true;
 
-        menuBar()->setItemEnabled(saveID, true);
+        menu->setItemEnabled(saveID, true);
         
         if (currentFile.length())
             setCaption("IQNotes :: " + currentFile + "*");
+#ifndef DEMO
         else
             setCaption("IQNotes :: (untitled)*");
+#endif
     }
     else
     {
         modified = false;
 
-        menuBar()->setItemEnabled(saveID, false);
+        menu->setItemEnabled(saveID, false);
         
         if (currentFile.length())
             setCaption("IQNotes :: " + currentFile);
+#ifndef DEMO
         else
             setCaption("IQNotes :: (untitled)");
-
+#endif
     }
 }
 
@@ -1154,7 +1159,12 @@ void App::newFile()
 
     currentFile = "";
     setModified(false);
+#ifndef DEMO
     setCaption("IQNotes :: (untitled)");
+#else
+	setCaption("IQNotes :: DEMO");
+#endif
+	
     
     foreignDeletedNode = !notes->isClipboardEmpty();
 }
@@ -1212,6 +1222,10 @@ void App::closeFileMenu()
 
 bool App::closeFile()
 {
+#ifdef DEMO
+	return true;
+#endif
+	
     if (noFileOpened)
         return true;
 
