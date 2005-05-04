@@ -1,0 +1,95 @@
+2.0.3 (1.8.2004)
+-----
+* Keyboard shortcuts. (1.8.2004)
+
+2.0.2 (28.2.2004)
+-----
+* Menu button definitly works. (28.2.2004)
+* Little bug, when deleting the last and only note from the tree fixed. (28.2.2004)
+* Demo version. (29.2.2004)
+
+2.0.1 (25.12.2003)
+-----
+* Editing of the note splitted to the Rename and Edit steps. (25.12.2003)
+* Improved sketching performance. (25.12.2003)
+* Background color shown in the color list when sketching. (23.12.2003)
+	
+2.0 (16.12.2003)
+-----
+* Entry can have a default icon. (14.12.2003)
+* Defaul font can be changed. (23.11.2003)
+* Horizontal and vertical layout, useful for CXXX models. (16.11.2003)
+* Xml header added to xml files. (14.11.2003)
+* Not using default Qtopia's icons. (14.11.2003)
+* Layout of the dialogs improved. (12.8.2003)
+* Menu button works! Yeah. (13.6.2003)
+* Quick add of the text note. (11.4.2003)
+* Editing of the sketch supports scrolling. Now, the IQNotes should be pretty well resizeable and thus, used on the different screen size. (9.4.2003)
+* Scrolling sketch in notes tree. (6.4.2003)
+* Standard edit behavior (cut, copy, paste) added. (1.12.2002)
+
+1.0.2 (29.11.2002)
+-----
+* Correct loading of the crypted UTF8 data file. (29.11.2002)
+
+1.0.1 (9.11.2002)
+-----
+* Showing of the scrollbars in the tree is now optional. (2.11.2002)
+* Simple patch from Latchesar Ionkov <lucho@ionkov.net> applied which reduce using of the stylo. (2.11.2002)
+
+1.0
+-----
+* Added new entry 'Credit Card'. Visible only in the new data files. (20.10.2002)
+* Little fixes. (27.9.2002)
+* When note is deleted, the above visible item is selected as current. (22.9.2002)
+* Dialog appears, when is bad password inputed. (8.10.2002)
+* Backup location must be a valid directory. (1.9.2002)
+* Reminder added. (18.9.2002)
+* Little fixes. (17.9.2002)
+* Multiple data files. (3.9.2002)
+* Added new entry 'User account', only seen in new data file. (20.7.2002)
+* Encryption of the data file with the Rijndael aka AES. (20.7.2002)
+* Properties of the custom entry can be moved, entry which is used in the notes can be edited. (13.7.2002)
+* Optional root node decoration (see Preferences dialog). (29.6.2002)
+* When editing the sketch, colors used in sketch are filled into color dialog. (29.6.2002)
+
+0.2.8
+-----
+* Correct saving of characters (german, ... ) (again) (29.5.2002)
+* Word wrapping option added (29.5.2002)
+  
+0.2.7
+-----
+* Another weekend spent.
+* Added possibility to save to backup file. (26.5.2002)
+* Properties of the sort dialog are remembered. (26.5.2002)
+* Delete confirm dialog added. (26.5.2002)
+* Sortable task/event list. (26.5.2002)
+* When closing tree created by 'Search', the current item in that tree is selected as current in notes tree. (25.5.2002)
+
+0.2.6
+-----
+* Now each item can have assigned small icon.
+
+0.2.5
+-----
+* Bug in custom color choosing fixed ;). (1.5.2002)
+* Default stroke width is now 2 points. (1.5.2002)
+
+0.2.4
+-----
+* Added custom color choosing in sketch. (1.5.2002)
+* Added deleting of the entries 'Options/Delete entry'. (1.5.2002)
+* Correct newline displaing in text note. (1.5.2002)
+* 'Change entry' working now correct. (1.5.2002)
+
+0.2.3
+-----
+* Correct saving of characters (german, ... )
+
+0.2.2
+-----
+* Added November in event dialog. I forgot it ;)
+* Now the task with 0% can be set.
+* Menu item 'Note/Unset' added, which discards task or event data.
+* Very minor enhacements.

@@ -1,0 +1,53 @@
+<!DOCTYPE UI><UI>
+<class>DeleteConfirmBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>DeleteConfirmBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>184</width>
+            <height>68</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Delete?</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Do you want to cut the note?
+After this, you can still paste
+this note.</string>
+            </property>
+            <property stdset="1">
+                <name>alignment</name>
+                <set>AlignCenter</set>
+            </property>
+            <property>
+                <name>hAlign</name>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+</UI>
