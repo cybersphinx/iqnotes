@@ -1,0 +1,243 @@
+<!DOCTYPE UI><UI>
+<class>SetReminderBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>SetReminderBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>209</width>
+            <height>103</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Set reminder</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Remind me of this note:</string>
+            </property>
+            <property stdset="1">
+                <name>alignment</name>
+                <set>AlignVCenter|AlignLeft</set>
+            </property>
+            <property>
+                <name>hAlign</name>
+            </property>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout9</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Day</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>1</string>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignRight</set>
+                    </property>
+                    <property>
+                        <name>hAlign</name>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QComboBox</class>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Jan</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Feb</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Mar</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Apr</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>May</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Jun</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Jul</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Aug</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Sep</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Oct</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Nov</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Dec</string>
+                        </property>
+                    </item>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Month</cstring>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QSpinBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Year</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>maxValue</name>
+                        <number>2053</number>
+                    </property>
+                    <property stdset="1">
+                        <name>minValue</name>
+                        <number>1970</number>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout11</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Hour</cstring>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Glue</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>:</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Min</cstring>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QCheckBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>IgnoreTime</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Ignore time</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>IgnoreTime</sender>
+        <signal>clicked()</signal>
+        <receiver>SetReminderBase</receiver>
+        <slot>ignoreTimeClicked()</slot>
+    </connection>
+    <slot access="public">ignoreTimeClicked()</slot>
+    <slot access="public">alarmClicked()</slot>
+</connections>
+</UI>

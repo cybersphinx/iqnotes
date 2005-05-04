@@ -1,0 +1,163 @@
+<!DOCTYPE UI><UI>
+<class>SetTaskBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>SetTaskBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>146</width>
+            <height>118</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Set Task</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Task completed at:</string>
+            </property>
+            <property stdset="1">
+                <name>alignment</name>
+                <set>AlignVCenter|AlignLeft</set>
+            </property>
+            <property>
+                <name>wordwrap</name>
+            </property>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout40</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QSpinBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Percentage</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>maxValue</name>
+                        <number>100</number>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel3</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>%</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer8</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Priority:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Very high</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>High</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Normal</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Low</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Very low</string>
+                </property>
+            </item>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Priority</cstring>
+            </property>
+            <property stdset="1">
+                <name>currentItem</name>
+                <number>2</number>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+</UI>

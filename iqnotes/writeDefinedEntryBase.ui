@@ -1,0 +1,128 @@
+<!DOCTYPE UI><UI>
+<class>WriteDefinedEntryBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>WriteDefinedEntryBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>184</width>
+            <height>208</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Defined Entry</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>EntryName</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>TextLabel3</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout1</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Property:</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QComboBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Properties</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget>
+            <class>Line</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Line1</cstring>
+            </property>
+            <property stdset="1">
+                <name>orientation</name>
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>OneLine</cstring>
+            </property>
+        </widget>
+        <widget>
+            <class>Line</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Line1_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>orientation</name>
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QMultiLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>MultiLine</cstring>
+            </property>
+            <property stdset="1">
+                <name>wordWrap</name>
+                <enum>WidgetWidth</enum>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>Properties</sender>
+        <signal>activated(int)</signal>
+        <receiver>WriteDefinedEntryBase</receiver>
+        <slot>propertyChanged(int)</slot>
+    </connection>
+    <slot access="public">propertyChanged(int)</slot>
+</connections>
+</UI>
