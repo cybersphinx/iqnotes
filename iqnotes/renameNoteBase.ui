@@ -1,0 +1,59 @@
+<!DOCTYPE UI><UI>
+<class>RenameNoteBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>RenameNoteBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>179</width>
+            <height>68</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Note Name</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel4</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Note name:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>NoteName</cstring>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>NoteName</sender>
+        <signal>returnPressed()</signal>
+        <receiver>RenameNoteBase</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+</UI>

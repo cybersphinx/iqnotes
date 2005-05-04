@@ -1,0 +1,54 @@
+<!DOCTYPE UI><UI>
+<class>ChooseEntryBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>ChooseEntryBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>172</width>
+            <height>170</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Choose Entry</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Entries:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QListBox</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>EntriesBox</cstring>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <slot access="public">deleteEntry()</slot>
+</connections>
+</UI>

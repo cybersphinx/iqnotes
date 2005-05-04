@@ -1,0 +1,340 @@
+<!DOCTYPE UI><UI>
+<class>DefineEntryBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>DefineEntryBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>243</width>
+            <height>358</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Define Entry</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout7</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QListBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>EntryProperties</cstring>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLayoutWidget</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Layout6</cstring>
+                    </property>
+                    <vbox>
+                        <property stdset="1">
+                            <name>margin</name>
+                            <number>0</number>
+                        </property>
+                        <property stdset="1">
+                            <name>spacing</name>
+                            <number>6</number>
+                        </property>
+                        <widget>
+                            <class>QPushButton</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>DefaultPic</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Default Pic</string>
+                            </property>
+                        </widget>
+                        <widget>
+                            <class>QButtonGroup</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>InputTypeGroup</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>title</name>
+                                <string>Input type</string>
+                            </property>
+                            <vbox>
+                                <property stdset="1">
+                                    <name>margin</name>
+                                    <number>11</number>
+                                </property>
+                                <property stdset="1">
+                                    <name>spacing</name>
+                                    <number>6</number>
+                                </property>
+                                <widget>
+                                    <class>QRadioButton</class>
+                                    <property stdset="1">
+                                        <name>name</name>
+                                        <cstring>OneLineIT</cstring>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>text</name>
+                                        <string>One line</string>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>checked</name>
+                                        <bool>true</bool>
+                                    </property>
+                                </widget>
+                                <widget>
+                                    <class>QRadioButton</class>
+                                    <property stdset="1">
+                                        <name>name</name>
+                                        <cstring>MultiLineIT</cstring>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>text</name>
+                                        <string>Multi line</string>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget>
+                            <class>QPushButton</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>MoveUp</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Up</string>
+                            </property>
+                        </widget>
+                        <widget>
+                            <class>QPushButton</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>MoveDown</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Down</string>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+            </hbox>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout6</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PropertyNameLabel</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Name:</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PropertyName</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout5</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>NewProperty</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>New</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>DeleteProperty</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Delete</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget>
+            <class>Line</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Line3</cstring>
+            </property>
+            <property stdset="1">
+                <name>orientation</name>
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QLayoutWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Layout9</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Entry name:</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>EntryName</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>NewProperty</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>addNewProperty()</slot>
+    </connection>
+    <connection>
+        <sender>DeleteProperty</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>deleteProperty()</slot>
+    </connection>
+    <connection>
+        <sender>PropertyName</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>propertyNameChanged(const QString &amp;)</slot>
+    </connection>
+    <connection>
+        <sender>MultiLineIT</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>setPropertyMultiLine()</slot>
+    </connection>
+    <connection>
+        <sender>OneLineIT</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>setPropertyOneLine()</slot>
+    </connection>
+    <connection>
+        <sender>EntryProperties</sender>
+        <signal>highlighted(QListBoxItem*)</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>propertySelectedChange(QListBoxItem *)</slot>
+    </connection>
+    <connection>
+        <sender>MoveUp</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>moveUp()</slot>
+    </connection>
+    <connection>
+        <sender>MoveDown</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>moveDown()</slot>
+    </connection>
+    <connection>
+        <sender>DefaultPic</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>setDefaultPic()</slot>
+    </connection>
+    <slot access="public">accept2()</slot>
+    <slot access="public">addNewProperty()</slot>
+    <slot access="public">deleteProperty()</slot>
+    <slot access="public">moveDown()</slot>
+    <slot access="public">moveUp()</slot>
+    <slot access="public">setDefaultPic()</slot>
+    <slot access="public">propertyNameChanged(const QString &amp;)</slot>
+    <slot access="public">propertySelectedChange(QListBoxItem *)</slot>
+    <slot access="public">setPropertyMultiLine()</slot>
+    <slot access="public">setPropertyOneLine()</slot>
+</connections>
+</UI>
