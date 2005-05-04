@@ -1,0 +1,77 @@
+<!DOCTYPE UI><UI>
+<class>NotesBase</class>
+<widget>
+    <class>QWidget</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>NotesBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>364</width>
+            <height>302</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Form1</string>
+    </property>
+    <property stdset="1">
+        <name>iconText</name>
+        <string></string>
+    </property>
+    <widget>
+        <class>QTextView</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>noteData</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>0</x>
+                <y>110</y>
+                <width>238</width>
+                <height>111</height>
+            </rect>
+        </property>
+    </widget>
+    <widget>
+        <class>QListView</class>
+        <column>
+            <property>
+                <name>text</name>
+                <string>Column 1</string>
+            </property>
+            <property>
+                <name>clickable</name>
+                <bool>true</bool>
+            </property>
+            <property>
+                <name>resizeable</name>
+                <bool>true</bool>
+            </property>
+        </column>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>notesTree</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>238</width>
+                <height>111</height>
+            </rect>
+        </property>
+        <property>
+            <name>toolTip</name>
+            <string>What the fuck?</string>
+        </property>
+    </widget>
+</widget>
+</UI>
