@@ -12,7 +12,7 @@
             <x>0</x>
             <y>0</y>
             <width>137</width>
-            <height>68</height>
+            <height>69</height>
         </rect>
     </property>
     <property stdset="1">
@@ -53,6 +53,20 @@
                 <cstring>Passwd</cstring>
             </property>
             <property stdset="1">
+                <name>sizePolicy</name>
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>0</vsizetype>
+                </sizepolicy>
+            </property>
+            <property stdset="1">
+                <name>minimumSize</name>
+                <size>
+                    <width>0</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property stdset="1">
                 <name>echoMode</name>
                 <enum>Password</enum>
             </property>
@@ -60,5 +74,11 @@
     </vbox>
 </widget>
 <connections>
+    <connection>
+        <sender>Passwd</sender>
+        <signal>returnPressed()</signal>
+        <receiver>StartUpPasswdBase</receiver>
+        <slot>accept()</slot>
+    </connection>
 </connections>
 </UI>

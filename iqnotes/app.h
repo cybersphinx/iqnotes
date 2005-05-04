@@ -32,7 +32,7 @@ class QPopupMenu;
 class QToolButton;
 class FileSelector;
 class DocLnk;
-class QToolBar;
+class QPEToolBar;
 class QMenuBar;
 
 class Preferences
@@ -206,7 +206,7 @@ private:
     void setFullScreen(bool fullScreen);
     
     Notes *notes;
-    QToolBar *toolbar;
+    QPEToolBar *toolbar;
 	QMenuBar *menu;
     QPopupMenu *filePopupMenu, *notePopupMenu, *viewPopupMenu, *optionsPopupMenu, *helpPopupMenu, *treePopupMenu, *taskListPopupMenu, *eventListPopupMenu, *copyNotePopupMenu, *pasteNotePopupMenu;
     int newID, openID, saveID, closeID, sortID, expandTreeID, collapseTreeID, reminderID, copyNoteID, pasteNoteID, setPictureID, setTaskID, setEventID, unsetTaskEventID, setReminderID, unsetReminderID, taskListID, eventListID, renameNoteID, noteID, treeID, viewID, toggleToolBarID, toggleFullScreenID, optionsID;

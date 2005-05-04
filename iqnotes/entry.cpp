@@ -84,16 +84,14 @@ bool Entry::addProperty(PropertyStruct *es)
 
 bool Entry::isIn(PropertyStruct *es)
 {
-    /*
+	/*
     for (PropertyStruct *es1 = propList->first(); es1; es1 = propList->next())
     {
       if (es1->getName() == es->getName())
         return true;
     }
-
-    return false;
-    */
-
+	*/
+	
     return false;
 }
 

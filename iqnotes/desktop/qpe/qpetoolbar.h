@@ -14,20 +14,19 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
-#include "app.h"
-#include <qpe/qpeapplication.h>
 
-int main(int argc, char ** argv)
+#ifndef QPETOOLBAR_H
+#define QPETOOLBAR_H
+
+#include <qtoolbar.h>
+
+class QMainWindow;
+
+class QPEToolBar : public QToolBar
 {
-    QPEApplication a(argc, argv);
+	Q_OBJECT
+public:
+	QPEToolBar(QMainWindow *parent = 0, const char *name = 0) : QToolBar(parent, name) {}
+};
 
-    App mw;
-
-#ifdef DEMO
-	mw.openTree(-2, "");
-#else
-	mw.openFile(true);
 #endif
-	a.showMainWidget(&mw);
-    return a.exec();
-}

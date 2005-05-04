@@ -53,8 +53,9 @@
 #include <qcombobox.h>
 #include <qtabwidget.h>
 #include <qscrollview.h>
+#include <qregexp.h>
 
-#include <qpe/alarmserver.h>
+//#include <qpe/alarmserver.h>
 #include <qpe/resource.h>
 
 #include <stdio.h>

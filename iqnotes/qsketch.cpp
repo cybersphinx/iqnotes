@@ -23,6 +23,7 @@
 #include <qcolor.h>
 #include <qpopupmenu.h>
 #include <qcolordialog.h>
+#include <qstyle.h>
 
 // {{{ Stroke
 
@@ -120,7 +121,7 @@ void Stroke::unserialize(QString data)
 
     points.clear();
 
-    for (int i = 0; i < data.length(); i++)
+    for (uint i = 0; i < data.length(); i++)
     {
         if (!(data[i] == ','))
         {

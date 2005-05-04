@@ -51,10 +51,7 @@
 #include <qpe/qpeapplication.h>
 #include <qpe/qpetoolbar.h>
 #include <qpe/resource.h>
-#include <qpe/filemanager.h>
-#include <qpe/fileselector.h>
 #include <qpe/global.h>
-#include <qpe/qcopenvelope_qws.h>
 
 App *IQApp;
 
@@ -63,7 +60,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     showFullScreen = false;
     setCaption("IQNotes");
 
-    toolbar = new QToolBar(this);
+    toolbar = new QPEToolBar(this);
     toolbar->setVerticalStretchable(false);
     toolbar->setHorizontalStretchable(false);
     
@@ -74,12 +71,13 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     filePopupMenu = new QPopupMenu(this);
 	menu = new QPEMenuBar(this);
 
-    int fileID = menu->insertItem("File", filePopupMenu);
+    int fileID;
+	fileID = menu->insertItem("File", filePopupMenu);
 	
 #ifndef DEMO
-    newID = filePopupMenu->insertItem("New", this, SLOT(newFile()), CTRL+Key_N);
-    openID = filePopupMenu->insertItem("Open", this, SLOT(openFile()), CTRL+Key_O);
-    saveID = filePopupMenu->insertItem("Save", this, SLOT(saveFile()), CTRL+Key_S);
+    newID = filePopupMenu->insertItem("New", this, SLOT(newFile()), SHIFT+Key_N);
+    openID = filePopupMenu->insertItem("Open", this, SLOT(openFile()), SHIFT+Key_O);
+    saveID = filePopupMenu->insertItem("Save", this, SLOT(saveFile()), SHIFT+Key_S);
     // file->insertItem("Save as", this, SLOT(saveAsFile()));
     closeID = filePopupMenu->insertItem("Close", this, SLOT(closeFileMenu()));
     filePopupMenu->insertSeparator();
@@ -91,7 +89,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     treePopupMenu = new QPopupMenu(this);
     treeID = menu->insertItem("Tree", treePopupMenu);
 
-    searchA = new QAction("Search", Resource::loadPixmap("iqnotes/find"), QString::null, 0, this, 0 );
+    searchA = new QAction("Search", Resource::loadPixmap("iqnotes/find"), QString::null, Key_F, this, 0 );
     connect(searchA, SIGNAL(activated()), this, SLOT(search()));
     //  searchA->addTo(toolbar);
     searchA->addTo(treePopupMenu);
@@ -101,7 +99,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     treePopupMenu->insertSeparator();
 
-	quickAddA = new QAction("Quick add", Resource::loadPixmap("iqnotes/quick_add"), QString::null, CTRL+Key_I, this, 0 );
+	quickAddA = new QAction("Quick add", Resource::loadPixmap("iqnotes/quick_add"), QString::null, Key_Q, this, 0 );
 	connect(quickAddA, SIGNAL(activated()), this, SLOT(quickAdd()));
     quickAddA->addTo(toolbar);
     quickAddA->addTo(treePopupMenu);
@@ -111,12 +109,12 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     addBeforeA->addTo(toolbar);
     addBeforeA->addTo(treePopupMenu);
 
-    addAfterA = new QAction("Add after", Resource::loadPixmap("iqnotes/add_after"), QString::null, CTRL+Key_A, this, 0 );
+    addAfterA = new QAction("Add after", Resource::loadPixmap("iqnotes/add_after"), QString::null, Key_A, this, 0 );
     connect(addAfterA, SIGNAL(activated()), this, SLOT(addAfter()));
     addAfterA->addTo(toolbar);
     addAfterA->addTo(treePopupMenu);
 
-    addChildA = new QAction("Add child", Resource::loadPixmap("iqnotes/add_child"), QString::null, CTRL+Key_E, this, 0 );
+    addChildA = new QAction("Add child", Resource::loadPixmap("iqnotes/add_child"), QString::null, Key_E, this, 0 );
     connect(addChildA, SIGNAL(activated()), this, SLOT(addChild()));
     addChildA->addTo(toolbar);
     addChildA->addTo(treePopupMenu);
@@ -157,13 +155,13 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
 	renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()));
 
-    editA = new QAction("Edit", Resource::loadPixmap("iqnotes/edit"), QString::null, 0, this, 0 );
+    editA = new QAction("Edit", Resource::loadPixmap("iqnotes/edit"), QString::null, Key_Return, this, 0 );
     editA->setToolTip("Edit note");
     connect(editA, SIGNAL(activated()), this, SLOT(editNote()));
     editA->addTo(toolbar);
     editA->addTo(notePopupMenu);
 
-    cutA = new QAction("Cut", Resource::loadPixmap("iqnotes/bin"), QString::null, 0, this, 0 );
+    cutA = new QAction("Cut", Resource::loadPixmap("iqnotes/bin"), QString::null, Key_X, this, 0 );
     cutA->setToolTip("Cut note");
     connect(cutA, SIGNAL(activated()), this, SLOT(cutNote()));
     cutA->addTo(toolbar);
@@ -176,8 +174,8 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     pasteNotePopupMenu = new QPopupMenu(this);
     pasteNotePopupMenu->insertItem("Before", this, SLOT(pasteNoteBefore()));
-    pasteNotePopupMenu->insertItem("After", this, SLOT(pasteNoteAfter()));
-    pasteNotePopupMenu->insertItem("As child", this, SLOT(pasteNoteChild()));
+    pasteNotePopupMenu->insertItem("After", this, SLOT(pasteNoteAfter()), SHIFT+Key_A);
+    pasteNotePopupMenu->insertItem("As child", this, SLOT(pasteNoteChild()), SHIFT+Key_E);
     pasteNoteID = notePopupMenu->insertItem("Paste", pasteNotePopupMenu);
 
     notePopupMenu->insertSeparator();
@@ -200,30 +198,30 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     toolbar->addSeparator();
 
-    hideNoteA = new QAction("Hide note", Resource::loadPixmap("iqnotes/hide_note"), QString::null, 0, this, 0 );
+    hideNoteA = new QAction("Hide note", Resource::loadPixmap("iqnotes/hide_note"), QString::null, Key_1, this, 0 );
     hideNoteA->setToolTip("Hide note");
     connect(hideNoteA, SIGNAL(activated()), this, SLOT(hideNote()));
     hideNoteA->addTo(toolbar);
     hideNoteA->addTo(viewPopupMenu);
 
-    hideTreeA = new QAction("Hide tree", Resource::loadPixmap("iqnotes/hide_tree"), QString::null, 0, this, 0 );
+    hideTreeA = new QAction("Hide tree", Resource::loadPixmap("iqnotes/hide_tree"), QString::null, Key_2, this, 0 );
     hideTreeA->setToolTip("Hide tree");
     connect(hideTreeA, SIGNAL(activated()), this, SLOT(hideTree()));
     hideTreeA->addTo(toolbar);
     hideTreeA->addTo(viewPopupMenu);
 
-    halfViewA = new QAction("Half view", Resource::loadPixmap("iqnotes/half_view"), QString::null, 0, this, 0 );
+    halfViewA = new QAction("Half view", Resource::loadPixmap("iqnotes/half_view"), QString::null, Key_3, this, 0 );
     halfViewA->setToolTip("Half view");
     connect(halfViewA, SIGNAL(activated()), this, SLOT(halfView()));
     halfViewA->addTo(toolbar);
     halfViewA->addTo(viewPopupMenu);
 
-    /*
+	/*
     viewPopupMenu->insertSeparator();
     toggleToolBarID = viewPopupMenu->insertItem("Toggle toolbar", this, SLOT(toggleToolBar()));
     toggleFullScreenID = viewPopupMenu->insertItem("Toggle fullscreen", this, SLOT(toggleFullScreen()));
     */
-    
+	
     // Options menu
     optionsPopupMenu = new QPopupMenu(this);
     optionsID = menu->insertItem("Options", optionsPopupMenu);

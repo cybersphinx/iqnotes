@@ -128,9 +128,6 @@ public:
         return propList->at(i);
     }
 
-    PropertyBoxItem *currentPropertyBoxItem()
-    {}
-
     int getFreePropertyID();
     QString getDefaultPic();
     void setDefaultPic(const QString &dp);

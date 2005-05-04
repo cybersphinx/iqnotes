@@ -142,7 +142,7 @@ void DefineEntry::accept()
         entry->clear();
         entry->setName(EntryName->text());
     }
-    else if (entry = entries->isIn(EntryName->text()))
+    else if ((entry = entries->isIn(EntryName->text())))
     {
         QMessageBox::warning(this, "Entry exists", "Entry with such name\nexists. Please, choose another.", 0, 0, 0);
         return;
@@ -154,7 +154,7 @@ void DefineEntry::accept()
     {
         PropertyBoxItem *pbi;
 
-        if (pbi = static_cast<PropertyBoxItem *>(EntryProperties->item(i)))
+        if ((pbi = static_cast<PropertyBoxItem *>(EntryProperties->item(i))))
         {
             entry->addProperty(new PropertyStruct(pbi));
         }
@@ -182,7 +182,7 @@ void DefineEntry::propertySelectedChange(QListBoxItem *lbi)
     PropertyBoxItem *pbi;
     pbi = static_cast<PropertyBoxItem *>(lbi);
 
-    int currentItemIndex = EntryProperties->currentItem();
+    uint currentItemIndex = EntryProperties->currentItem();
     if (currentItemIndex == 0)
         MoveUp->setEnabled(false);
     else

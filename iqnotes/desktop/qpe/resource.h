@@ -14,20 +14,17 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
-#include "app.h"
-#include <qpe/qpeapplication.h>
 
-int main(int argc, char ** argv)
+#ifndef RESOURCE_H
+#define RESOURCE_H
+
+#include <qpixmap.h>
+#include <qstring.h>
+
+class Resource
 {
-    QPEApplication a(argc, argv);
+public:
+	static QPixmap loadPixmap(const QString &name);
+};
 
-    App mw;
-
-#ifdef DEMO
-	mw.openTree(-2, "");
-#else
-	mw.openFile(true);
 #endif
-	a.showMainWidget(&mw);
-    return a.exec();
-}
