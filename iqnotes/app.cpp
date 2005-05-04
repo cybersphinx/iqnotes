@@ -153,6 +153,8 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     notePopupMenu = new QPopupMenu(this);
     noteID = menuBar()->insertItem("Note", notePopupMenu);
 
+	renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()));
+
     editA = new QAction("Edit", Resource::loadPixmap("iqnotes/edit"), QString::null, 0, this, 0 );
     editA->setToolTip("Edit note");
     connect(editA, SIGNAL(activated()), this, SLOT(editNote()));
@@ -559,6 +561,7 @@ void App::isEmptyNoteTree()
     menuBar()->setItemEnabled(eventListID, false);
     menuBar()->setItemEnabled(reminderID, false);
 
+	menuBar()->setItemEnabled(renameNoteID, false);
     menuBar()->setItemEnabled(setPictureID, false);
     menuBar()->setItemEnabled(setTaskID, false);
     menuBar()->setItemEnabled(setEventID, false);
@@ -596,6 +599,7 @@ void App::isNotEmptyNoteTree()
     menuBar()->setItemEnabled(eventListID, true);
     menuBar()->setItemEnabled(reminderID, true);
 
+	menuBar()->setItemEnabled(renameNoteID, true);
     menuBar()->setItemEnabled(setPictureID, true);
     menuBar()->setItemEnabled(setTaskID, true);
     menuBar()->setItemEnabled(setEventID, true);
@@ -1366,6 +1370,12 @@ void App::pasteNoteChild()
 {
     if (notes->pasteNoteChild())
         setModified(true);
+}
+
+void App::renameNote()
+{
+	if (notes->renameNote())
+		setModified(true);
 }
 
 void App::editNote()

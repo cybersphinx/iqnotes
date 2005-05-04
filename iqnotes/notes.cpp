@@ -2032,9 +2032,9 @@ bool Notes::writeNote(NotesViewItem *nvi)
     return true;
 }
 
-bool Notes::editNote()
+bool Notes::renameNote()
 {
-    QListView *currTree = getCurrentTree();
+	QListView *currTree = getCurrentTree();
 
     NotesViewItem *nvi = static_cast<NotesViewItem *>(currTree->currentItem());
 
@@ -2044,6 +2044,17 @@ bool Notes::editNote()
     rename.adjustSize();
     if(!rename.exec())
         return false;
+
+	nvi->setText(0, rename.NoteName->text());
+
+	return true;
+}
+
+bool Notes::editNote()
+{
+    QListView *currTree = getCurrentTree();
+
+    NotesViewItem *nvi = static_cast<NotesViewItem *>(currTree->currentItem());
 
     // Text note
     if (nvi->isText())
@@ -2115,8 +2126,6 @@ bool Notes::editNote()
         // Setup Note data
         nvi->setData(wde.getDataList());
     }
-
-    nvi->setText(0, rename.NoteName->text());
 
     noteChanged(nvi);
     return true;

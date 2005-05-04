@@ -1,3 +1,11 @@
+2.0.1 (25.12.2003)
+-----
+* Editing of the note splitted to the Rename and Edit steps. (25.12.2003)
+* Improved sketching performance. (25.12.2003)
+* Background color shown in the color list when sketching. (23.12.2003)
+	
+2.0 (16.12.2003)
+-----
 * Entry can have a default icon. (14.12.2003)
 * Defaul font can be changed. (23.11.2003)
 * Horizontal and vertical layout, useful for CXXX models. (16.11.2003)

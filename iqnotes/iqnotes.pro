@@ -9,6 +9,7 @@ SOURCES		= main.cpp app.cpp notes.cpp defineEntry.cpp entry.cpp noteType.cpp wri
 		    notesFile.cpp chooseEntry.cpp colorDialog.cpp qsketch.cpp writeSketchNote.cpp \
                     setTask.cpp setEvent.cpp sort.cpp choosePic.cpp rijndael.cpp md5.cpp preferences.cpp openFile.cpp \
                     fileName.cpp setReminder.cpp cfgFile.cpp
+DISTFILES	= AUTHORS COPYING COPYRIGHT INSTALL THANKS TODO ChangeLog make_arm
 INCLUDEPATH	+= $(QPEDIR)/include
 DESTDIR		= ../bin
 DEPENDPATH	+= $(QPEDIR)/include

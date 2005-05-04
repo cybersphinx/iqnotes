@@ -561,6 +561,7 @@ public:
     void sort();
 
     bool writeNote(NotesViewItem *nvi);
+	bool renameNote();
     bool editNote();
 
     void halfView();

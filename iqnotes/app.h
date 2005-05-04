@@ -167,6 +167,7 @@ public slots:
     void eventListCurrent();
     void showReminder();
     // Note menu
+	void renameNote();
     void editNote();
     void cutNote();
     void copyNoteOnlyCurrent();
@@ -206,7 +207,7 @@ private:
     Notes *notes;
     QToolBar *toolbar;
     QPopupMenu *filePopupMenu, *notePopupMenu, *viewPopupMenu, *optionsPopupMenu, *helpPopupMenu, *treePopupMenu, *taskListPopupMenu, *eventListPopupMenu, *copyNotePopupMenu, *pasteNotePopupMenu;
-    int newID, openID, saveID, closeID, sortID, expandTreeID, collapseTreeID, reminderID, copyNoteID, pasteNoteID, setPictureID, setTaskID, setEventID, unsetTaskEventID, setReminderID, unsetReminderID, taskListID, eventListID, noteID, treeID, viewID, toggleToolBarID, toggleFullScreenID, optionsID ;
+    int newID, openID, saveID, closeID, sortID, expandTreeID, collapseTreeID, reminderID, copyNoteID, pasteNoteID, setPictureID, setTaskID, setEventID, unsetTaskEventID, setReminderID, unsetReminderID, taskListID, eventListID, renameNoteID, noteID, treeID, viewID, toggleToolBarID, toggleFullScreenID, optionsID;
     QAction *editA, *cutA,
     *searchA, *quickAddA, *addBeforeA, *addAfterA, *addChildA,
     *hideNoteA, *hideTreeA, *halfViewA;

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>235</width>
+            <width>223</width>
             <height>313</height>
         </rect>
     </property>
@@ -86,7 +86,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>IQNotes 2.0
+                        <string>IQNotes 2.0.1
 Author: Peter Vrabel 
 Email: kybu@kybu.sk</string>
                     </property>

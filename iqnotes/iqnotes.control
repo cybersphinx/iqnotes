@@ -3,7 +3,7 @@ Priority: optional
 Section: qpe/applications
 Maintainer: Peter Vrabel <kybu@kybu.sk>
 Architecture: arm
-Version: 2.0
+Version: 2.0.1
 License: GPL v2
 Depends: qpe-base ($QPE_VERSION)
 Description: Smarty notes

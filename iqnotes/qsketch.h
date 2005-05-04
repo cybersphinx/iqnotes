@@ -34,7 +34,7 @@ public:
     Stroke(int width, QColor color);
     void addPoint(const QPoint point);
 
-    void paint(QPainter *p, bool onlyLastPoint = false);
+    void paint(QPainter *p, const QPoint &drift = QPoint(0, 0), bool onlyLastPoint = false);
 
     QString serialize() ;
     void unserialize(QString data);
@@ -89,7 +89,7 @@ public:
     Stroke *next() { return strokes.next(); }
     Stroke *current() { return strokes.current(); }
 
-    void paint(QPainter *p);
+    void paint(QPainter *p, const QPoint &drift = QPoint(0, 0));
 
 private:
     QList<Stroke> strokes;
@@ -134,14 +134,15 @@ protected:
     virtual void keyPressEvent(QKeyEvent *e);
 
 private:
-	void updatePicCacheSize();
+	void updateViewCache();
 	
-    QPixmap *picCache, *viewCache;
+    QPixmap *viewCache, *sketchCache;
     Strokes *strokes;
     bool mouseDown, readOnly, externalStrokes, modified, moveMode;
 	QPoint mouseDownStart;
 
-    int strokeWidth, viewX, viewY;
+    int strokeWidth;
+	QPoint viewP;
     QColor currentColor;
     QList<QColor> choosedColors;
 };

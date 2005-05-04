@@ -59,7 +59,7 @@ void Stroke::addPoint(const QPoint point)
     points.append(p);
 }
 
-void Stroke::paint(QPainter *p, bool onlyLastPoint)
+void Stroke::paint(QPainter *p, const QPoint &drift, bool onlyLastPoint)
 {
     const QPen &oldPen = p->pen();
     p->setPen(pen);
@@ -68,7 +68,7 @@ void Stroke::paint(QPainter *p, bool onlyLastPoint)
     {
         QPoint *point = points.getFirst();
 
-        p->drawEllipse(point->x() - int(pen.width()/2), point->y() - int(pen.width()/2), pen.width(), pen.width());
+        p->drawEllipse((point->x() - drift.x()) - int(pen.width()/2), (point->y() - drift.y()) - int(pen.width()/2), pen.width(), pen.width());
     }
     // paint all points
     else if (!onlyLastPoint)
@@ -77,9 +77,9 @@ void Stroke::paint(QPainter *p, bool onlyLastPoint)
         {
             // It's first point
             if (point == points.getFirst())
-                p->moveTo(*point);
+                p->moveTo(QPoint(point->x() - drift.x(), point->y() - drift.y()));
 
-            p->lineTo(*point);
+            p->lineTo(QPoint(point->x() - drift.x(), point->y() - drift.y()));
         }
     }
     // paint only last point
@@ -89,8 +89,8 @@ void Stroke::paint(QPainter *p, bool onlyLastPoint)
 
         if (prev)
         {
-            p->moveTo(*prev);
-            p->lineTo(*last);
+            p->moveTo(QPoint(prev->x() - drift.x(), prev->y() - drift.y()));
+            p->lineTo(QPoint(last->x() - drift.x(), last->y() - drift.y()));
         }
     }
 
@@ -239,15 +239,15 @@ void Strokes::closeStroke()
     currentStroke = 0;
 }
 
-void Strokes::paint(QPainter *p)
+void Strokes::paint(QPainter *p, const QPoint &drift)
 {
     for (Stroke *stroke = strokes.first(); (stroke = strokes.current()); strokes.next())
     {
-        stroke->paint(p);
+        stroke->paint(p, drift);
     }
 
     if (currentStroke)
-        currentStroke->paint(p);
+        currentStroke->paint(p, drift);
 }
 
 void Strokes::removeLastStroke()
@@ -308,8 +308,8 @@ void Strokes::addStroke(const QString &serialData)
 QSketch::QSketch(QWidget *parent, const char *name) :
         QWidget(parent, name)
 {
-    viewX = viewY = 0;
-    viewCache = picCache = 0;
+    viewP = QPoint(0, 0);
+    viewCache = sketchCache = 0;
     readOnly = false;
     modified = false;
     mouseDown = false;
@@ -321,11 +321,13 @@ QSketch::QSketch(QWidget *parent, const char *name) :
     strokes = new Strokes;
     externalStrokes = false;
 
-	updatePicCacheSize();
+	//	updatePicCacheSize();
 
     setFocusPolicy(QWidget::StrongFocus);
 
     choosedColors.setAutoDelete(true);
+	// background color
+	choosedColors.append(new QColor(colorGroup().base()));
     choosedColors.append(new QColor(0, 0, 0));
 }
 
@@ -333,77 +335,72 @@ QSketch::~QSketch()
 {
 	if (viewCache)
 		delete viewCache;
-    if (picCache)
-        delete picCache;
+	if (sketchCache)
+		delete sketchCache;
 }
 
 void QSketch::resizeEvent(QResizeEvent *re)
 {
-    modified = true;
-    if (viewCache)
-        viewCache->resize(width(), height());
-	updatePicCacheSize();
-
+	if (moveMode)
+	{
+		updateViewCache();
+	}
+		
+	/*
 	int i;
-	if (viewX > (i = picCache->width() - width() + style().defaultFrameWidth()))
-		viewX = i;
-	if (viewY > (i = picCache->height() - height() + style().defaultFrameWidth()))
-		viewY = i;
+	if (viewP.x() > (i = picCache->width() - width() + style().defaultFrameWidth()))
+		viewP.setX(i);
+	if (viewP.y() > (i = picCache->height() - height() + style().defaultFrameWidth()))
+		viewP.setY(i);
+	*/
 }
 
 void QSketch::paintEvent(QPaintEvent *pe)
 {
-    if (!modified && viewCache)
-    {
-        QPainter p(this);
-        p.drawPixmap(0, 0, *viewCache);
-        return;
-    }
-
-    if (!viewCache)
-        viewCache = new QPixmap(width(), height());
-
-	if (!picCache)
-		updatePicCacheSize();
-    
-    QPainter pv(viewCache);
-	QPainter pp(picCache);
+#ifdef DEBUG
+	qDebug("QSketch::paintEvent");
+#endif
+	
 	QPainter pt(this);
 	
-    setUpdatesEnabled(false);
+	const QColorGroup &cg = colorGroup();
+	QBrush brush = cg.brush(QColorGroup::Base);
+
+	if (moveMode)
+	{
+		if (modified)
+		{
+			updateViewCache();
+			modified = false;
+		}
+		//pt.drawPixmap(0, 0, *viewCache);
+		bitBlt(this, 0, 0, viewCache);
+
+		return;
+	}
 
 	if (strokes)
 	{
 		if (pe->erased())
 		{
-			/*
 			// background
-			pv.fillRect(0, 0, width(), height(), brush);
-			//
-			//        strokes->paint(&pv);
-			*/
+			pt.fillRect(0, 0, width(), height(), brush);
+			strokes->paint(&pt, viewP);
 		}
 		else if (mouseDown)
 		{
 			if (Stroke *cs = strokes->getCurrentStroke())
-				cs->paint(&pp, true);
+				cs->paint(&pt, viewP, true);
 		}
 		else
 		{
 			if (strokes->getLastStroke())
-				strokes->getLastStroke()->paint(&pp);
+				strokes->getLastStroke()->paint(&pt, viewP);
 		}
 	}
 
-	pv.drawPixmap(0, 0, *picCache, viewX, viewY);
 	// frame
-	const QColorGroup &cg = colorGroup();
-	QBrush brush = cg.brush(QColorGroup::Base);
-	style().drawPanel(&pv, 0, 0, width(), height(), cg, true, style().defaultFrameWidth());
-	//
-    pt.drawPixmap(0, 0, *viewCache);
-
-    setUpdatesEnabled(true);
+	style().drawPanel(&pt, 0, 0, width(), height(), cg, true, style().defaultFrameWidth());
 
     modified = false;
 }
@@ -435,16 +432,38 @@ void QSketch::setStrokes(Strokes *strokes1)
 
     strokes = strokes1;
     externalStrokes = true;
-    modified = true;
 
-	updatePicCacheSize();
+	viewP = QPoint(0, 0);
+
+	// rebuild cache
+	if (moveMode)
+	{
+		if (viewCache)
+			delete viewCache;
+		if(sketchCache)
+			delete sketchCache;
+		viewCache = sketchCache = 0;
+
+		updateViewCache();
+		update();
+	}
+
+    modified = true;
 }
 
 void QSketch::setMoveMode(bool move)
 {
     moveMode = move;
-
-	updatePicCacheSize();
+	
+	if (moveMode)
+		updateViewCache();
+	else
+	{
+		delete viewCache;
+		delete sketchCache;
+		viewCache = 0;
+		sketchCache = 0;
+	}
 }
 
 void QSketch::mousePressEvent(QMouseEvent *e)
@@ -456,13 +475,12 @@ void QSketch::mousePressEvent(QMouseEvent *e)
     if (moveMode)
         return;
 
-	QPoint p(e->pos().x() + viewX, e->pos().y() + viewY);
+	QPoint p = e->pos() + viewP;
     
     modified = true;
     mouseDown = true;
     strokes->openStroke(strokeWidth, currentColor);
     strokes->addPoint(p);
-    repaint(false);
 }
 
 void QSketch::mouseReleaseEvent(QMouseEvent *e)
@@ -475,7 +493,7 @@ void QSketch::mouseReleaseEvent(QMouseEvent *e)
     modified = true;
     mouseDown = false;
     strokes->closeStroke();
-    repaint(false);
+	repaint(false);;
 }
 
 void QSketch::mouseMoveEvent(QMouseEvent *e)
@@ -485,20 +503,24 @@ void QSketch::mouseMoveEvent(QMouseEvent *e)
 		int i;
 		QPoint d = e->pos() - mouseDownStart;
 
-		viewX = viewX + d.x();
-		viewY = viewY + d.y();
-		if (viewX < 0 || readOnly && strokes && strokes->getMaxX() < width())
-			viewX = 0;
-		else if (viewX > (i = picCache->width() - width() + style().defaultFrameWidth()))
-			viewX = i;
+		viewP += d;
+		if (viewP.x() < 0 || !strokes || readOnly && strokes && strokes->getMaxX() < width())
+			viewP.setX(0);
+		else if (!readOnly && viewP.x() > (i = strokes->getMaxX() + style().defaultFrameWidth()))
+			viewP.setX(i);
+		else if (readOnly && viewP.x() > (i = strokes->getMaxX() - width() + style().defaultFrameWidth() * 2))
+			viewP.setX(i);
 		
-		if (viewY < 0 || readOnly && strokes && strokes->getMaxY() < height())
-			viewY = 0;
-		else if (viewY > (i = picCache->height() - height() + style().defaultFrameWidth()))
-			viewY = i;
-
+		if (viewP.y() < 0 || !strokes || readOnly && strokes && strokes->getMaxY() < height())
+			viewP.setY(0);
+		else if (!readOnly && strokes && viewP.y() > (i = strokes->getMaxY() + style().defaultFrameWidth()))
+			viewP.setY(i);
+		else if (readOnly && viewP.y() > (i = strokes->getMaxY() - height() + style().defaultFrameWidth() * 2))
+			viewP.setY(i);
+		
+		
 #ifdef DEBUG
-		qDebug("QSketch::mouseMoveEvent viewX=%d viewY=%d", viewX, viewY);
+		qDebug("QSketch::mouseMoveEvent viewX=%d viewY=%d", viewP.x(), viewP.y());
 #endif
 		modified = true;
 		repaint(false);
@@ -509,11 +531,11 @@ void QSketch::mouseMoveEvent(QMouseEvent *e)
     if (readOnly)
         return;
 
-	QPoint p(e->pos().x() + viewX, e->pos().y() + viewY);	
+	QPoint p = e->pos() + viewP;
 
     modified = true;
     strokes->addPoint(p);
-    repaint(false);
+	repaint(false);
 }
 
 void QSketch::keyPressEvent(QKeyEvent *e)
@@ -585,11 +607,13 @@ void QSketch::chooseColor()
     QPopupMenu popup(this);
     QPixmap *px;
 
+	//
     // fill popup menu
     int i = 0;
+	//
     for (QColor *color = choosedColors.first(); color; color = choosedColors.next())
     {
-        px = new QPixmap(7, 7);
+        px = new QPixmap(10, 10);
         px->fill(*color);
         popup.insertItem(QIconSet(*px), "", i++);
         delete px;
@@ -633,47 +657,37 @@ void QSketch::deleteLastStroke()
     {
         modified = true;
         strokes->removeLastStroke();
-		updatePicCacheSize();
-        repaint(false);
+        repaint(true);
     }
 }
 
-void QSketch::updatePicCacheSize()
+void QSketch::updateViewCache()
 {
-	int x, y;
-	
-	if (strokes && strokes->getMaxX() > width())
-		x = strokes->getMaxX() + 4;
-	else
-		x = width();
-	
-	if (strokes && strokes->getMaxY() > height())
-		y = strokes->getMaxY() + 4;
-	else
-		y = height();
+	if (!viewCache)
+		viewCache = new QPixmap(size());
+	else if (viewCache->size() != size())
+		viewCache->resize(size());
 
-	if (!readOnly)
+	QPainter pv(viewCache);
+	const QColorGroup &cg = colorGroup();
+	QBrush brush = cg.brush(QColorGroup::Base);
+
+	if (!sketchCache && strokes->getMaxX() && strokes->getMaxY())
 	{
-		x += width();
-		y += height();
+		sketchCache = new QPixmap(strokes->getMaxX(), strokes->getMaxY());
+		QPainter ps(sketchCache);
+
+		// background
+		ps.fillRect(0, 0, sketchCache->width(), sketchCache->height(), brush);
+		strokes->paint(&ps);
 	}
 	
-#ifdef DEBUG
-	qDebug("QSketch::picCache strokesMaxX=%d strokesMaxY=%d x=%d y=%d", strokes->getMaxX(), strokes->getMaxY(), x, y);
-#endif
-	if (!picCache)
-		picCache = new QPixmap(x, y);
-	else
-		picCache->resize(x, y);
-
-	QPainter p(picCache);
-    const QColorGroup &cg = colorGroup();
-    QBrush brush = cg.brush(QColorGroup::Base);
 	// background
-	p.fillRect(0, 0, x, y, brush);
-
-	if (strokes)
-		strokes->paint(&p);
+	pv.fillRect(0, 0, width(), height(), brush);
+	if (sketchCache)
+		bitBlt(viewCache, 0, 0, sketchCache, viewP.x(), viewP.y(), viewCache->width(), viewCache->height());
+	// frame
+	style().drawPanel(&pv, 0, 0, width(), height(), cg, true, style().defaultFrameWidth());
 }
 
 // }}}
