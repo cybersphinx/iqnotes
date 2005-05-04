@@ -1,0 +1,10 @@
+Files: bin/iqnotes apps/Applications/iqnotes.desktop pics/iqnotes.xpm pics/iqnotes/find.png pics/iqnotes/bin.png pics/iqnotes/edit.png pics/iqnotes/quick_add.png pics/iqnotes/add_after.png pics/iqnotes/add_before.png pics/iqnotes/add_child.png pics/iqnotes/close_search_tree.png pics/iqnotes/half_view.png pics/iqnotes/hide_note.png pics/iqnotes/hide_tree.png pics/iqnotes/items help/html/iqnotes.html
+Priority: optional
+Section: qpe/applications
+Maintainer: Peter Vrabel <kybu@kybu.sk>
+Architecture: arm
+Version: 2.0.2
+License: GPL v2
+Depends: qpe-base ($QPE_VERSION)
+Description: Smarty notes
+ IQNotes is notes kept in a hierarchical(tree like) manner. It handles todo, events, sketching. It can acts as a contact, password, credit card manager and even more, because is highly configurable. Data can be crypted by strong AES algorithm.

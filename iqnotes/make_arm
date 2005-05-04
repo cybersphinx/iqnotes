@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Don't forget do disable DEBUG macro"
+read
+
+CROSSCOMPILE=/opt/Embedix/tools
+QPEDIR=/opt/Qtopia/sharp
+QTDIR=/opt/Qtopia/sharp
+PATH=$QTDIR/bin:$QPEDIR/bin:$CROSSCOMPILE/bin:$QPEDIR/bin:$PATH
+TMAKEPATH=/opt/Qtopia/tmake/lib/qws/linux-sharp-g++/
+LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+
+export CROSSCOMPILE QPEDIR QTDIR PATH TMAKEPATH LD_LIBRARY
+
+#tmake -o Makefile iqnotes.pro && make && tmake -o Makefile iqnotes-alarm.pro && make && arm-linux-strip ../bin/iqnotes && arm-linux-strip ../bin/iqnotes-alarm && mkipks iqnotes.control
+
+tmake -o Makefile iqnotes.pro && make && arm-linux-strip ../bin/iqnotes && mkipks iqnotes.control

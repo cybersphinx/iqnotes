@@ -1,0 +1,129 @@
+<!DOCTYPE UI><UI>
+<class>SortTasksBase</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>SortTasksBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>154</width>
+            <height>155</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Sort Tasks</string>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Order:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Ascend</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Descend</string>
+                </property>
+            </item>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>OrderCombo</cstring>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel2</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Show non tasks:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>First</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Last</string>
+                </property>
+            </item>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>NonTasksCombo</cstring>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel3</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Sort:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Current level only</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Current level and down</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Whole tree</string>
+                </property>
+            </item>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>SortTypeCombo</cstring>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+</UI>

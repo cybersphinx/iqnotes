@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>IQNotes</title>
+</head>
+<body>
+<h1>IQNotes</h1>
+<a href="#intro">1. Introduction</a><br>
+<a href="#menu">2. Menu</a><br>
+<a href="#menufile">2.1 File</a><br>
+<a href="#menutree">2.2 Tree</a><br>
+<a href="#menunote">2.3 Note</a><br>
+<a href="#menuview">2.4 View</a><br>
+<a href="#menuoptions">2.5 Options</a><br>
+<a href="#tiptricks">3. Tip and tricks</a><br>
+<p>
+<a name="intro"></a>
+<h2>Introduction</h2>
+IQNotes is notes kept in a hierarchical manner. This is a simple and handy way
+to keep data well organized. Each note can be tasked with percentage complete, 
+priority or event with day, month, year and optionally time. IQNotes also provides 
+advanced sorting. Each note can additionally be associated with entries like company, 
+person, user account, credit card, WWW link ... and even a sketch.<br>
+Project page: <a href="http://iqnotes.kybu.sk">http://iqnotes.kybu.sk</a><br>
+Author: Peter Vrabel, kybu@kybu.sk
+<p>
+<a name="menu"></a>
+<h2>Menu</h2>
+<a href="menufile"></a><h3>File</h3>
+<dl>
+<dt>New</dt>
+  <dd>Create a new file.</dd>
+<dt>Open</dt>
+  <dd>Open a data file.</dd>
+<dt>Save</dt>
+  <dd>Save a data file.</dd>
+<dt>Close</dt>
+  <dd>Close the current data file.</dd>
+<dt>Quit</dt>
+<dd>Quit the application</dd>
+</dl>
+<p>
+<a name="menutree"></a>
+<h3>Tree</h3>
+<dl>
+
+<dt>Search</dt>
+  <dd>Search the tree for a string. The results will be shown in a new tree, which 
+    can then be closed. After closing, the current note in the search tree is 
+    set as the current note in the tree.</dd>
+
+<dt>Quick add</dt>
+<dd>Will add a text note at the top of the tree, with the name 'Quick note'. Useful for fast adding.</dd>
+
+<dt>Add before</dt>
+  <dd>Add a new note before the selected note.</dd>
+
+<dt>Add after</dt>
+  <dd>Add a new note after the selected note.</dd>
+
+<dt>Add child</dt>
+  <dd>Add a new note as a child of the selected note.</dd>
+
+<dt>Sort</dt>
+  <dd>You can set the order priorities for each note type (task, event, ...), 
+    define the show order (if the tasks are first event, second ...). You can 
+    sort in the current level, in the current level and down, or the whole tree. 
+    The settings in the sort dialog are remembered for the next use. </dd>
+
+<dt>Expand tree</dt>
+  <dd>Expand the whole tree.</dd>
+
+<dt>Collapse tree</dt>
+  <dd>Collapse the whole tree.</dd>
+
+<dt>Task list</dt>
+  <dd>Show tasks in a flat view. Tasks can be taken from the whole tree or from 
+    the current note down. Tasks in this list can be sorted. When closing this 
+    list, the current task in this list is selected as current in the notes tree.</dd>
+
+<dt>Event list</dt>
+<dd>Same as Task list, but for events</dd>
+
+<dt>Reminder</dt>
+  <dd>Show the reminder list</dd>
+</dl>
+
+<p>
+<a name="menunote"></a>
+<h3>Note</h3>
+<dl>
+
+<dt>Edit</dt>
+<dd>Edit the selected note.</dd>
+
+<dt>Cut</dt>
+  <dd>Delete the selected note and store it in the clipboard. This function is useful for removing or moving a note and
+    its subtree to another place. </dd>
+
+<dt>Copy</dt>
+  <dd>Copy only the current note or also it's whole subtree to the clipboard.</dd>
+
+<dt>Paste</dt>
+  <dd>Paste the note stored in the clipboard after/before/as a child of the current note.<br>
+    This is a potentially dangerous action if you are moving 
+    a note from <b>another</b> data file, if that file has a different definition 
+    for its entries, with different properties than are in the current file. So 
+    before moving from another data file, check the definition in the <i>Options</i> 
+    menu to see if they are the same in <b>both</b> data files. If you had to 
+    make changes to the entry to make it the same, make the changes, save and 
+    close that data file, open it again, delete the note you wish to move, open 
+    destination data file and add the last deleted note. Pretty confusing, isn't 
+    it? ':)</dd>
+
+<dt>Set picture</dt>
+  <dd>Set the picture for the current note. See IQNotes homepage for additional nice pictures.
+    If you want to add your own pictures,
+    just load them to /home/QtPalmtop/iqnotes/items. The pic size _MUST_ be 16x16.</dd>
+
+<dt>Set task</dt>
+<dd>Set the task properties (percentage, priority) for the current note.</dd>
+
+<dt>Set event</dt>
+  <dd>Set the event properties (date and optionally time) for the current note.</dd>
+
+<dt>Unset</dt>
+<dd>Discard the task or event data of the current note.</dd>
+
+<dt>Set reminder</dt>
+  <dd>Set the reminder for the current note. Set the date when the item is shown 
+    in the reminder list.</dd>
+
+<dt>Unset reminder</dt>
+  <dd>Discard the reminder associated with the current note.</dd>
+</dl>
+
+<p>
+<a name="#menuview"></a>
+<h3>View</h3>
+<dl>
+
+<dt>Hide note</dt>
+<dd>Hide note data and maximize the notes tree.</dd>
+
+<dt>Hide tree</dt>
+<dd>Hide the notes tree and maximize the note data.</dd>
+
+<dt>Half view</dt>
+<dd>Show the notes tree and note data.</dd>
+
+</dl>
+
+<p>
+<a name="menuoptions"></a>
+<h3>Options</h3>
+<dl>
+
+<dt>Define new entry</dt>
+  <dd>The note can be plain text, or a defined entry. You can define any kind 
+    of entry, for example 'Pet'. You must define the properties, like 'Name', 
+    'Color', 'Count of the legs', 'Personality', ... :). Notes added thereafter
+    will prompt for the new data item.</dd>
+
+<dt>Change entry</dt>
+  <dd>If you want to change an entry, click here. Even the entry which is used 
+    in notes can be changed.</dd>
+
+<dt>Delete entry</dt>
+  <dd>Delete an entry. Only entries which are not used by IQNotes can be deleted.</dd>
+
+<dt>Preferences</dt>
+<dd><b>Notes</b><br>
+<i>Root node decoration</i><br>
+    Select if the root node should have a plus sign (+), if it has children.<br>
+<i>Word wrap</i><br>
+    If word wrap is set, than text the widget is set to word wrap notes.<br>
+<i>Show scrollbars</i><br>
+   Show or hide a scrollbars.<br>
+<i>Vertical layout</i><br>
+   Use vertical or horizontal layout. Set the most suitable for you.<br>
+<i>Choose default font</i><br>
+<b>Backup</b><br>
+    This option, if set, automatically saves a backup file in a chosen location 
+    after IQNotes is closed. The location must be a directory, for example '/mnt/cf/backup/iqnotes'. 
+    Currently, there is only a manual method to re-use a backup file. You have 
+    to copy the backup file to the location ~/Applications/iqnotes/<br>
+<b>Security</b><br>
+    Here, you can set up encryption for the saved data file. The data is encrypted 
+    by rijndael aka AES, which the USA government considers as secure and it replaced 
+    the DES algorithm. If you haven't set up a password the first two options 
+    (current, don't encrypt) will be disabled. With the next two options, you 
+    can set up or change your password. For changing or turning encryption off, 
+    you must supply the current password. The backup file is also stored encrypted. 
+    <b>BEWARE</b>, there is no way to decrypt data if you forgot the password. 
+  </dd>
+</dl>
+
+<p>
+<a name="tiptricks"></a>
+<h3>Tip and tricks</h3>
+<dl>
+<dt>Sketches</dt>
+  <dd>If is the sketch too big, you can move it in the half or hide tree view simply by tapping on it and moving the stylo to the desired direction.</dd>
+<dt>View layout</dt>
+  <dd>Are you using Zaurus C7xx model? Try to change layout in the Options / Preferences for better viewing.</dd>
+</dl>
+</body>
+</html>
