@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>223</width>
+            <width>215</width>
             <height>313</height>
         </rect>
     </property>
@@ -86,9 +86,9 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>IQNotes 2.0.3
+                        <string>IQNotes 2.0.4rc2
 Author: Peter Vrabel 
-Email: kybu@kybu.sk</string>
+Email: kybu@kybu.org</string>
                     </property>
                     <property stdset="1">
                         <name>alignment</name>
@@ -143,9 +143,9 @@ Email: kybu@kybu.sk</string>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Project homepage: http://iqnotes.kybu.sk
+                <string>Project homepage: http://iqnotes.kybu.org
 
-(c) 2001, 2002, 2003 Peter Vrabel</string>
+(c) 2001 - 2005 Peter Vrabel</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>

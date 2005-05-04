@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,9 +19,13 @@
 
 QPEApplication::QPEApplication(int& argc, char **argv, Type t) : QApplication(argc, argv, t)
 {
+	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
 }
 
-void QPEApplication::showMainWidget(QWidget *mw, bool nomax = FALSE)
+void QPEApplication::showMainWidget(QWidget *mw, bool nomax)
 {
-	mw->show();
+	if (nomax)
+		mw->show();
+	else	
+		mw->showMaximized();
 }

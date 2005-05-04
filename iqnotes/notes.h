@@ -1,5 +1,5 @@
 /*  Iqnotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,6 +35,11 @@ class QListViewItem;
 class QTextView;
 class QMultiLineEdit;
 class QTextStream;
+
+#ifdef DESKTOP
+class QSplitter;
+class QVBoxLayout;
+#endif
 
 //class QString;
 class QPainter;
@@ -656,6 +661,11 @@ private:
     QString searchPattern;
 
     // Widgets
+#ifdef DESKTOP
+	QSplitter *splitter;
+	QVBoxLayout *vBoxLayout;
+	QValueList<int> splitterSize;
+#endif
     QTextView *noteFormatedText;
     QMultiLineEdit *noteText;
     QSketch *noteSketch;

@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,7 +16,18 @@
 */
 
 #include "global.h"
+#include <qdir.h>
 
 QString Global::applicationFileName(const QString& appname, const QString& filename)
 {
+	QString homeDir = QDir::homeDirPath();
+#ifdef DESKTOP
+	qDebug("Home dir: %s", homeDir.latin1());
+#endif
+
+	if (!QDir().exists(homeDir + "/.iqnotes"))
+	{
+		QDir().mkdir(homeDir + "/.iqnotes");
+	}
+	return homeDir + "/.iqnotes/" + filename;
 }

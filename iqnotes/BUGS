@@ -1,0 +1,1 @@
+* App craches at start, if the first open file dialog is canceled.

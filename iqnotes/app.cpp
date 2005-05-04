@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include "fileName.h"
 #include "openFile.h"
 #include "cfgFile.h"
+#include "toolBarIcon.h"
 
 #include <qdir.h>
 #include <qpopupmenu.h>
@@ -89,32 +90,32 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     treePopupMenu = new QPopupMenu(this);
     treeID = menu->insertItem("Tree", treePopupMenu);
 
-    searchA = new QAction("Search", Resource::loadPixmap("iqnotes/find"), QString::null, Key_F, this, 0 );
+    searchA = new QAction("Search", ToolBarIcon::prepare("iqnotes/find"), QString::null, Key_F, this, 0 );
     connect(searchA, SIGNAL(activated()), this, SLOT(search()));
     //  searchA->addTo(toolbar);
     searchA->addTo(treePopupMenu);
-    multiTB->setIconSet(QIconSet(Resource::loadPixmap("iqnotes/find")));
+    multiTB->setIconSet(QIconSet(ToolBarIcon::prepare("iqnotes/find")));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
 	//    toolbar->addSeparator(); // no room for this
 
     treePopupMenu->insertSeparator();
 
-	quickAddA = new QAction("Quick add", Resource::loadPixmap("iqnotes/quick_add"), QString::null, Key_Q, this, 0 );
-	connect(quickAddA, SIGNAL(activated()), this, SLOT(quickAdd()));
+    quickAddA = new QAction("Quick add", ToolBarIcon::prepare("iqnotes/quick_add"), QString::null, Key_Q, this, 0 );
+    connect(quickAddA, SIGNAL(activated()), this, SLOT(quickAdd()));
     quickAddA->addTo(toolbar);
     quickAddA->addTo(treePopupMenu);
 
-    addBeforeA = new QAction("Add before", Resource::loadPixmap("iqnotes/add_before"), QString::null, 0, this, 0 );
+    addBeforeA = new QAction("Add before", ToolBarIcon::prepare("iqnotes/add_before"), QString::null, 0, this, 0 );
     connect(addBeforeA, SIGNAL(activated()), this, SLOT(addBefore()));
     addBeforeA->addTo(toolbar);
     addBeforeA->addTo(treePopupMenu);
 
-    addAfterA = new QAction("Add after", Resource::loadPixmap("iqnotes/add_after"), QString::null, Key_A, this, 0 );
+    addAfterA = new QAction("Add after", ToolBarIcon::prepare("iqnotes/add_after"), QString::null, Key_A, this, 0 );
     connect(addAfterA, SIGNAL(activated()), this, SLOT(addAfter()));
     addAfterA->addTo(toolbar);
     addAfterA->addTo(treePopupMenu);
 
-    addChildA = new QAction("Add child", Resource::loadPixmap("iqnotes/add_child"), QString::null, Key_E, this, 0 );
+    addChildA = new QAction("Add child", ToolBarIcon::prepare("iqnotes/add_child"), QString::null, Key_E, this, 0 );
     connect(addChildA, SIGNAL(activated()), this, SLOT(addChild()));
     addChildA->addTo(toolbar);
     addChildA->addTo(treePopupMenu);
@@ -153,15 +154,15 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     notePopupMenu = new QPopupMenu(this);
     noteID = menu->insertItem("Note", notePopupMenu);
 
-	renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()));
+    renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()), Key_R);
 
-    editA = new QAction("Edit", Resource::loadPixmap("iqnotes/edit"), QString::null, Key_Return, this, 0 );
+    editA = new QAction("Edit", ToolBarIcon::prepare("iqnotes/edit"), QString::null, Key_Return, this, 0 );
     editA->setToolTip("Edit note");
     connect(editA, SIGNAL(activated()), this, SLOT(editNote()));
     editA->addTo(toolbar);
     editA->addTo(notePopupMenu);
 
-    cutA = new QAction("Cut", Resource::loadPixmap("iqnotes/bin"), QString::null, Key_X, this, 0 );
+    cutA = new QAction("Cut", ToolBarIcon::prepare("iqnotes/bin"), QString::null, Key_X, this, 0 );
     cutA->setToolTip("Cut note");
     connect(cutA, SIGNAL(activated()), this, SLOT(cutNote()));
     cutA->addTo(toolbar);
@@ -198,19 +199,19 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     toolbar->addSeparator();
 
-    hideNoteA = new QAction("Hide note", Resource::loadPixmap("iqnotes/hide_note"), QString::null, Key_1, this, 0 );
+    hideNoteA = new QAction("Hide note", ToolBarIcon::prepare("iqnotes/hide_note"), QString::null, Key_1, this, 0 );
     hideNoteA->setToolTip("Hide note");
     connect(hideNoteA, SIGNAL(activated()), this, SLOT(hideNote()));
     hideNoteA->addTo(toolbar);
     hideNoteA->addTo(viewPopupMenu);
 
-    hideTreeA = new QAction("Hide tree", Resource::loadPixmap("iqnotes/hide_tree"), QString::null, Key_2, this, 0 );
+    hideTreeA = new QAction("Hide tree", ToolBarIcon::prepare("iqnotes/hide_tree"), QString::null, Key_2, this, 0 );
     hideTreeA->setToolTip("Hide tree");
     connect(hideTreeA, SIGNAL(activated()), this, SLOT(hideTree()));
     hideTreeA->addTo(toolbar);
     hideTreeA->addTo(viewPopupMenu);
 
-    halfViewA = new QAction("Half view", Resource::loadPixmap("iqnotes/half_view"), QString::null, Key_3, this, 0 );
+    halfViewA = new QAction("Half view", ToolBarIcon::prepare("iqnotes/half_view"), QString::null, Key_3, this, 0 );
     halfViewA->setToolTip("Half view");
     connect(halfViewA, SIGNAL(activated()), this, SLOT(halfView()));
     halfViewA->addTo(toolbar);
@@ -877,6 +878,7 @@ void App::openTree(int index, const QString &file)
     
     if (preferences.showReminder)
         notes->showReminder(false);
+	notes->repaint();
 }
 
 bool App::openTree(const QString &file)
@@ -1031,7 +1033,8 @@ bool App::saveTree()
 
     QString saveS;
     QTextStream saveData(saveS, IO_WriteOnly);
-
+	saveData.setEncoding(saveData.UnicodeUTF8);
+	
     saveData << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<iqnotes>\n"
     << "<config>\n"
     << "<backup save=\"" << (preferences.saveBackupFile ? "yes" : "no") << "\" location=\"" << preferences.backupLocation << "\"/>\n"
@@ -1059,7 +1062,7 @@ bool App::saveTree()
     notes->saveTree(&saveData);
 
     saveData << "</iqnotes>\n";
-
+	//SF.close();
     QCString dataUTF8 = saveS.utf8();
 
     if (!preferences.passwdHex.length())
@@ -1067,8 +1070,8 @@ bool App::saveTree()
         saveF.open(IO_WriteOnly);
 
         QTextStream saveData1(&saveF);
-
-        saveData1 << dataUTF8;
+		saveData1.setEncoding(saveData1.UnicodeUTF8);
+		saveData1 << saveS;
 
         if (preferences.saveBackupFile)
         {

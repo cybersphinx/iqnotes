@@ -1,3 +1,14 @@
+2.0.4rc2 (12.2.2005)
+-----
+* I horribly realised, that the year span of this project is 2001-2005. (16.1.2005)
+
+2.0.4rc1 (aplha desktop!) (14.12.2004)
+-----
+* WTF, data files were not saving correctly with utf8 encoding when
+  saving without password!! (29.11.2004)
+* If wider screen is detected, show big tool bar icons. (20.11.2004)
+* Added shortcut to rename note. (23.10.2004)
+
 2.0.3 (1.8.2004)
 -----
 * Keyboard shortcuts. (1.8.2004)

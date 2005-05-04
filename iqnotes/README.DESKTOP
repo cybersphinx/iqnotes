@@ -1,0 +1,16 @@
+Before compiling, please see iqnotes.pro. Pay attention to this lines:
+
+CONFIG = qt warn_on desktop
+This should be written if you are going to compile desktop version.  
+
+DEFINES = IQNOTES_PICDIR="\"/usr/share/iqnotes\""
+That defines the directory for the pictures which can be assigned to the note.
+
+To compile IQNotes, please write at source directory:
+
+qmake -o Makefile iqnotes.pro
+make
+
+Binary file is located at ../bin. Then please create directory defined by
+IQNOTES_PICDIR macro and copy there a content of the pics/ directory.
+And that's all folks!

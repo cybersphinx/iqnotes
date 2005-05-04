@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -54,6 +54,11 @@
 #include <qtabwidget.h>
 #include <qscrollview.h>
 #include <qregexp.h>
+
+#ifdef DESKTOP
+#include <qsplitter.h>
+#include <qlayout.h>
+#endif
 
 //#include <qpe/alarmserver.h>
 #include <qpe/resource.h>
@@ -873,6 +878,7 @@ Notes::Notes(QWidget* parent, const char* name, WFlags fl)
     setIconText(tr(""));
 
     clipboardNote = 0;
+	viewType = setViewType = HALF_VIEW;
 }
 
 Notes::~Notes()
@@ -993,7 +999,11 @@ void Notes::taskListCurrent()
 
 void Notes::taskList(NotesViewItem *startItem)
 {
-    taskTree = new QListView(this);
+#ifdef DESKTOP
+    taskTree = new QListView(splitter);
+#else
+	taskTree = new QListView(this);
+#endif
     taskTree->addColumn("bla");
     taskTree->header()->hide();
     taskTree->setSorting(-1);
@@ -1021,10 +1031,14 @@ void Notes::taskList(NotesViewItem *startItem)
 
     taskTree->setCurrentItem(taskTree->firstChild());
     taskTree->setFocus();
+	noteChanged(taskTree->firstChild());
     emit taskListShown();
 
     notesTree->hide();
     taskTree->show();
+#ifdef DESKTOP
+	splitter->moveToFirst(taskTree);
+#endif
 }
 
 void Notes::taskListRecur(NotesViewItem *startItem)
@@ -1102,7 +1116,12 @@ void Notes::eventListCurrent()
 
 void Notes::eventList(NotesViewItem *startItem)
 {
-    eventTree = new QListView(this);
+#ifdef DESKTOP
+    eventTree = new QListView(splitter);
+#else
+	eventTree = new QListView(this);
+#endif
+
     eventTree->addColumn("bla");
     eventTree->header()->hide();
     eventTree->setSorting(-1);
@@ -1130,10 +1149,14 @@ void Notes::eventList(NotesViewItem *startItem)
 
     eventTree->setCurrentItem(eventTree->firstChild());
     eventTree->setFocus();
+	noteChanged(eventTree->firstChild());
     emit eventListShown();
 
     notesTree->hide();
     eventTree->show();
+#ifdef DESKTOP
+	splitter->moveToFirst(eventTree);
+#endif
 }
 
 void Notes::eventListRecur(NotesViewItem *startItem)
@@ -1176,8 +1199,12 @@ void Notes::eventListRecur(NotesViewItem *startItem)
 void Notes::showReminder(bool showDialogIfNone)
 {
     QDateTime currDateTime = QDateTime::currentDateTime();
-    
+
+#ifndef DESKTOP
     reminderTree = new QListView(this);
+#else
+	reminderTree = new QListView(splitter);
+#endif
     reminderTree->addColumn("bla");
     reminderTree->header()->hide();
     reminderTree->setSorting(-1);
@@ -1215,10 +1242,14 @@ void Notes::showReminder(bool showDialogIfNone)
     
     reminderTree->setCurrentItem(reminderTree->firstChild());
     reminderTree->setFocus();
+	noteChanged(reminderTree->firstChild());
     emit reminderShown();
 
     notesTree->hide();
     reminderTree->show();
+#ifdef DESKTOP
+	splitter->moveToFirst(reminderTree);
+#endif
 }
 
 void Notes::reminderClose()
@@ -1248,16 +1279,26 @@ void Notes::reminderClose()
 void Notes::destroyNotes()
 {
     notesDestroyed = true;
-    
-    delete notesTree;
+	qDebug("Destroy");
+#ifdef DESKTOP
+	delete splitter;
+	delete vBoxLayout;
+#else
+	delete notesTree;
     delete noteFormatedText;
     delete noteText;
     delete noteSketch;
+#endif	
+    
 
     notesTree = 0;
     noteFormatedText = 0;
     noteText = 0;
     noteSketch = 0;
+#ifdef DESKTOP
+	splitter = 0;
+	vBoxLayout = 0;
+#endif
 
     if (taskTree)
         delete taskTree;
@@ -1277,20 +1318,34 @@ void Notes::destroyNotes()
 void Notes::createNotes()
 {
     notesDestroyed = false;
-    
-    noteFormatedText = new QTextView(this, "noteData");
-    noteText = new QMultiLineEdit(this);
-    noteText->setReadOnly(true);
-    noteSketch = new QSketch(this);
-    noteSketch->setReadOnly();
-	noteSketch->setMoveMode(true);
+	QWidget *p; // temporary parent holder
+	
+	viewType = setViewType = HALF_VIEW;
+	
+#ifdef DESKTOP
+	vBoxLayout = new QVBoxLayout(this);
+	
+	splitter = new QSplitter(this);
+	vBoxLayout->addWidget(splitter);
+	
+	p = splitter;
+#else
+	p = this;
+#endif
 
-    notesTree = new QListView(this, "notesTree");
+    notesTree = new QListView(p, "notesTree");
     notesTree->addColumn(tr("Column 1"));
     notesTree->header()->hide();
     notesTree->setSorting(-1);
     notesTree->setFocus();
-    
+
+    noteFormatedText = new QTextView(p, "noteData");
+    noteText = new QMultiLineEdit(p);
+    noteText->setReadOnly(true);
+    noteSketch = new QSketch(p);
+    noteSketch->setReadOnly();
+	noteSketch->setMoveMode(true);
+
     connect(notesTree, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(noteChanged(QListViewItem *)));
 
     searchTree = 0;
@@ -1532,28 +1587,38 @@ void Notes::paintEvent(QPaintEvent *pe)
     if (!pe->erased())
         return;
 
+#ifdef DESKTOP
+    splitter->show();
+#endif
 
     uint w = width(), h = height(), hh = h >> 1, ww = w >> 1;
     
-    if (setViewType == HALF_VIEW)
+	if (setViewType == HALF_VIEW)
     {
 		if (verticalLayout)
 		{
+#ifdef DESKTOP
+			splitter->setOrientation(QSplitter::Vertical);
+#else
 			noteFormatedText->setGeometry(QRect(0, hh, w, hh));
 			noteText->setGeometry(QRect(0, hh, w, hh));
 			noteSketch->setGeometry(QRect(0, hh, w, hh));
 		
 			notesTree->setGeometry(QRect(0, 0, w, hh));
+#endif
 		}
 		else
 		{
+#ifdef DESKTOP
+			splitter->setOrientation(QSplitter::Horizontal);
+#else
 			noteFormatedText->setGeometry(QRect(ww, 0, ww, h));
 			noteText->setGeometry(QRect(ww, 0, ww, h));
 			noteSketch->setGeometry(QRect(ww, 0, ww, h));
 		
 			notesTree->setGeometry(QRect(0, 0, ww, h));
+#endif
 		}
-				
 
         QListView *currTree = getCurrentTree();
         if (currTree != notesTree)
@@ -1575,11 +1640,13 @@ void Notes::paintEvent(QPaintEvent *pe)
         noteText->hide();
         noteSketch->hide();
 
+#ifndef DESKTOP
         noteFormatedText->setGeometry(QRect(0, 0, 0, 0));
         noteText->setGeometry(QRect(0, 0, 0, 0));
         noteSketch->setGeometry(QRect(0, 0, 0, 0));
 
         notesTree->setGeometry(QRect(0, 0, w, h));
+#endif
 
         QListView *currTree = getCurrentTree();
         if (currTree != notesTree)
@@ -1595,7 +1662,9 @@ void Notes::paintEvent(QPaintEvent *pe)
 
         currTree->hide();
 
+#ifndef DESKTOP
         notesTree->setGeometry(QRect(0, 0, w, h));
+#endif
         if (currTree != notesTree)
         {
             currTree->setGeometry(notesTree->geometry());
@@ -1606,15 +1675,19 @@ void Notes::paintEvent(QPaintEvent *pe)
             noteText->show();
         }
 
+#ifndef DESKTOP
         noteFormatedText->setGeometry(QRect(0, 0, w, h));
         noteText->setGeometry(QRect(0, 0, w, h));
         noteSketch->setGeometry(QRect(0, 0, w, h));
-
+#endif
         noteChanged(currTree->currentItem());
     }
 
     if (setViewType != NONE)
     {
+#ifdef DESKTOP
+		noteChanged(getCurrentTree()->currentItem());
+#endif
         viewType = setViewType;
         setViewType = NONE;
     }
@@ -1634,10 +1707,19 @@ void Notes::halfView()
 {
     setViewType = HALF_VIEW;
     repaint(true);
+#ifdef DESKTOP
+	if (splitterSize.count()) {
+		splitter->setSizes(splitterSize);
+		splitterSize.clear();
+	}
+#endif
 }
 
 void Notes::fullTreeView()
 {
+#ifdef DESKTOP
+	splitterSize = splitter->sizes();
+#endif
     setViewType = HIDE_NOTE;
     repaint(true);
 }
@@ -1646,6 +1728,12 @@ void Notes::fullNoteView()
 {
     setViewType = HIDE_TREE;
     repaint(true);
+#ifdef DESKTOP
+	if (splitterSize.count()) {
+		splitter->setSizes(splitterSize);
+		splitterSize.clear();
+	}
+#endif DESKTOP
 }
 
 // }}}
@@ -1882,7 +1970,11 @@ void Notes::search()
 
     searchPattern = sb.SearchFor->text();
 
+#ifdef DESKTOP
+	searchTree = new QListView(splitter);
+#else
     searchTree = new QListView(this);
+#endif
     searchTree->addColumn("bla");
     searchTree->header()->hide();
     searchTree->setSorting(-1);
@@ -1896,6 +1988,9 @@ void Notes::search()
     connect(searchTree, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(noteChanged(QListViewItem *)));
     notesTree->hide();
     searchTree->show();
+#ifdef DESKTOP
+	splitter->moveToFirst(searchTree);
+#endif
 
     forSearchRecur = new NotesViewItem(searchTree);
     forSearchRecur->setText(0, tr("Search result"));
@@ -2147,6 +2242,8 @@ void Notes::noteChanged(QListViewItem *lvi)
 		noteSketch->clearStrokes();
         noteFormatedText->setText("");
         noteText->setText("");
+		noteSketch->hide();
+		noteFormatedText->hide();
         return;
     }
 
@@ -2159,6 +2256,25 @@ void Notes::noteChanged(QListViewItem *lvi)
 	}
 
     NotesViewItem *nvi = static_cast<NotesViewItem *>(lvi);
+
+#ifdef DESKTOP
+	if (viewType == HIDE_NOTE)
+		return;
+
+	QRect g;
+	if (noteFormatedText->isShown())
+		g = noteFormatedText->geometry();
+	else if (noteText->isShown())
+		g = noteText->geometry();
+	else if (noteSketch->isShown())
+		g = noteSketch->geometry();
+	QValueList<int> sizes = splitter->sizes();
+	for (uint i = 1; i < sizes.count(); i++)
+		if (splitter->orientation() != Qt::Vertical)
+			sizes[i] = g.width();
+		else
+			sizes[i] = g.height();
+#endif
 
     // Note is sketch
     if (nvi->isSketch())
@@ -2174,14 +2290,12 @@ void Notes::noteChanged(QListViewItem *lvi)
     {
         if (!nvi->getEntryName().length())
         {
-			qDebug("text");
             noteText->setText(nvi->getFormatedData());
             noteFormatedText->hide();
             noteText->show();
         }
         else
         {
-			qDebug("ftext");
             noteFormatedText->setTextFormat(Qt::RichText);
             noteFormatedText->setText(nvi->getFormatedData());
             noteText->hide();
@@ -2192,6 +2306,9 @@ void Notes::noteChanged(QListViewItem *lvi)
     }
 
     getCurrentTree()->setFocus();
+#ifdef DESKTOP
+	splitter->setSizes(sizes);
+#endif
 }
 
 QListView *Notes::getCurrentTree()
@@ -2350,7 +2467,8 @@ void Notes::addNote(const QString &noteName, QList<QString> *data1, const QStrin
 
     if (!notesTree->currentItem())
     {
-        notesTree->setCurrentItem(notesTree->firstChild());
+		noteChanged(notesTree->firstChild());
+        //notesTree->setCurrentItem(notesTree->firstChild());
         //notesTree->setSelected(notesTree->firstChild(), true);
         notesTree->setFocus();
     }
@@ -2395,7 +2513,8 @@ void Notes::addNote(const QString &noteName, Strokes *strokes, const QString &en
 
     if (!notesTree->currentItem())
     {
-        notesTree->setCurrentItem(notesTree->firstChild());
+		noteChanged(notesTree->firstChild());
+        //notesTree->setCurrentItem(notesTree->firstChild());
         notesTree->setFocus();
     }
 }

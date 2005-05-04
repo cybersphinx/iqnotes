@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 int main(int argc, char ** argv)
 {
-    QPEApplication a(argc, argv);
+	QPEApplication a(argc, argv);
 
     App mw;
 
@@ -28,6 +28,12 @@ int main(int argc, char ** argv)
 #else
 	mw.openFile(true);
 #endif
-	a.showMainWidget(&mw);
+
+#ifdef DESKTOP
+	a.showMainWidget(&mw, true);
+#else
+        a.showMainWidget(&mw);
+#endif
+
     return a.exec();
 }

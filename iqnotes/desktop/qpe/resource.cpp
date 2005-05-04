@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,7 +16,14 @@
 */
 
 #include "resource.h"
+#include <qpixmap.h>
 
 QPixmap Resource::loadPixmap(const QString &name)
 {
+#ifdef DEBUG
+	qDebug("Resource::loadPixmap");
+	qDebug(QString(IQNOTES_PICDIR) + name);
+#endif
+
+	return QPixmap(QString(IQNOTES_PICDIR) + "/" + name + ".png");
 }

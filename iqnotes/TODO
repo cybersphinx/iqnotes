@@ -1,0 +1,2 @@
+* Pictures should be looked for in default(/usr/share/iqnotes) and than in user's homedir (for example ~/.iqnotes/pics)
+* Change the order of the OK and Cancel button.

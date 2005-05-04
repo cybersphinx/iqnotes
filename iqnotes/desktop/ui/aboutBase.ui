@@ -1,0 +1,148 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>AboutForm</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>AboutForm</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>250</width>
+            <height>313</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>About</string>
+    </property>
+    <property name="layoutMargin" stdset="0">
+    </property>
+    <property name="layoutSpacing" stdset="0">
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>11</number>
+        </property>
+        <property name="spacing">
+            <number>6</number>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>Layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>PixmapLabel1</cstring>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image0</pixmap>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>1</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>IQNotes 2.0.4rc2
+Author: Peter Vrabel 
+Email: kybu@kybu.org</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property name="indent">
+                        <number>-1</number>
+                    </property>
+                    <property name="vAlign" stdset="0">
+                    </property>
+                    <property name="wordwrap" stdset="0">
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>TextLabel2</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>7</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>Project homepage: http://iqnotes.kybu.org
+
+(c) 2001 - 2005 Peter Vrabel</string>
+            </property>
+            <property name="alignment">
+                <set>WordBreak|AlignTop|AlignLeft</set>
+            </property>
+            <property name="indent">
+                <number>-1</number>
+            </property>
+            <property name="vAlign" stdset="0">
+            </property>
+            <property name="wordwrap" stdset="0">
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="1280">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000004c7494441545885c5976f6c535518c67fe7b69d8521122683105ca20437c444c5a8b0168a6c646a16880a4445a344a70401c5b0386ac7b674085114d8dcc09018253146fda01b59675837185b2f0a2122ff026380c3b4ca18ba31c6966dedf14369d7dbbf34427cbe9df79c7bcef39ee73de73957a8aacaff097d68c36cb6c8f7f28778ae481581587676ae5494211ecf1a66d9ec346c5f7451ef1ae98f86fafa7a69301834b1e6e666ec767bc477faecec3c9993a5f040e6205eef20002be60bf9f9fe0cb2d22fb277fd6816e4e5c38c77e1eeb954d43e96302b292585d6e2080245b612b9b9bc4c43422fd0d33da0a7e2c76e38b109d97f969ddbd7b263f4fd88a9cb813b8041e83c80eca9e6d9878e26240050d30195352e00562f3201e0cd2fa168bd556edef4619084505595233be6c855efacf547a63c0d8674a44e8fe83e0e7d6eb87a0e2e1fe5e7b3d7e9f4b46373c0f1762f6a734354291c0e877c66b59d47d2fced260f7cba3c57b343e5e5e52248e0fbf2a7e48cac69bcbea916ae9c86e16e64ff6544f729cefdda445f7f3fe8463136cbcc3d33df42e97492fa68218d8dda5a88a5fd525b157262263a0187baa07dc37c366edc28e04611fef0cb20b9338e41ca44f8fb3be43f87b978ac99ebbd43e827cf64fcc3394c99be10e435fa9daf50fad579060634f51bcc2c9af65fdb5753505ac9bdd3324933426548bf1ea0e38ae4fc25856b171a49f5a8b4b4d63235671d1999cf933a7612f49d81b62a862fd4b2fb270f1fed31a0aa07a26e7f2ced7715afa077f69b7cbcea45cd783d804bdd27cade58201738d791393e85aea171cc31972006baa0e7309cd8c291832d147ea3e38f2e2faaba3fe631cc1803ce35fe859b3cfe98b1ae04f43ad28feec6736166240180b63f057f79ce73ed920ecb938b10577f439edcc2f5b66f79ad1a5a4fc3a53e058482c96c9148106134acd6f7b92b05722bfc3b605d6c6249a533a87d873d0f258c709080bb4772f0a482e5c15ed2d253912dcb585bd1c676a71121860181cbd51cf70272381c324519d981439d307d1ce8047eed8786a958f72aa38cc64802fb5b1b44febc8572f1ac5e0ed7ec64569901b851d142808cb7f408c61846762014654b4d48e963dbd6adda8b28b431e883459f1838e531000255f59f73b3d92265dcdc4308e861dbcba688789f1744b866e104f61ea81566b345aaaa3362e44daecf912bd1e34f4c881e8f38ccadadf1758e07b7db4de94b3931fba5cf9798c07f4141418186bcc93457ba5cd1ef8b00c24fc52d46e2cabdad0484483c7d5082641e11b71222f02473381cf28352bba6333f2f9721a9d0b2af0921949b2ad06413d11461a891e45c6dc462b100903179120d0d8dac5cf9b6acaeae8a4b2299d71084d540c0489c6b4ce0f351682da6d05accae2f77f3bbdb4d5ada788a6c25092baba6c37f1be656b8a8e9f0c702afa1b804024612b84a939928562277de50c358578241afc366b369bed510081889738d0944721305e0f3492618b5892ca974f2c2674eee2b7522a5f6334d0d841ac93c9f8c6baded1be647cd5e51fc32c774c4b0f15a022146b2a7aa81b8d61a75f9c8444251b634d2a43404428d44243951ac4442d1e78d1c3bf22009331253f66ccef4dcfc44a148c6118304c28da4aeae4ec65a2c96b542f28e18d30d3d1e4fd2d60a91892482f8bfff8e6fb31d27c6bfa87928dccc141e030000000049454e44ae426082</data>
+    </image>
+</images>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

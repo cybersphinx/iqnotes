@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -61,6 +61,19 @@ WriteSketchNote::WriteSketchNote(QWidget* parent, const char* name, bool modal, 
     connect(chooseColorB, SIGNAL(clicked()), this, SLOT(chooseColor()));
     connect(deleteStroke, SIGNAL(clicked()), sketch, SLOT(deleteLastStroke()));
 	connect(moveB, SIGNAL(toggled(bool)), sketch, SLOT(setMoveMode(bool)));
+	
+#ifdef DESKTOP
+	hlayout2 = new QHBoxLayout(this);
+	hlayout2->setSpacing(4);
+	hlayout2->setMargin(11);
+	vlayout->addLayout(hlayout2);
+	QPushButton *okB = new QPushButton("&OK", this);
+	QPushButton *cancelB = new QPushButton("&Cancel", this);
+	connect(okB, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(cancelB, SIGNAL(clicked()), this, SLOT(reject()));
+	hlayout2->addWidget(cancelB);
+	hlayout2->addWidget(okB);
+#endif
 
     setCaption(tr("Sketch"));
 }

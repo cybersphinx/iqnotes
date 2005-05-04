@@ -1,5 +1,5 @@
 /*  IQNotes - Smarty notes
-    Copyright (C) 2001 Peter Vrabel <kybu@kybu.sk>
+    Copyright (C) 2001 Peter Vrabel <kybu@kybu.org>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -401,7 +401,11 @@ void QSketch::paintEvent(QPaintEvent *pe)
 	}
 
 	// frame
+#ifndef DESKTOP	
 	style().drawPanel(&pt, 0, 0, width(), height(), cg, true, style().defaultFrameWidth());
+#else
+	style().drawPrimitive(QStyle::PE_PanelLineEdit, &pt, QRect(QPoint(0, 0), QPoint(width() - 1, height() - 1)), cg);
+#endif
 
     modified = false;
 }
@@ -703,7 +707,12 @@ void QSketch::updateViewCache()
 	if (sketchCache)
 		bitBlt(viewCache, 0, 0, sketchCache, viewP.x(), viewP.y(), viewCache->width(), viewCache->height());
 	// frame
+#ifndef DESKTOP
 	style().drawPanel(&pv, 0, 0, width(), height(), cg, true, style().defaultFrameWidth());
+#else
+	style().drawPrimitive(QStyle::PE_PanelLineEdit, &pv, rect(), cg);
+#endif
+
 }
 
 // }}}
