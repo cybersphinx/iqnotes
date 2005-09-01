@@ -328,6 +328,12 @@
         <receiver>DefineEntryBase</receiver>
         <slot>accept()</slot>
     </connection>
+    <connection>
+        <sender>CancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>DefineEntryBase</receiver>
+        <slot>reject()</slot>
+    </connection>
 </connections>
 <slots>
     <slot>accept2()</slot>

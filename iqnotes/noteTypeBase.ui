@@ -55,5 +55,11 @@
         <receiver>NoteTypeBase</receiver>
         <slot>accept()</slot>
     </connection>
+    <connection>
+        <sender>NoteTypeList</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>NoteTypeBase</receiver>
+        <slot>accept()</slot>
+    </connection>
 </connections>
 </UI>

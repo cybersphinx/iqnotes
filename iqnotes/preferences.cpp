@@ -106,7 +106,7 @@ void PreferencesD::updateSizes()
 {
 	QFontDatabase fontDB;
 	int currentSize = -1;
-#ifdef DEBUG
+#if defined(DEBUG) || (QT_VERSION >= 239)
     int f = 1;
 #else
     int f = 10;

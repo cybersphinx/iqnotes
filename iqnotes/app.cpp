@@ -94,7 +94,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     connect(searchA, SIGNAL(activated()), this, SLOT(search()));
     //  searchA->addTo(toolbar);
     searchA->addTo(treePopupMenu);
-    multiTB->setIconSet(QIconSet(ToolBarIcon::prepare("iqnotes/find")));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
 	//    toolbar->addSeparator(); // no room for this
 
@@ -181,12 +181,24 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     notePopupMenu->insertSeparator();
 
-    setPictureID = notePopupMenu->insertItem("Set picture", this, SLOT(setPicture()));
+    setPictureA = new QAction("Set picture", ToolBarIcon::prepare("iqnotes/set_picture"), QString::null, CTRL+Key_P, this, 0);
+    setPictureA->setToolTip("Set picture");
+    connect(setPictureA, SIGNAL(activated()), this, SLOT(setPicture()));
+    //setPictureA->addTo(toolbar);
+    setPictureA->addTo(notePopupMenu);
 
     notePopupMenu->insertSeparator();
 
-    setTaskID = notePopupMenu->insertItem("Set task", this, SLOT(setTask()));
-    setEventID = notePopupMenu->insertItem("Set event", this, SLOT(setEvent()));
+    setTaskA = new QAction("Set task", ToolBarIcon::prepare("iqnotes/set_task"), QString::null, CTRL+Key_T, this, 0);
+    setTaskA->setToolTip("Set task");
+    connect(setTaskA, SIGNAL(activated()), this, SLOT(setTask()));
+    //setTaskA->addTo(toolbar);
+    setTaskA->addTo(notePopupMenu);
+    setEventA = new QAction("Set event", ToolBarIcon::prepare("iqnotes/set_event"), QString::null, CTRL+Key_E, this, 0);
+    setEventA->setToolTip("Set event");
+    connect(setEventA, SIGNAL(activated()), this, SLOT(setEvent()));
+    //setEventA->addTo(toolbar);
+    setEventA->addTo(notePopupMenu);
     unsetTaskEventID = notePopupMenu->insertItem("Unset", this, SLOT(unsetTaskEvent()));
 
     notePopupMenu->insertSeparator();
@@ -259,6 +271,7 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
     connect(notes, SIGNAL(eventListClosed()), this, SLOT(eventListClosed()));
     connect(notes, SIGNAL(reminderShown()), this, SLOT(reminderShown()));
     connect(notes, SIGNAL(reminderClosed()), this, SLOT(reminderClosed()));
+    connect(notes, SIGNAL(noteModified(bool)), this, SLOT(setModified(bool)));
 
     readConfig();
     changeFont();
@@ -562,10 +575,10 @@ void App::isEmptyNoteTree()
     menu->setItemEnabled(eventListID, false);
     menu->setItemEnabled(reminderID, false);
 
-	menu->setItemEnabled(renameNoteID, false);
-    menu->setItemEnabled(setPictureID, false);
-    menu->setItemEnabled(setTaskID, false);
-    menu->setItemEnabled(setEventID, false);
+    menu->setItemEnabled(renameNoteID, false);
+    setPictureA->setEnabled(false);
+    setTaskA->setEnabled(false);
+    setEventA->setEnabled(false);
     menu->setItemEnabled(unsetTaskEventID, false);
     menu->setItemEnabled(setReminderID, false);
     menu->setItemEnabled(unsetReminderID, false);
@@ -600,10 +613,10 @@ void App::isNotEmptyNoteTree()
     menu->setItemEnabled(eventListID, true);
     menu->setItemEnabled(reminderID, true);
 
-	menu->setItemEnabled(renameNoteID, true);
-    menu->setItemEnabled(setPictureID, true);
-    menu->setItemEnabled(setTaskID, true);
-    menu->setItemEnabled(setEventID, true);
+    menu->setItemEnabled(renameNoteID, true);
+    setPictureA->setEnabled(true);
+    setTaskA->setEnabled(true);
+    setEventA->setEnabled(true);
     menu->setItemEnabled(unsetTaskEventID, true);
     menu->setItemEnabled(setReminderID, true);
     menu->setItemEnabled(unsetReminderID, true);
@@ -630,9 +643,9 @@ void App::isNotEmptyNoteTree()
 void App::taskListShown()
 {
     treePopupMenu->removeItem(taskListID);
-    taskListID = treePopupMenu->insertItem(Resource::loadPixmap("iqnotes/close_search_tree"), "Close task list", notes, SLOT(taskListClose()), 0, -1, 11);
+    taskListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close task list", notes, SLOT(taskListClose()), 0, -1, 11);
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/close_search_tree"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(taskListClose()));
 
     searchA->setEnabled(false);
@@ -649,7 +662,7 @@ void App::taskListShown()
     menu->setItemEnabled(eventListID, false);
     menu->setItemEnabled(reminderID, false);
 
-    menu->setItemEnabled(setEventID, false);
+    setEventA->setEnabled(false);
     menu->setItemEnabled(unsetTaskEventID, false);
 
     cutA->setEnabled(false);
@@ -662,7 +675,7 @@ void App::taskListClosed()
     treePopupMenu->removeItem(taskListID);
     taskListID = taskListID = treePopupMenu->insertItem("Task list", taskListPopupMenu, -1, 11);
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/find"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
 
     searchA->setEnabled(true);
@@ -679,7 +692,7 @@ void App::taskListClosed()
     menu->setItemEnabled(eventListID, true);
     menu->setItemEnabled(reminderID, true);
 
-    menu->setItemEnabled(setEventID, true);
+    setEventA->setEnabled(true);
     menu->setItemEnabled(unsetTaskEventID, true);
 
     cutA->setEnabled(true);
@@ -690,9 +703,9 @@ void App::taskListClosed()
 void App::eventListShown()
 {
     treePopupMenu->removeItem(eventListID);
-    eventListID = treePopupMenu->insertItem(Resource::loadPixmap("iqnotes/close_search_tree"), "Close event list", notes, SLOT(eventListClose()), 0, -1, 12);
+    eventListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close event list", notes, SLOT(eventListClose()), 0, -1, 12);
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/close_search_tree"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(eventListClose()));
 
     searchA->setEnabled(false);
@@ -709,7 +722,7 @@ void App::eventListShown()
     //    menu->setItemEnabled(sortID, false);
     menu->setItemEnabled(taskListID, false);
 
-    menu->setItemEnabled(setTaskID, false);
+    setTaskA->setEnabled(false);
     menu->setItemEnabled(unsetTaskEventID, false);
 
     cutA->setEnabled(false);
@@ -722,7 +735,7 @@ void App::eventListClosed()
     treePopupMenu->removeItem(eventListID);
     eventListID = treePopupMenu->insertItem("Event list", eventListPopupMenu, -1, 12);
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/find"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
 
     searchA->setEnabled(true);
@@ -739,7 +752,7 @@ void App::eventListClosed()
     menu->setItemEnabled(taskListID, true);
     menu->setItemEnabled(reminderID, true);
 
-    menu->setItemEnabled(setTaskID, true);
+    setTaskA->setEnabled(true);
     menu->setItemEnabled(unsetTaskEventID, true);
 
     cutA->setEnabled(true);
@@ -749,9 +762,9 @@ void App::eventListClosed()
 
 void App::searchTreeShown()
 {
-    searchA->setIconSet(Resource::loadPixmap("iqnotes/close_search_tree"));
+    searchA->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     searchA->setText(tr("Close search tree"));
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/close_search_tree"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
 
     quickAddA->setEnabled(false);
     addBeforeA->setEnabled(false);
@@ -771,9 +784,9 @@ void App::searchTreeShown()
 
 void App::searchTreeClosed()
 {
-    searchA->setIconSet(Resource::loadPixmap("iqnotes/find"));
+    searchA->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     searchA->setText(tr("Search"));
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/find"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
 
     quickAddA->setEnabled(true);
     addBeforeA->setEnabled(true);
@@ -794,9 +807,9 @@ void App::searchTreeClosed()
 void App::reminderShown()
 {
     treePopupMenu->removeItem(reminderID);
-    reminderID = treePopupMenu->insertItem(Resource::loadPixmap("iqnotes/close_search_tree"), "Close reminder", notes, SLOT(reminderClose()));
+    reminderID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close reminder", notes, SLOT(reminderClose()));
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/close_search_tree"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(reminderClose()));
 
     searchA->setEnabled(false);
@@ -825,7 +838,7 @@ void App::reminderClosed()
     treePopupMenu->removeItem(reminderID);
     reminderID = treePopupMenu->insertItem("Reminder", this, SLOT(showReminder()));
     multiTB->disconnect();
-    multiTB->setIconSet(Resource::loadPixmap("iqnotes/find"));
+    multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
 
     searchA->setEnabled(true);
@@ -885,17 +898,34 @@ bool App::openTree(const QString &file)
 {
     NotesFileParser handler;
 
-    connect(&handler, SIGNAL(backupLoaded(bool, const QString &)), this, SLOT(setBackupLocation(bool, const QString &)));
-    connect(&handler, SIGNAL(notesShowReminderAtStartUpLoaded(bool)), this, SLOT(setNotesShowReminderAtStartUp(bool)));
-    connect(&handler, SIGNAL(notesWordWrapLoaded(bool)), this, SLOT(setNotesWordWrap(bool)));
-    connect(&handler, SIGNAL(notesRootNodeDecorationLoaded(bool)), this, SLOT(setNotesRootNodeDecoration(bool)));
-    connect(&handler, SIGNAL(notesShowScrollBarsLoaded(bool)), this, SLOT(setNotesShowScrollBars(bool)));
-    connect(&handler, SIGNAL(entryLoaded(Entry *)), this, SLOT(addEntry(Entry *)));
-    connect(&handler, SIGNAL(noteLoaded(const QString &, QList<QString> *, const QString &, const QString &, int, QDateTime, const QString &, QDateTime)), notes, SLOT(addNote(const QString &, QList<QString> *, const QString &, const QString &, int, QDateTime, const QString &, QDateTime)));
-    connect(&handler, SIGNAL(securityPasswdLoaded(const QString &)), this, SLOT(setSecurityPasswd(const QString &)));
-    connect(&handler, SIGNAL(noteLoaded(const QString &, Strokes *, const QString &, const QString &, int, QDateTime, const QString &, QDateTime)),
-            notes, SLOT(addNote(const QString &, Strokes *, const QString &, const QString &, int, QDateTime, const QString &, QDateTime)));
-    connect(&handler, SIGNAL(noNoteChild()), notes, SLOT(noNoteChild()));
+    connect(&handler, SIGNAL(backupLoaded(bool, const QString &)),
+            this,       SLOT(setBackupLocation(bool, const QString &)));
+    connect(&handler, SIGNAL(notesShowReminderAtStartUpLoaded(bool)),
+            this,       SLOT(setNotesShowReminderAtStartUp(bool)));
+//  connect(&handler, SIGNAL(notesWordWrapLoaded(bool)),
+//          this,       SLOT(setNotesWordWrap(bool)));
+//  connect(&handler, SIGNAL(notesRootNodeDecorationLoaded(bool)),
+//          this,       SLOT(setNotesRootNodeDecoration(bool)));
+//  connect(&handler, SIGNAL(notesShowScrollBarsLoaded(bool)),
+//          this,       SLOT(setNotesShowScrollBars(bool)));
+    connect(&handler, SIGNAL(entryLoaded(Entry *)),
+            this,       SLOT(addEntry(Entry *)));
+    connect(&handler, SIGNAL(noteLoaded(const QString &, QList<QString> *,
+                                        const QString &, const QString &,
+                                        int, QDateTime, const QString &, QDateTime)),
+            notes,      SLOT(addNote(const QString &, QList<QString> *,
+                                        const QString &, const QString &,
+                                        int, QDateTime, const QString &, QDateTime)));
+    connect(&handler, SIGNAL(securityPasswdLoaded(const QString &)),
+            this,       SLOT(setSecurityPasswd(const QString &)));
+    connect(&handler, SIGNAL(noteLoaded(const QString &, Strokes *,
+                                        const QString &, const QString &,
+                                        int, QDateTime, const QString &, QDateTime)),
+            notes,      SLOT(addNote(const QString &, Strokes *,
+                                        const QString &, const QString &,
+                                        int, QDateTime, const QString &, QDateTime)));
+    connect(&handler, SIGNAL(noNoteChild()),
+            notes,      SLOT(noNoteChild()));
 
     QFile xmlFile(Global::applicationFileName("iqnotes", file + ".xml")),
     xmlRijndaelFile(Global::applicationFileName("iqnotes", file + ".rijn"));
@@ -1182,9 +1212,9 @@ void App::openFile(bool showNewFile)
 
     OpenFile of(showNewFile, this, 0, true);
     connect(&of, SIGNAL(fileSelected(int, const QString &)), this, SLOT(openTree(int, const QString &)));
-    
+#ifndef DESKTOP
     of.showMaximized();
-
+#endif
     if (!of.exec())
         return;
 }
@@ -1207,7 +1237,7 @@ bool App::saveFile()
     if (!saveTree())
         return false;
 
-    setCaption("IQNotes :: " + currentFile);
+    // setCaption("IQNotes :: " + currentFile);
     setModified(false);
 
     return true;
@@ -1286,8 +1316,8 @@ bool App::foreignNodeWarning()
 
 void App::quickAdd()
 {
-	if (notes->quickAdd())
-		setModified(true);
+    if (notes->quickAdd())
+        setModified(true);
 }
 
 void App::addBefore()
@@ -1389,14 +1419,16 @@ void App::pasteNoteChild()
 
 void App::renameNote()
 {
-	if (notes->renameNote())
-		setModified(true);
+    if (notes->renameNote())
+        setModified(true);
 }
 
 void App::editNote()
 {
-    if (notes->editNote())
-        setModified(true);
+    // noteModified signal now handles calling setModified
+    //if (notes->editNote())
+    //    setModified(true);
+    notes->editNote();
 }
 
 void App::setPicture()
@@ -1487,7 +1519,9 @@ void App::toggleFullScreen()
 void App::defineNewEntry()
 {
     DefineEntry de(this, 0, true);
+#ifndef DESKTOP
     de.showMaximized();
+#endif
     if (de.exec())
         setModified(true);
 }
@@ -1498,6 +1532,10 @@ void App::changeEntry()
     Entry *entry;
 
     ce.fillList(entriesList);
+#ifdef DESKTOP
+    // FIXME: make this work for qpe as well
+    ce.adjustSize();
+#endif
     if (!ce.exec())
         return;
 
@@ -1520,10 +1558,12 @@ void App::changeEntry()
         de.addProperty(new PropertyBoxItem(ps));
     }
 
-    de.EntryName->setText(entry->getName());
+    // now part of setEditEntry: de.EntryName->setText(entry->getName());
     de.setEditEntry(entry);
+#ifndef DESKTOP
     de.showMaximized();
-	
+#endif
+
 #ifdef DEBUG
     qDebug("-- Change entry --");
 #endif
@@ -1543,10 +1583,14 @@ void App::changeEntry()
 
 void App::deleteEntry()
 {
-    ChooseEntry ce(this, 0, true);
+    ChooseEntry ce(this, 0, true, 0, true);
     Entry *entry;
 
     ce.fillList(entriesList);
+#ifdef DESKTOP
+    // FIXME: make this work for qpe as well
+    ce.adjustSize();
+#endif
     if (!ce.exec())
         return;
 
@@ -1562,8 +1606,7 @@ void App::deleteEntry()
         return;
     }
     
-    entriesList->remove
-    (entry->getName());
+    entriesList->remove(entry->getName());
 
     setModified(true);
 }
@@ -1591,7 +1634,9 @@ void App::preferenc()
 
     pb.setCurrentPasswd(preferences.passwdHex);
 
+#ifndef DESKTOP
     pb.showMaximized();
+#endif
     if (!pb.exec())
         return;
 

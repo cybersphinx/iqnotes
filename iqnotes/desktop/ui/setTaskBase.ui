@@ -8,12 +8,22 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>200</width>
-            <height>172</height>
+            <width>281</width>
+            <height>169</height>
         </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>3</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
     </property>
     <property name="caption">
         <string>Set Task</string>
+    </property>
+    <property name="layoutSpacing" stdset="0">
     </property>
     <vbox>
         <property name="name">
@@ -25,22 +35,9 @@
         <property name="spacing">
             <number>6</number>
         </property>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>TextLabel1</cstring>
-            </property>
-            <property name="text">
-                <string>Task completed at:</string>
-            </property>
-            <property name="alignment">
-                <set>AlignVCenter|AlignLeft</set>
-            </property>
-            <property name="wordwrap" stdset="0">
-            </property>
-        </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>Layout40</cstring>
+                <cstring>Layout5</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -52,25 +49,57 @@
                 <property name="spacing">
                     <number>6</number>
                 </property>
-                <widget class="QSpinBox">
+                <spacer>
                     <property name="name">
-                        <cstring>Percentage</cstring>
+                        <cstring>Spacer1</cstring>
                     </property>
-                    <property name="maxValue">
-                        <number>100</number>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Percent complete:</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignVCenter|AlignRight</set>
+                    </property>
+                    <property name="hAlign" stdset="0">
                     </property>
                 </widget>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>TextLabel3</cstring>
+                        <cstring>PercentageLabel</cstring>
+                    </property>
+                    <property name="font">
+                        <font>
+                            <bold>1</bold>
+                        </font>
                     </property>
                     <property name="text">
-                        <string>%</string>
+                        <string>100%</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property name="hAlign" stdset="0">
                     </property>
                 </widget>
                 <spacer>
                     <property name="name">
-                        <cstring>Spacer8</cstring>
+                        <cstring>Spacer2</cstring>
                     </property>
                     <property name="orientation">
                         <enum>Horizontal</enum>
@@ -87,58 +116,136 @@
                 </spacer>
             </hbox>
         </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>TextLabel1_2</cstring>
-            </property>
-            <property name="text">
-                <string>Priority:</string>
-            </property>
-        </widget>
-        <widget class="QComboBox">
-            <item>
-                <property name="text">
-                    <string>Very high</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>High</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Normal</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Low</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>Very low</string>
-                </property>
-            </item>
-            <property name="name">
-                <cstring>Priority</cstring>
-            </property>
-            <property name="currentItem">
-                <number>2</number>
-            </property>
-        </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout41</cstring>
+                <cstring>Layout4</cstring>
             </property>
             <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>Percentage0</cstring>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image0</pixmap>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
+                    <property name="flat">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QSlider">
+                    <property name="name">
+                        <cstring>Percentage</cstring>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>WheelFocus</enum>
+                    </property>
+                    <property name="maxValue">
+                        <number>100</number>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="tickmarks">
+                        <enum>Below</enum>
+                    </property>
+                    <property name="tickInterval">
+                        <number>10</number>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>Percentage100</cstring>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image1</pixmap>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
+                    <property name="flat">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>Spacer28</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="Line">
+            <property name="name">
+                <cstring>Line1</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>HLine</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>Layout8</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
                 <spacer>
                     <property name="name">
-                        <cstring>spacer20</cstring>
+                        <cstring>Spacer21</cstring>
                     </property>
                     <property name="orientation">
                         <enum>Horizontal</enum>
@@ -148,7 +255,97 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>51</width>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>TextLabel1_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Priority:</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignVCenter|AlignRight</set>
+                    </property>
+                    <property name="hAlign" stdset="0">
+                    </property>
+                </widget>
+                <widget class="QComboBox">
+                    <item>
+                        <property name="text">
+                            <string>Very high</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>High</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Normal</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Low</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Very low</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>Priority</cstring>
+                    </property>
+                    <property name="currentItem">
+                        <number>2</number>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer27</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout17</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer5</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>101</width>
                             <height>20</height>
                         </size>
                     </property>
@@ -179,12 +376,38 @@
         </widget>
     </vbox>
 </widget>
+<images>
+    <image name="image0">
+        <data format="PNG" length="189">89504e470d0a1a0a0000000d494844520000000e0000000e08060000001f482dd1000000844944415428919dd2c10904210c05d09f61b101212dd8464ab60a8b1104cfb964afaec4c88e37bf7918a2d45ac39bf5bc523b54555355f30af7fc590f440422e2a23dbfb6eaa12b3ca1104608003e5e9873b6524ad48c7fe318836aadff430060e61087c389f0f5394e98d6bfaaaa36e70433d35ed87bb735ff996a4a8998f978f3baff02906841c19043cd330000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+        <data format="PNG" length="181">89504e470d0a1a0a0000000d494844520000000e0000000e08060000001f482dd10000007c4944415428919dd24b0ac0200c04d0b114d782e079e6c83985870978816cecaef413ed274b278f8460a8b5e24f2dbfd4159a59f79accac5fb31324e96292b7ecb6ea084f57fd8287c779c2d3ab9244ced9c553282268ad854f5044504a71d1103e2117be4100108e7f5555bb8754b5a7941063dcb3f5d8309ae4bd6fa97c3ef88231118c0000000049454e44ae426082</data>
+    </image>
+</images>
 <connections>
     <connection>
-        <sender>CancelButton</sender>
+        <sender>Percentage0</sender>
         <signal>clicked()</signal>
         <receiver>SetTaskBase</receiver>
-        <slot>reject()</slot>
+        <slot>Percentage0_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>Percentage100</sender>
+        <signal>clicked()</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage100_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>Percentage</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage_valueChanged(int)</slot>
+    </connection>
+    <connection>
+        <sender>Percentage</sender>
+        <signal>sliderMoved(int)</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage_sliderMoved(int)</slot>
     </connection>
     <connection>
         <sender>OKButton</sender>
@@ -192,6 +415,24 @@
         <receiver>SetTaskBase</receiver>
         <slot>accept()</slot>
     </connection>
+    <connection>
+        <sender>CancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>reject()</slot>
+    </connection>
 </connections>
+<tabstops>
+    <tabstop>Percentage</tabstop>
+    <tabstop>Percentage0</tabstop>
+    <tabstop>Percentage100</tabstop>
+    <tabstop>Priority</tabstop>
+</tabstops>
+<slots>
+    <slot>Percentage0_clicked()</slot>
+    <slot>Percentage100_clicked()</slot>
+    <slot>Percentage_sliderMoved(int)</slot>
+    <slot>Percentage_valueChanged(int)</slot>
+</slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -68,7 +68,7 @@ desktop:SOURCES += desktop/qpe/*.cpp
 desktop:DEFINES += DESKTOP
 desktop:INCLUDEPATH = desktop desktop/ui
 desktop:DEPENDPATH = desktop desktop/ui
-desktop:LIBS = 
+desktop:LIBS = -lfreetype
 
 pda:INTERFACES = aboutBase.ui          choosePicBase.ui     preferencesBase.ui  setTaskBase.ui            writeNoteBase.ui \
   defineEntryBase.ui    iqnotesAlarmBase.ui  renameNoteBase.ui   sortBase.ui \

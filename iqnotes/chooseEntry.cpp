@@ -20,10 +20,16 @@
 #include <qmessagebox.h>
 #include <qpe/resource.h>
 
-ChooseEntry::ChooseEntry(QWidget* parent, const char* name, bool modal, WFlags fl)
+ChooseEntry::ChooseEntry(QWidget* parent, const char* name, bool modal, WFlags fl,bool deleting)
         : ChooseEntryBase(parent, name, modal, fl)
 {
     entriesList = 0;
+#ifdef DESKTOP
+    if (deleting)
+    {
+        setCaption( tr( "Delete Entry" ) );
+    }
+#endif
 }
 
 void ChooseEntry::fillList(Entries *entriesL)

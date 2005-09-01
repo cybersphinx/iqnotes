@@ -18,15 +18,22 @@
 
 #include <qcombobox.h>
 #include <qmessagebox.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qfont.h>
 
 SetTask::SetTask(QWidget* parent, const char* name, WFlags fl)
         : SetTaskBase(parent, name, fl)
 {
-    Priority->setCurrentItem(2);
+    setPriority(2);
+    setPercentage("");
+    Percentage_valueChanged(0);  // since setPercentage might not move the slider
 
     setPercentage("");
 }
 
+#if 0
+// no longer a typein, so no need to validate
 int SetTask::exec()
 {
     do
@@ -35,7 +42,7 @@ int SetTask::exec()
 
         if (r)
         {
-            int p = Percentage->text().toInt();
+            int p = Percentage->value();
 
             if (p < 0 || p > 100)
                 QMessageBox::warning(this, "Percentage", "Please, choose percentage between\n0 and 100");
@@ -47,16 +54,11 @@ int SetTask::exec()
     }
     while (1);
 }
+#endif
 
 void SetTask::setPercentage(const QString &per)
 {
-    QString p;
-    if (per == "")
-        p = "0";
-    else
-        p = per;
-
-    Percentage->setValue(p.toInt());
+    Percentage->setValue( (per == "") ? 0 : per.toInt() );
 }
 
 void SetTask::setPriority(int prio)
@@ -68,3 +70,27 @@ int SetTask::getPriority() const
 {
     return Priority->currentItem();
 }
+
+// Overridden virtual slots
+
+void SetTask::Percentage0_clicked()
+{
+    Percentage->setValue( 0 );
+}
+
+void SetTask::Percentage100_clicked()
+{
+    Percentage->setValue( 100 );
+}
+
+void SetTask::Percentage_sliderMoved(int newValue)
+{
+    //PercentageLabel->setText(QString("%1%").arg(newValue));
+    Percentage_valueChanged(newValue);
+}
+
+void SetTask::Percentage_valueChanged(int newValue)
+{
+    PercentageLabel->setText(QString("%1%").arg(newValue));
+}
+

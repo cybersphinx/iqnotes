@@ -49,6 +49,18 @@
     </vbox>
 </widget>
 <connections>
+    <connection>
+        <sender>EntriesBox</sender>
+        <signal>returnPressed(QListBoxItem*)</signal>
+        <receiver>ChooseEntryBase</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>EntriesBox</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>ChooseEntryBase</receiver>
+        <slot>accept()</slot>
+    </connection>
     <slot access="public">deleteEntry()</slot>
 </connections>
 </UI>

@@ -50,7 +50,8 @@ documentation and/or software.
 #include <assert.h>
 #include <strings.h>
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
+using namespace std;
 
 
 

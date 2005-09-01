@@ -212,6 +212,7 @@ private:
     int newID, openID, saveID, closeID, sortID, expandTreeID, collapseTreeID, reminderID, copyNoteID, pasteNoteID, setPictureID, setTaskID, setEventID, unsetTaskEventID, setReminderID, unsetReminderID, taskListID, eventListID, renameNoteID, noteID, treeID, viewID, toggleToolBarID, toggleFullScreenID, optionsID;
     QAction *editA, *cutA,
     *searchA, *quickAddA, *addBeforeA, *addAfterA, *addChildA,
+    *setPictureA, *setTaskA, *setEventA,
     *hideNoteA, *hideTreeA, *halfViewA;
     QToolButton *multiTB; /* Search, Close search tree, close task|event tree */
     Entries *entriesList;

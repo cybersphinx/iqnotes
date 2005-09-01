@@ -11,13 +11,23 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>146</width>
-            <height>118</height>
+            <width>220</width>
+            <height>150</height>
         </rect>
+    </property>
+    <property stdset="1">
+        <name>sizePolicy</name>
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>3</vsizetype>
+        </sizepolicy>
     </property>
     <property stdset="1">
         <name>caption</name>
         <string>Set Task</string>
+    </property>
+    <property>
+        <name>layoutSpacing</name>
     </property>
     <vbox>
         <property stdset="1">
@@ -29,28 +39,10 @@
             <number>6</number>
         </property>
         <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel1</cstring>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Task completed at:</string>
-            </property>
-            <property stdset="1">
-                <name>alignment</name>
-                <set>AlignVCenter|AlignLeft</set>
-            </property>
-            <property>
-                <name>wordwrap</name>
-            </property>
-        </widget>
-        <widget>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout40</cstring>
+                <cstring>Layout5</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -61,32 +53,73 @@
                     <name>spacing</name>
                     <number>6</number>
                 </property>
-                <widget>
-                    <class>QSpinBox</class>
-                    <property stdset="1">
+                <spacer>
+                    <property>
                         <name>name</name>
-                        <cstring>Percentage</cstring>
+                        <cstring>Spacer1</cstring>
                     </property>
                     <property stdset="1">
-                        <name>maxValue</name>
-                        <number>100</number>
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Percent complete:</string>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignVCenter|AlignRight</set>
+                    </property>
+                    <property>
+                        <name>hAlign</name>
                     </property>
                 </widget>
                 <widget>
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel3</cstring>
+                        <cstring>PercentageLabel</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>font</name>
+                        <font>
+                            <bold>1</bold>
+                        </font>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>%</string>
+                        <string>100%</string>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property>
+                        <name>hAlign</name>
                     </property>
                 </widget>
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer8</cstring>
+                        <cstring>Spacer2</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -107,57 +140,305 @@
             </hbox>
         </widget>
         <widget>
-            <class>QLabel</class>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>TextLabel1_2</cstring>
+                <cstring>Layout4</cstring>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Percentage0</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>maximumSize</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string></string>
+                    </property>
+                    <property stdset="1">
+                        <name>pixmap</name>
+                        <pixmap>image0</pixmap>
+                    </property>
+                    <property stdset="1">
+                        <name>autoDefault</name>
+                        <bool>false</bool>
+                    </property>
+                    <property stdset="1">
+                        <name>flat</name>
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QSlider</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Percentage</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>focusPolicy</name>
+                        <enum>WheelFocus</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>maxValue</name>
+                        <number>100</number>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>tickmarks</name>
+                        <enum>Right</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>tickInterval</name>
+                        <number>10</number>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Percentage100</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>maximumSize</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string></string>
+                    </property>
+                    <property stdset="1">
+                        <name>pixmap</name>
+                        <pixmap>image1</pixmap>
+                    </property>
+                    <property stdset="1">
+                        <name>autoDefault</name>
+                        <bool>false</bool>
+                    </property>
+                    <property stdset="1">
+                        <name>flat</name>
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer>
+            <property>
+                <name>name</name>
+                <cstring>Spacer28</cstring>
             </property>
             <property stdset="1">
-                <name>text</name>
-                <string>Priority:</string>
+                <name>orientation</name>
+                <enum>Vertical</enum>
+            </property>
+            <property stdset="1">
+                <name>sizeType</name>
+                <enum>Expanding</enum>
+            </property>
+            <property>
+                <name>sizeHint</name>
+                <size>
+                    <width>20</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget>
+            <class>Line</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>Line1</cstring>
+            </property>
+            <property stdset="1">
+                <name>orientation</name>
+                <enum>Horizontal</enum>
             </property>
         </widget>
         <widget>
-            <class>QComboBox</class>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Very high</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>High</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Normal</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Low</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Very low</string>
-                </property>
-            </item>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Priority</cstring>
+                <cstring>Layout8</cstring>
             </property>
-            <property stdset="1">
-                <name>currentItem</name>
-                <number>2</number>
-            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer21</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1_2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Priority:</string>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignVCenter|AlignRight</set>
+                    </property>
+                    <property>
+                        <name>hAlign</name>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QComboBox</class>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Very high</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>High</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Normal</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Low</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Very low</string>
+                        </property>
+                    </item>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Priority</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>currentItem</name>
+                        <number>2</number>
+                    </property>
+                </widget>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer27</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
         </widget>
     </vbox>
 </widget>
+<images>
+    <image>
+        <name>image0</name>
+        <data format="XPM.GZ" length="371">789c758fb10a02310c86f73e4568b622773dd041c447501c05714873820ea7a0e720e2bbdbbf825c7b9abf847cdfd0a6b5a3ed6645ae36b75efa93921ee54aaebd77dd63b75f3e8d6da614cf8c1a3b31b622a5f5e57cc02c71669f0aa8c0e0112003d523c0006ce748ba27abbf8639117f0d8b242185f9f481892d37109909529a4a4726a9e22d1d99a8063b6bda597fffebb5306f2bc74f74</data>
+    </image>
+    <image>
+        <name>image1</name>
+        <data format="XPM.GZ" length="371">789c758fc10ac2300c86ef7d8ad0de8a6c1de841c447503c0ae221cd043d4c61ce8388ef6eff80b8054c0acdf711d2b48eb4df6d28d6ee3ef070119233f714db47d73d0fc7f5cbf9664ee52ca8f133e72b12dadeae27d45cea90348002cc09090c4049486006b64ba4ce99c45f131442f81956c5b8be46d5d4008c29640d676bc4f6889d23f62db1fba8a864b4f3f85fef95fb0032494f74</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>Percentage0</sender>
+        <signal>clicked()</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage0_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>Percentage100</sender>
+        <signal>clicked()</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage100_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>Percentage</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage_valueChanged(int)</slot>
+    </connection>
+    <connection>
+        <sender>Percentage</sender>
+        <signal>sliderMoved(int)</signal>
+        <receiver>SetTaskBase</receiver>
+        <slot>Percentage_sliderMoved(int)</slot>
+    </connection>
+    <slot access="public">Percentage0_clicked()</slot>
+    <slot access="public">Percentage100_clicked()</slot>
+    <slot access="public">Percentage_sliderMoved(int)</slot>
+    <slot access="public">Percentage_valueChanged(int)</slot>
+</connections>
+<tabstops>
+    <tabstop>Percentage</tabstop>
+    <tabstop>Percentage0</tabstop>
+    <tabstop>Percentage100</tabstop>
+    <tabstop>Priority</tabstop>
+</tabstops>
 </UI>

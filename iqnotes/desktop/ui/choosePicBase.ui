@@ -8,9 +8,17 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>250</width>
-            <height>217</height>
+            <width>216</width>
+            <height>221</height>
         </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>7</hsizetype>
+            <vsizetype>7</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
     </property>
     <property name="caption">
         <string>Choose picture</string>
@@ -112,6 +120,12 @@
         <signal>clicked()</signal>
         <receiver>ChoosePicBase</receiver>
         <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>CancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ChoosePicBase</receiver>
+        <slot>reject()</slot>
     </connection>
 </connections>
 <layoutdefaults spacing="6" margin="11"/>

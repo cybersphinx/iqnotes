@@ -26,7 +26,9 @@ OpenFile::OpenFile(bool showNewFile_, QWidget* parent, const char* name, bool mo
     for(QStringList::Iterator it = fileNames.begin(); it != fileNames.end(); ++it )
     {
 
+#ifdef DEBUG
         qDebug("%s", (*it).latin1());
+#endif
 
         QString fName = *it;
         QFileInfo fInfo(fName);

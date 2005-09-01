@@ -27,7 +27,7 @@ class ChooseEntry : public ChooseEntryBase
     Q_OBJECT
 
 public:
-    ChooseEntry(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+    ChooseEntry(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0, bool deleting = false);
     void fillList(Entries *entriesL);
 
     int currentEntry()

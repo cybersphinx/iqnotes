@@ -608,6 +608,7 @@ private:
 
 public slots:
     void noteChanged(QListViewItem *lvi);
+    bool editNote(QListViewItem *lvi);
 
     void taskListClose();
     void eventListClose();
@@ -641,6 +642,8 @@ signals:
     
     void reminderShown();
     void reminderClosed();
+
+    void noteModified(bool);
 
 private:
     bool notesDestroyed;

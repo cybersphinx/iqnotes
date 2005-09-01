@@ -18,7 +18,8 @@
 #define SETTASK_H
 
 #include "setTaskBase.h"
-#include <qspinbox.h>
+#include <qslider.h>
+#include <qlabel.h>
 
 class SetTask : public SetTaskBase
 {
@@ -26,16 +27,25 @@ public:
 
     SetTask(QWidget* parent = 0, const char* name = 0, WFlags fl = 0);
 
+#if 0
+// no longer a typein, so no need to validate
     int exec();
+#endif
 
     void setPercentage(const QString &per);
     const QString getPercentage()
     {
-        return Percentage->text();
+        return QString::number(Percentage->value());
     }
 
     void setPriority(int prio);
     int getPriority() const;
+
+public slots:
+    virtual void Percentage0_clicked();
+    virtual void Percentage100_clicked();
+    virtual void Percentage_sliderMoved(int);
+    virtual void Percentage_valueChanged(int);
 };
 
 #endif

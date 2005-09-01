@@ -26,10 +26,8 @@ public:
     {
         QString n = name;
         
-#ifndef DESKTOP
         if (qApp->desktop()->width() >= 480)
             n += "_big";
-#endif
         
         return Resource::loadPixmap(n);
     }

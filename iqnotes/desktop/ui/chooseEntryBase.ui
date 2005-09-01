@@ -96,6 +96,12 @@
         <receiver>ChooseEntryBase</receiver>
         <slot>accept()</slot>
     </connection>
+    <connection>
+        <sender>CancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ChooseEntryBase</receiver>
+        <slot>reject()</slot>
+    </connection>
 </connections>
 <slots>
     <slot>deleteEntry()</slot>

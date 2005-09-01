@@ -760,7 +760,7 @@ void NotesViewItem::setMyPixmap(const QString &picFile)
     if (!picFile.length())
         setPixmap(0, 0);
     else
-        setPixmap(0, QPixmap("/opt/QtPalmtop/pics/iqnotes/items/" + picFile));
+        setPixmap(0, Resource::loadPixmap("iqnotes/items/" + picFile));
     noteData->setPicFile(picFile);
 }
 
@@ -877,6 +877,7 @@ Notes::Notes(QWidget* parent, const char* name, WFlags fl)
     setCaption(tr("Form1"));
     setIconText(tr(""));
 
+    notesDestroyed = true;
     clipboardNote = 0;
 	viewType = setViewType = HALF_VIEW;
 }
@@ -1347,6 +1348,8 @@ void Notes::createNotes()
 	noteSketch->setMoveMode(true);
 
     connect(notesTree, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(noteChanged(QListViewItem *)));
+    connect(notesTree, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(editNote(QListViewItem *)));
+    connect(notesTree, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(editNote(QListViewItem *)));
 
     searchTree = 0;
     taskTree = 0;
@@ -1516,8 +1519,6 @@ void Notes::sort()
     NotesViewItem *startItem;
     bool recur;
 
-    s.showMaximized();
-
     if (taskTree)
     {
         s.Tabs->setTabEnabled(s.EventsTab, false);
@@ -1541,6 +1542,9 @@ void Notes::sort()
     else
         s.setSortControl(mainSC);
 
+#ifndef DESKTOP
+    s.showMaximized();
+#endif
     if (!s.exec())
         return;
 
@@ -1591,8 +1595,10 @@ void Notes::paintEvent(QPaintEvent *pe)
     splitter->show();
 #endif
 
+#ifndef DESKTOP
     uint w = width(), h = height(), hh = h >> 1, ww = w >> 1;
-    
+#endif
+
 	if (setViewType == HALF_VIEW)
     {
 		if (verticalLayout)
@@ -1733,22 +1739,26 @@ void Notes::fullNoteView()
 		splitter->setSizes(splitterSize);
 		splitterSize.clear();
 	}
-#endif DESKTOP
+#endif //DESKTOP
 }
 
 // }}}
 
 bool Notes::setPicture()
 {
-    ChoosePic cp(this, 0, true);
-    cp.showMaximized();
-    if (!cp.exec())
-        return false;
-
     QListView *currTree = getCurrentTree();
     NotesViewItem *currentItem = static_cast<NotesViewItem *>(currTree->currentItem());
 
-    currentItem->setMyPixmap(cp.picFile());
+    ChoosePic cp(this, 0, true);
+    if (currentItem->hasPic())
+	cp.setCurrentPic(currentItem->getPicFile());
+#ifndef DESKTOP
+    cp.showMaximized();
+#else
+    cp.adjustSize();
+#endif
+    if (!cp.exec())
+        return false;
 
     return true;
 }
@@ -2065,7 +2075,11 @@ bool Notes::writeNote(NotesViewItem *nvi)
         }
     }
 
+#ifndef DESKTOP
     nt.showMaximized();
+#else
+    nt.adjustSize();
+#endif
     if (!nt.exec())
         return false;
 
@@ -2073,9 +2087,9 @@ bool Notes::writeNote(NotesViewItem *nvi)
     if (nt.getTypeInt() == 0)
     {
         WriteNoteBase wn(this, 0, true);
-
+#ifndef DESKTOP
         wn.showMaximized();
-
+#endif
         if (!wn.exec())
             return false;
 
@@ -2086,8 +2100,9 @@ bool Notes::writeNote(NotesViewItem *nvi)
     {
         WriteSketchNote wsn(this, 0, true);
 
+#ifndef DESKTOP
         wsn.showMaximized();
-
+#endif
         if (!wsn.exec())
             return false;
 
@@ -2097,7 +2112,9 @@ bool Notes::writeNote(NotesViewItem *nvi)
     else
     {
         WriteDefinedEntry wde(this, 0, true);
+#ifndef DESKTOP
         wde.showMaximized();
+#endif
 
         entry = entriesList->at(nt.getTypeInt() - 2);
 
@@ -2141,24 +2158,32 @@ bool Notes::renameNote()
     if(!rename.exec())
         return false;
 
-	nvi->setText(0, rename.NoteName->text());
+    nvi->setText(0, rename.NoteName->text());
 
-	return true;
+    return true;
 }
 
 bool Notes::editNote()
 {
-    QListView *currTree = getCurrentTree();
+    return editNote(getCurrentTree()->currentItem());
+}
 
-    NotesViewItem *nvi = static_cast<NotesViewItem *>(currTree->currentItem());
+bool Notes::editNote(QListViewItem *lvi)
+{
+    if (! lvi)
+        return false;
+
+    NotesViewItem *nvi = static_cast<NotesViewItem *>(lvi);
 
     // Text note
     if (nvi->isText())
     {
         WriteNoteBase wn(this, 0, true);
         wn.Note->setWordWrap(wordWrap ? QMultiLineEdit::WidgetWidth : QMultiLineEdit::NoWrap);
-        wn.showMaximized();
         wn.Note->setText(nvi->getTextData());
+#ifndef DESKTOP
+        wn.showMaximized();
+#endif
         if (!wn.exec())
             return false;
 
@@ -2169,7 +2194,6 @@ bool Notes::editNote()
     {
         Strokes *strokes = new Strokes(), *strokes1 = nvi->getStrokes();
         WriteSketchNote wsn(this, 0, true);
-        wsn.showMaximized();
 
         // TODO: rewrite to copy constructor
         for (Stroke *stroke = strokes1->first(); (stroke = strokes1->current()); strokes1->next())
@@ -2179,6 +2203,9 @@ bool Notes::editNote()
 
         wsn.setStrokes(strokes);
 
+#ifndef DESKTOP
+        wsn.showMaximized();
+#endif
         if (!wsn.exec())
         {
             delete strokes;
@@ -2191,7 +2218,6 @@ bool Notes::editNote()
     else
     {
         WriteDefinedEntry wde(this, 0, true);
-        wde.showMaximized();
         Entries *entriesList = IQApp->entries();
         Entry *entry;
 
@@ -2216,6 +2242,10 @@ bool Notes::editNote()
         }
 
         wde.setEntryName(entry->getName());
+
+#ifndef DESKTOP
+        wde.showMaximized();
+#endif
         if (!wde.exec())
             return false;
 
@@ -2224,6 +2254,7 @@ bool Notes::editNote()
     }
 
     noteChanged(nvi);
+    emit noteModified(true);
     return true;
 }
 
@@ -2239,41 +2270,41 @@ void Notes::noteChanged(QListViewItem *lvi)
         qDebug("no childs");
 #endif
 
-		noteSketch->clearStrokes();
+        noteSketch->clearStrokes();
         noteFormatedText->setText("");
         noteText->setText("");
-		noteSketch->hide();
-		noteFormatedText->hide();
+        noteSketch->hide();
+        noteFormatedText->hide();
         return;
     }
 
-	if (!lvi)
-	{
+    if (!lvi)
+    {
 #ifdef DEBUG
 		qDebug("null current item!");
 #endif
 		return;
-	}
+    }
 
     NotesViewItem *nvi = static_cast<NotesViewItem *>(lvi);
 
 #ifdef DESKTOP
-	if (viewType == HIDE_NOTE)
-		return;
+    if (viewType == HIDE_NOTE)
+        return;
 
-	QRect g;
-	if (noteFormatedText->isShown())
-		g = noteFormatedText->geometry();
-	else if (noteText->isShown())
-		g = noteText->geometry();
-	else if (noteSketch->isShown())
-		g = noteSketch->geometry();
-	QValueList<int> sizes = splitter->sizes();
-	for (uint i = 1; i < sizes.count(); i++)
-		if (splitter->orientation() != Qt::Vertical)
-			sizes[i] = g.width();
-		else
-			sizes[i] = g.height();
+    QRect g;
+    if (noteFormatedText->isShown())
+        g = noteFormatedText->geometry();
+    else if (noteText->isShown())
+        g = noteText->geometry();
+    else if (noteSketch->isShown())
+        g = noteSketch->geometry();
+    QValueList<int> sizes = splitter->sizes();
+    for (uint i = 1; i < sizes.count(); i++)
+        if (splitter->orientation() != Qt::Vertical)
+            sizes[i] = g.width();
+        else
+            sizes[i] = g.height();
 #endif
 
     // Note is sketch
@@ -2307,7 +2338,7 @@ void Notes::noteChanged(QListViewItem *lvi)
 
     getCurrentTree()->setFocus();
 #ifdef DESKTOP
-	splitter->setSizes(sizes);
+    splitter->setSizes(sizes);
 #endif
 }
 
@@ -2467,7 +2498,7 @@ void Notes::addNote(const QString &noteName, QList<QString> *data1, const QStrin
 
     if (!notesTree->currentItem())
     {
-		noteChanged(notesTree->firstChild());
+        noteChanged(notesTree->firstChild());
         //notesTree->setCurrentItem(notesTree->firstChild());
         //notesTree->setSelected(notesTree->firstChild(), true);
         notesTree->setFocus();
@@ -2513,7 +2544,7 @@ void Notes::addNote(const QString &noteName, Strokes *strokes, const QString &en
 
     if (!notesTree->currentItem())
     {
-		noteChanged(notesTree->firstChild());
+        noteChanged(notesTree->firstChild());
         //notesTree->setCurrentItem(notesTree->firstChild());
         notesTree->setFocus();
     }
@@ -2533,7 +2564,9 @@ bool Notes::quickAdd()
 
 	// write text
 	WriteNoteBase wn(this, 0, true);
+#ifndef DESKTOP
 	wn.showMaximized();
+#endif
 	if (!wn.exec())
 	{
 		delete newItem;
@@ -2677,7 +2710,7 @@ bool Notes::addFirst()
 
         emit noEmptyNoteTree();
 
-		noteChanged(notesTree->firstChild());
+        noteChanged(notesTree->firstChild());
         //notesTree->setCurrentItem(notesTree->firstChild());
 
         return true;
@@ -2742,9 +2775,9 @@ bool Notes::deleteNote()
         parentItem->takeItem(clipboardNote);
 
     if (!notesTree->childCount()) {
-		noteChanged(0);
+        noteChanged(0);
         emit emptyNoteTree();
-	}
+    }
     else
     {
         // Make current item

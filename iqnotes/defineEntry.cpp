@@ -66,6 +66,7 @@ void DefineEntry::addProperty(PropertyBoxItem *pbi)
 void DefineEntry::setEditEntry(Entry *ee)
 {
     editEntry = ee;
+    EntryName->setText(editEntry->getName());
     defaultPic = editEntry->getDefaultPic();
 }
 
@@ -286,7 +287,12 @@ void DefineEntry::setDefaultPic()
     if (defaultPic != "")
 	cp.setCurrentPic(defaultPic);
     
+#ifndef DESKTOP
     cp.showMaximized();
+#else
+    cp.adjustSize();
+#endif
+
     if (cp.exec())
     {
 	if (cp.picFile() != "")
@@ -295,14 +301,14 @@ void DefineEntry::setDefaultPic()
 	    defaultPic = cp.picFile();
 	}
         else
-        	DefaultPic->setText("Defaul Pic");
+            DefaultPic->setText("Default Pic");
     }
 }
 
 int DefineEntry::exec()
 {
     if (editEntry && editEntry->getDefaultPic() != "")
-	DefaultPic->setPixmap(Resource::loadPixmap("iqnotes/items/" + editEntry->getDefaultPic()));
-    
+        DefaultPic->setPixmap(Resource::loadPixmap("iqnotes/items/" + editEntry->getDefaultPic()));
+
     return DefineEntryBase::exec();
 }

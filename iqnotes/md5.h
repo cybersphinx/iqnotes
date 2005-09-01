@@ -40,8 +40,9 @@ documentation and/or software.
 */
 
 #include <stdio.h>
-#include <fstream.h>
-#include <iostream.h>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 #include <qstring.h>
 

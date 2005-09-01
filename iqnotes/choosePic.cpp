@@ -8,7 +8,11 @@
 ChoosePic::ChoosePic(QWidget* parent, const char* name, bool modal, WFlags fl)
         : ChoosePicBase(parent, name, modal, fl)
 {
-    QDir d("/opt/QtPalmtop/pics/iqnotes/items");
+#ifdef DESKTOP
+    QDir d(QString(IQNOTES_PICDIR) + "/iqnotes/items");
+#else
+    QDir d(QString("/opt/QtPalmtop/pics") + "/iqnotes/items");
+#endif
     picNames = d.entryList();
 
     PicsList->insertItem("none");
@@ -19,7 +23,11 @@ ChoosePic::ChoosePic(QWidget* parent, const char* name, bool modal, WFlags fl)
 
         QString fListName = fName.left(fName.length() - fInfo.extension().length() - 1);
         
-        PicsList->insertItem(QPixmap("/opt/QtPalmtop/pics/iqnotes/items/" + *it), fListName);
+#ifdef DESKTOP
+        PicsList->insertItem(QPixmap(QString(IQNOTES_PICDIR) + "/iqnotes/items/" + *it), fListName);
+#else
+        PicsList->insertItem(QPixmap(QString("/opt/QtPalmtop/pics") + "/iqnotes/items/" + *it), fListName);
+#endif
     }
 
     PicsList->setCurrentItem(0);
@@ -30,6 +38,7 @@ ChoosePic::~ChoosePic()
 
 void ChoosePic::setCurrentPic(const QString &cp)
 {
+#if 0
     if (PicsList->count() <= 1)
 	return;
  
@@ -44,6 +53,13 @@ void ChoosePic::setCurrentPic(const QString &cp)
 	i++;
     }
 
+#endif
+    for (int i=0 ; i < PicsList->count() ; i++) {
+        if (PicsList->text(i) == cp) {
+            PicsList->setSelected(i, true);
+            break;
+        }
+    }
 }
 
 const QPixmap *ChoosePic::pixmap()
@@ -59,7 +75,8 @@ QString ChoosePic::picFile()
 {
     int idx;
     if ((idx = PicsList->currentItem()) != 0)
-        return picNames[idx - 1];
+//        return picNames[idx - 1];
+        return PicsList->text(idx);
 
     return "";
 }
