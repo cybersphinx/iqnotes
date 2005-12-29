@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>307</width>
+            <width>292</width>
             <height>372</height>
         </rect>
     </property>
@@ -27,17 +27,11 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>Layout9</cstring>
+                <cstring>layout10</cstring>
             </property>
             <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
-                </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="spacing">
-                    <number>6</number>
                 </property>
                 <widget class="QLabel">
                     <property name="name">
@@ -50,6 +44,14 @@
                 <widget class="QLineEdit">
                     <property name="name">
                         <cstring>EntryName</cstring>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>DefaultPic</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Default Pic</string>
                     </property>
                 </widget>
             </hbox>
@@ -67,17 +69,11 @@
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>Layout7</cstring>
+                        <cstring>layout12</cstring>
                     </property>
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
-                        </property>
-                        <property name="margin">
-                            <number>0</number>
-                        </property>
-                        <property name="spacing">
-                            <number>6</number>
                         </property>
                         <widget class="QListBox">
                             <property name="name">
@@ -86,26 +82,12 @@
                         </widget>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>Layout6</cstring>
+                                <cstring>layout11</cstring>
                             </property>
                             <vbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <property name="margin">
-                                    <number>0</number>
-                                </property>
-                                <property name="spacing">
-                                    <number>6</number>
-                                </property>
-                                <widget class="QPushButton">
-                                    <property name="name">
-                                        <cstring>DefaultPic</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>Default Pic</string>
-                                    </property>
-                                </widget>
                                 <widget class="QButtonGroup">
                                     <property name="name">
                                         <cstring>InputTypeGroup</cstring>

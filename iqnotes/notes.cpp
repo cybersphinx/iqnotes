@@ -1286,6 +1286,16 @@ void Notes::destroyNotes()
 {
     notesDestroyed = true;
 	qDebug("Destroy");
+    
+    if (taskTree)
+        delete taskTree;
+    if (eventTree)
+        delete eventTree;
+    if (searchTree)
+        delete searchTree;
+    if (reminderTree)
+        delete reminderTree;
+    
 #ifdef DESKTOP
 	delete splitter;
 	delete vBoxLayout;
@@ -1306,14 +1316,6 @@ void Notes::destroyNotes()
 	vBoxLayout = 0;
 #endif
 
-    if (taskTree)
-        delete taskTree;
-    if (eventTree)
-        delete eventTree;
-    if (searchTree)
-        delete searchTree;
-    if (reminderTree)
-        delete reminderTree;
 
     searchTree = 0;
     taskTree = 0;

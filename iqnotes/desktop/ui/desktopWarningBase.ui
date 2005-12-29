@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>288</width>
-            <height>158</height>
+            <width>343</width>
+            <height>139</height>
         </rect>
     </property>
     <property name="caption">
@@ -30,6 +30,14 @@
                 <widget class="QLabel">
                     <property name="name">
                         <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>1</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
                     </property>
                     <property name="text">
                         <string>This program has been developed mainly for PDAs running Qtopia enviroment. Consequenlty, desktop enviroment has somehow cumbersome gui control.</string>

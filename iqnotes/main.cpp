@@ -48,7 +48,7 @@ int main(int argc, char ** argv)
 #ifdef DESKTOP
 	a.showMainWidget(&mw, true);
 #else
-        a.showMainWidget(&mw);
+    a.showMainWidget(&mw);
 #endif
 
     return a.exec();
