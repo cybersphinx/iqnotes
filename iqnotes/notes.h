@@ -319,10 +319,7 @@ public:
         QListViewItem::setText(c, t);
         noteData->setTitle(t);
     }
-    virtual QString text(int c) const
-    {
-        return noteData->getTitle();
-    }
+    virtual QString text(int c) const;
 
     virtual int width(const QFontMetrics& fm, const QListView* lv, int c) const;
     virtual void paintCell(QPainter *, const QColorGroup & cg, int column, int width, int alignment);

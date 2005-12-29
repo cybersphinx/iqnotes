@@ -16,6 +16,11 @@
 */
 #include "app.h"
 #include <qpe/qpeapplication.h>
+#include <qcheckbox.h>
+
+#ifdef DESKTOP
+#include "desktop/ui/desktopWarningBase.h"
+#endif
 
 int main(int argc, char ** argv)
 {
@@ -23,6 +28,17 @@ int main(int argc, char ** argv)
 
     App mw;
 
+#ifdef DESKTOP
+    if (mw.config.desktopWarning)
+    {
+        DesktopWarningBase dwb;
+        dwb.exec();
+        if (dwb.dontShow->isChecked())
+            mw.config.desktopWarning = false;
+        mw.saveConfig();
+    }
+#endif
+    
 #ifdef DEMO
 	mw.openTree(-2, "");
 #else

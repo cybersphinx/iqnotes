@@ -101,7 +101,11 @@ public:
 
 
     bool foreignNodeWarning();
+    NotesConfig config;
 
+    bool readConfig();
+    bool saveConfig();
+    
 protected:
     virtual void resizeEvent(QResizeEvent *);
     virtual void focusInEvent(QFocusEvent *);
@@ -200,8 +204,6 @@ signals:
     void canDeleteEntry(const QString &, bool);
 
 private:
-    bool readConfig();
-    bool saveConfig();
 
     void setFullScreen(bool fullScreen);
     
@@ -222,7 +224,6 @@ private:
     QString currentFile;
 
     Preferences preferences;
-    NotesConfig config;
     bool noFileOpened, modified, foreignDeletedNode, showFullScreen;
 };
 

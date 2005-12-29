@@ -367,6 +367,7 @@ bool App::saveConfig()
             << "verticalLayout=\"" << (config.verticalLayout ? "yes" : "no") << "\" "
             << "font=\"" << (config.font) << "\" "
             << "fontsize=\"" << (config.fontSize) << "\" "
+            << "desktopWarning=\"" << (config.desktopWarning ? "yes" : "no") << "\" "
             << "/>\n"
             << "</iqnotes>\n";
 

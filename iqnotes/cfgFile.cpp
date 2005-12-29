@@ -38,6 +38,7 @@ bool CfgFileParser::startElement(const QString &, const QString &, const QString
         config.verticalLayout = attr.value("verticalLayout") == "no" ? false : true;
         config.font = attr.value("font");
         config.fontSize = attr.value("fontsize").toInt();
+        config.desktopWarning = attr.value("desktopWarning") == "no" ? false : true;
 
         emit configLoaded(config);
     }

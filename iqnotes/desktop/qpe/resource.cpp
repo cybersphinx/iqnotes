@@ -22,7 +22,7 @@ QPixmap Resource::loadPixmap(const QString &name)
 {
 #ifdef DEBUG
 	qDebug("Resource::loadPixmap");
-	qDebug(QString(IQNOTES_PICDIR) + name);
+	qDebug(QString(IQNOTES_PICDIR) + "/" + name);
 #endif
 
 	return QPixmap(QString(IQNOTES_PICDIR) + "/" + name + ".png");

@@ -27,6 +27,11 @@ class NotesConfig
         rootNodeDecoration = false;
         verticalLayout = true;
         font = ""; fontSize = 0;
+#ifdef DESKTOP
+        desktopWarning = true;
+#else
+        desktopWarning = false;
+#endif
     }
 
     NotesConfig &operator=(const NotesConfig &nc)
@@ -37,11 +42,13 @@ class NotesConfig
         verticalLayout = nc.verticalLayout;
         font = nc.font;
         fontSize = nc.fontSize;
-
+        desktopWarning = nc.desktopWarning;
+        
         return *this;
     }
 
-    bool wordWrap, showScrollBars, rootNodeDecoration, verticalLayout;
+    bool wordWrap, showScrollBars, rootNodeDecoration, verticalLayout,
+         desktopWarning;
     QString font;
     int fontSize;
 };

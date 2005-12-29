@@ -75,7 +75,7 @@
                         </sizepolicy>
                     </property>
                     <property name="text">
-                        <string>IQNotes 2.0.4rc2
+                        <string>IQNotes 2.1.0rc1
 Author: Peter Vrabel 
 Email: kybu@kybu.org</string>
                     </property>
@@ -122,7 +122,7 @@ Email: kybu@kybu.org</string>
                 </sizepolicy>
             </property>
             <property name="text">
-                <string>Project homepage: http://iqnotes.kybu.org
+                <string>Project homepage: http://iqnotes.berlios.de
 
 (c) 2001 - 2005 Peter Vrabel</string>
             </property>

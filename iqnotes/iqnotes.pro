@@ -1,10 +1,11 @@
 TEMPLATE = app
 #CONFIG = qt warn_on pda
 CONFIG = qt warn_on debug desktop
-INCLUDEPATH += $(QPEDIR)/include
+DEFINES = TOOLBAR_BIG_ICONS
+pda:INCLUDEPATH += $(QPEDIR)/include
 DESTDIR = ../bin
-DEPENDPATH += $(QPEDIR)/include
-LIBS += -lqtopia
+pda:DEPENDPATH += $(QPEDIR)/include
+pda:LIBS += -lqtopia
 TARGET = iqnotes
 SOURCES += main.cpp \
            app.cpp \
@@ -68,7 +69,7 @@ desktop:SOURCES += desktop/qpe/*.cpp
 desktop:DEFINES += DESKTOP
 desktop:INCLUDEPATH = desktop desktop/ui
 desktop:DEPENDPATH = desktop desktop/ui
-desktop:LIBS = -lfreetype
+#desktop:LIBS = -lfreetype
 
 pda:INTERFACES = aboutBase.ui          choosePicBase.ui     preferencesBase.ui  setTaskBase.ui            writeNoteBase.ui \
   defineEntryBase.ui    iqnotesAlarmBase.ui  renameNoteBase.ui   sortBase.ui \

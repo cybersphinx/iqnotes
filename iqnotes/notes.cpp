@@ -557,6 +557,11 @@ NotesViewItem::~NotesViewItem()
     }
 }
 
+QString NotesViewItem::text(int c) const
+{
+    return noteData->getTitle();
+}
+
 void NotesViewItem::init()
 {
     noteData = new NoteData;
@@ -1760,6 +1765,8 @@ bool Notes::setPicture()
     if (!cp.exec())
         return false;
 
+    currentItem->setMyPixmap(cp.picFile());
+
     return true;
 }
 
@@ -2147,7 +2154,7 @@ bool Notes::writeNote(NotesViewItem *nvi)
 
 bool Notes::renameNote()
 {
-	QListView *currTree = getCurrentTree();
+    QListView *currTree = getCurrentTree();
 
     NotesViewItem *nvi = static_cast<NotesViewItem *>(currTree->currentItem());
 

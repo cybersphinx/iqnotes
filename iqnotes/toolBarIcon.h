@@ -25,10 +25,12 @@ public:
     static QPixmap prepare(QString const &name)
     {
         QString n = name;
-        
+
+#ifdef TOOLBAR_BIG_ICONS
         if (qApp->desktop()->width() >= 480)
             n += "_big";
-        
+#endif
+
         return Resource::loadPixmap(n);
     }
 };
