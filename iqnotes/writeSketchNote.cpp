@@ -16,7 +16,6 @@
 */
 
 #include "writeSketchNote.h"
-
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qiconset.h>
@@ -41,7 +40,8 @@ WriteSketchNote::WriteSketchNote(QWidget* parent, const char* name, bool modal, 
 
 
     sketch = new QSketch(this);
-	//    sketch->setMaximumSize(238, 119 + 119);
+    sketch->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+    sketch->setMinimumSize(1, 119);
     vlayout->addWidget(sketch);
 
 

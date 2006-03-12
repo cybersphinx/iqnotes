@@ -587,13 +587,13 @@ NotesViewItem *NotesViewItem::firstSibling()
         lvi = lvi->firstChild();
     }
 
-    return static_cast<NotesViewItem *>(lvi);
+    return dynamic_cast<NotesViewItem *>(lvi);
 
 }
 
 NotesViewItem *NotesViewItem::lastChild()
 {
-    NotesViewItem *nvi = static_cast<NotesViewItem *>(firstChild()), *last;
+    NotesViewItem *nvi = dynamic_cast<NotesViewItem *>(firstChild()), *last;
     for (last = nvi; nvi; nvi = nvi->nextSibling())
     {
         last = nvi;
@@ -917,7 +917,7 @@ void Notes::clearTree()
 void Notes::expandTree()
 {
     QListView *currTree = searchTree ? searchTree : notesTree;
-    NotesViewItem *currItem = static_cast<NotesViewItem *>(currTree->currentItem());
+    NotesViewItem *currItem = dynamic_cast<NotesViewItem *>(currTree->currentItem());
 
     //  currTree->setUpdatesEnabled(false);
 
@@ -974,7 +974,7 @@ void Notes::taskListClose()
     if (taskTree)
     {
         if (taskTree->currentItem())
-            setCurrentItem(static_cast<NotesViewItem *>(taskTree->currentItem())->getID());
+            setCurrentItem(dynamic_cast<NotesViewItem *>(taskTree->currentItem())->getID());
 
         delete taskTree;
         taskTree = 0;
@@ -1000,7 +1000,7 @@ void Notes::taskListWholeTree()
 void Notes::taskListCurrent()
 {
     if (notesTree->currentItem()->firstChild())
-        taskList(static_cast<NotesViewItem *>(notesTree->currentItem()->firstChild()));
+        taskList(dynamic_cast<NotesViewItem *>(notesTree->currentItem()->firstChild()));
 }
 
 void Notes::taskList(NotesViewItem *startItem)
@@ -1033,7 +1033,7 @@ void Notes::taskList(NotesViewItem *startItem)
         return;
     }
 
-    sort(static_cast<NotesViewItem *>(taskTree->firstChild()), taskListSC, true);
+    sort(dynamic_cast<NotesViewItem *>(taskTree->firstChild()), taskListSC, true);
 
     taskTree->setCurrentItem(taskTree->firstChild());
     taskTree->setFocus();
@@ -1062,13 +1062,13 @@ void Notes::taskListRecur(NotesViewItem *startItem)
     */
 
     if (!startItem)
-        startItem = static_cast<NotesViewItem *>(notesTree->firstChild());
+        startItem = dynamic_cast<NotesViewItem *>(notesTree->firstChild());
 
     for (NotesViewItem *curr = startItem->firstSibling(); curr; curr = curr->nextSibling())
     {
         if (curr->isTask())
         {
-            NotesViewItem *item = static_cast<NotesViewItem *>(new NotesViewItem(taskTree));
+            NotesViewItem *item = dynamic_cast<NotesViewItem *>(new NotesViewItem(taskTree));
             *item = *curr;
 
             // Let's make it last
@@ -1078,7 +1078,7 @@ void Notes::taskListRecur(NotesViewItem *startItem)
         }
 
         if (curr->firstChild())
-            taskListRecur(static_cast<NotesViewItem *>(curr->firstChild()));
+            taskListRecur(dynamic_cast<NotesViewItem *>(curr->firstChild()));
     }
 }
 
@@ -1091,7 +1091,7 @@ void Notes::eventListClose()
     if (eventTree)
     {
         if (eventTree->currentItem())
-            setCurrentItem(static_cast<NotesViewItem *>(eventTree->currentItem())->getID());
+            setCurrentItem(dynamic_cast<NotesViewItem *>(eventTree->currentItem())->getID());
 
         delete eventTree;
         eventTree = 0;

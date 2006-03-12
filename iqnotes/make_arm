@@ -3,15 +3,19 @@
 echo "Don't forget do disable DEBUG macro"
 read
 
-CROSSCOMPILE=/opt/Embedix/tools
-QPEDIR=/opt/Qtopia/sharp
-QTDIR=/opt/Qtopia/sharp
-PATH=$QTDIR/bin:$QPEDIR/bin:$CROSSCOMPILE/bin:$QPEDIR/bin:$PATH
-TMAKEPATH=/opt/Qtopia/tmake/lib/qws/linux-sharp-g++/
-LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
-
-export CROSSCOMPILE QPEDIR QTDIR PATH TMAKEPATH LD_LIBRARY
-
 #tmake -o Makefile iqnotes.pro && make && tmake -o Makefile iqnotes-alarm.pro && make && arm-linux-strip ../bin/iqnotes && arm-linux-strip ../bin/iqnotes-alarm && mkipks iqnotes.control
 
-tmake -o Makefile iqnotes.pro && make && arm-linux-strip ../bin/iqnotes && mkipks iqnotes.control
+tmake -o Makefile iqnotes_pda.pro && make && arm-linux-strip ../bin/iqnotes && (
+    rm -rf iqnotes_package
+    mkdir -p iqnotes_package/CONTROL
+    mkdir -p iqnotes_package/opt/!QtPalmtop/apps/Applications
+    mkdir -p iqnotes_package/opt/QtPalmtop/bin
+    mkdir -p iqnotes_package/opt/QtPalmtop/pics
+
+    cp iqnotes.control iqnotes_package/CONTROL/control
+    cp ../apps/Applications/iqnotes.desktop iqnotes_package/opt/!QtPalmtop/apps/Applications
+    cp ../bin/iqnotes iqnotes_package/opt/QtPalmtop/bin
+    cp -r ../pics/* iqnotes_package/opt/QtPalmtop/pics
+    find iqnotes_package -type d -name '.svn' | xargs rm -rf
+    ipkg-build.sh iqnotes_package
+)

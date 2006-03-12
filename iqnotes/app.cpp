@@ -1216,8 +1216,7 @@ void App::openFile(bool showNewFile)
 #ifndef DESKTOP
     of.showMaximized();
 #endif
-    if (!of.exec())
-        return;
+    of.exec();
 }
 
 bool App::saveFile()
