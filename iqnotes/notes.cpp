@@ -17,6 +17,7 @@
 #include "notes.h"
 #include "app.h"
 #include "entry.h"
+#include "noteDetail.h"
 
 // Dialogs
 #include "noteType.h"
@@ -1301,16 +1302,12 @@ void Notes::destroyNotes()
 	delete vBoxLayout;
 #else
 	delete notesTree;
-    delete noteFormatedText;
-    delete noteText;
-    delete noteSketch;
+    delete noteDetail;
 #endif	
     
 
     notesTree = 0;
-    noteFormatedText = 0;
-    noteText = 0;
-    noteSketch = 0;
+    noteDetail = 0;
 #ifdef DESKTOP
 	splitter = 0;
 	vBoxLayout = 0;
@@ -1347,12 +1344,16 @@ void Notes::createNotes()
     notesTree->setSorting(-1);
     notesTree->setFocus();
 
+    noteDetail = new NoteDetail(p);
+
+    /*
     noteFormatedText = new QTextView(p, "noteData");
     noteText = new QMultiLineEdit(p);
     noteText->setReadOnly(true);
     noteSketch = new QSketch(p);
     noteSketch->setReadOnly();
 	noteSketch->setMoveMode(true);
+    */
 
     connect(notesTree, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(noteChanged(QListViewItem *)));
     connect(notesTree, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(editNote(QListViewItem *)));
@@ -1375,13 +1376,7 @@ void Notes::createNotes()
 void Notes::setWordWrap(bool wrap)
 {
     wordWrap = wrap;
-    if (wordWrap)
-	{
-        noteText->setWordWrap(QMultiLineEdit::WidgetWidth);
-		noteText->setWrapPolicy(QMultiLineEdit::Anywhere);
-	}
-    else
-        noteText->setWordWrap(QMultiLineEdit::NoWrap);
+    noteDetail->setWordWrap(wrap);
 }
 
 void Notes::setRootNodeDecoration(bool rootDecoration)
@@ -1613,9 +1608,7 @@ void Notes::paintEvent(QPaintEvent *pe)
 #ifdef DESKTOP
 			splitter->setOrientation(QSplitter::Vertical);
 #else
-			noteFormatedText->setGeometry(QRect(0, hh, w, hh));
-			noteText->setGeometry(QRect(0, hh, w, hh));
-			noteSketch->setGeometry(QRect(0, hh, w, hh));
+            noteDetail->setGeometry(QRect(0, hh, w, hh));
 		
 			notesTree->setGeometry(QRect(0, 0, w, hh));
 #endif
@@ -1625,13 +1618,17 @@ void Notes::paintEvent(QPaintEvent *pe)
 #ifdef DESKTOP
 			splitter->setOrientation(QSplitter::Horizontal);
 #else
-			noteFormatedText->setGeometry(QRect(ww, 0, ww, h));
-			noteText->setGeometry(QRect(ww, 0, ww, h));
-			noteSketch->setGeometry(QRect(ww, 0, ww, h));
+			noteDetail->setGeometry(QRect(ww, 0, ww, h));
 		
 			notesTree->setGeometry(QRect(0, 0, ww, h));
 #endif
 		}
+        #ifdef DESKTOP
+	    if (splitterSize.count()) {
+	    	splitter->setSizes(splitterSize);
+	    	splitterSize.clear();
+	    }
+        #endif
 
         QListView *currTree = getCurrentTree();
         if (currTree != notesTree)
@@ -1640,25 +1637,25 @@ void Notes::paintEvent(QPaintEvent *pe)
         }
         currTree->show();
         
-        if (!notesTree->childCount())
+        /* if (!notesTree->childCount())
         {
             noteText->show();
-        }
+        } */
 
+        noteDetail->show();
         noteChanged(currTree->currentItem());
     }
     else if (setViewType == HIDE_NOTE)
     {
-        noteFormatedText->hide();
-        noteText->hide();
-        noteSketch->hide();
+        noteDetail->hide();
 
 #ifndef DESKTOP
-        noteFormatedText->setGeometry(QRect(0, 0, 0, 0));
-        noteText->setGeometry(QRect(0, 0, 0, 0));
-        noteSketch->setGeometry(QRect(0, 0, 0, 0));
+        noteDetail->setGeometry(QRect(0, 0, 0, 0));
 
         notesTree->setGeometry(QRect(0, 0, w, h));
+#else
+        if (viewType == HALF_VIEW)
+	        splitterSize = splitter->sizes();
 #endif
 
         QListView *currTree = getCurrentTree();
@@ -1677,22 +1674,25 @@ void Notes::paintEvent(QPaintEvent *pe)
 
 #ifndef DESKTOP
         notesTree->setGeometry(QRect(0, 0, w, h));
+#else
+        if (viewType == HALF_VIEW)
+	        splitterSize = splitter->sizes();
 #endif
+        
         if (currTree != notesTree)
         {
             currTree->setGeometry(notesTree->geometry());
         }
 
-        if (!notesTree->childCount())
+        /* if (!notesTree->childCount())
         {
             noteText->show();
-        }
+        } */
 
 #ifndef DESKTOP
-        noteFormatedText->setGeometry(QRect(0, 0, w, h));
-        noteText->setGeometry(QRect(0, 0, w, h));
-        noteSketch->setGeometry(QRect(0, 0, w, h));
+        noteDetail->setGeometry(QRect(0, 0, w, h));
 #endif
+        noteDetail->show();
         noteChanged(currTree->currentItem());
     }
 
@@ -1720,19 +1720,10 @@ void Notes::halfView()
 {
     setViewType = HALF_VIEW;
     repaint(true);
-#ifdef DESKTOP
-	if (splitterSize.count()) {
-		splitter->setSizes(splitterSize);
-		splitterSize.clear();
-	}
-#endif
 }
 
 void Notes::fullTreeView()
 {
-#ifdef DESKTOP
-	splitterSize = splitter->sizes();
-#endif
     setViewType = HIDE_NOTE;
     repaint(true);
 }
@@ -1741,12 +1732,6 @@ void Notes::fullNoteView()
 {
     setViewType = HIDE_TREE;
     repaint(true);
-#ifdef DESKTOP
-	if (splitterSize.count()) {
-		splitter->setSizes(splitterSize);
-		splitterSize.clear();
-	}
-#endif //DESKTOP
 }
 
 // }}}
@@ -2279,11 +2264,11 @@ void Notes::noteChanged(QListViewItem *lvi)
         qDebug("no childs");
 #endif
 
-        noteSketch->clearStrokes();
+        /* noteSketch->clearStrokes();
         noteFormatedText->setText("");
         noteText->setText("");
         noteSketch->hide();
-        noteFormatedText->hide();
+        noteFormatedText->hide();*/
         return;
     }
 
@@ -2301,13 +2286,7 @@ void Notes::noteChanged(QListViewItem *lvi)
     if (viewType == HIDE_NOTE)
         return;
 
-    QRect g;
-    if (noteFormatedText->isShown())
-        g = noteFormatedText->geometry();
-    else if (noteText->isShown())
-        g = noteText->geometry();
-    else if (noteSketch->isShown())
-        g = noteSketch->geometry();
+    QRect g = noteDetail->geometry();
     QValueList<int> sizes = splitter->sizes();
     for (uint i = 1; i < sizes.count(); i++)
         if (splitter->orientation() != Qt::Vertical)
@@ -2316,34 +2295,7 @@ void Notes::noteChanged(QListViewItem *lvi)
             sizes[i] = g.height();
 #endif
 
-    // Note is sketch
-    if (nvi->isSketch())
-    {
-        noteSketch->setStrokes(nvi->getStrokes());
-        noteSketch->repaint();
-        noteSketch->show();
-        noteFormatedText->hide();
-        noteText->hide();
-    }
-    // normal note
-    else
-    {
-        if (!nvi->getEntryName().length())
-        {
-            noteText->setText(nvi->getFormatedData());
-            noteFormatedText->hide();
-            noteText->show();
-        }
-        else
-        {
-            noteFormatedText->setTextFormat(Qt::RichText);
-            noteFormatedText->setText(nvi->getFormatedData());
-            noteText->hide();
-            noteFormatedText->show();
-        }
-
-        noteSketch->hide();
-    }
+    noteDetail->setNoteData(nvi->getNoteData());
 
     getCurrentTree()->setFocus();
 #ifdef DESKTOP

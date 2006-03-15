@@ -46,6 +46,7 @@ class QPainter;
 class QColorGroup;
 
 class Strokes;
+class NoteDetail;
 
 // {{{ class Event
 
@@ -254,6 +255,7 @@ public:
 
     // is
     bool isText() const { return (getEntryName() == "" && !isSketch()); }
+    bool isFormatedText() const { return (getEntryName() != "" && !isSketch()); }
     bool isTask() const { return _isTask; }
     bool isSketch() const { return strokes != 0; }
     bool isEvent() const { return event.isValid(); }
@@ -666,9 +668,7 @@ private:
 	QVBoxLayout *vBoxLayout;
 	QValueList<int> splitterSize;
 #endif
-    QTextView *noteFormatedText;
-    QMultiLineEdit *noteText;
-    QSketch *noteSketch;
+    NoteDetail *noteDetail;
     QListView *notesTree, *searchTree, *taskTree, *eventTree, *reminderTree;
 };
 
