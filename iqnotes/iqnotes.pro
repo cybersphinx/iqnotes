@@ -1,6 +1,7 @@
 TEMPLATE = app
-CONFIG += qt warn_on debug desktop
-#CONFIG += qtopiaapp 
+desktop:CONFIG += qt release
+desktop_debug:CONFIG += qt warn_on debug
+qtopia:CONFIG += qtopiaapp 
 DESTDIR = ../bin
 TARGET = iqnotes
 SOURCES = *.cpp
@@ -23,7 +24,7 @@ desktop {
     DEFINES += DESKTOP IQNOTES_PICDIR="\""$(IQNOTES_PREFIX)"/share/iqnotes\""
     inst_bin.path = $(IQNOTES_PREFIX)/bin
     inst_bin.files = ../bin/iqnotes
-    inst_doc.path = $(IQNOTES_PREFIX)/share/docs/iqnotes-2.1.0rc1
+    inst_doc.path = $(IQNOTES_PREFIX)/share/docs/iqnotes
     inst_doc.files = AUTHORS BUGS TODO COPYING COPYRIGHT INSTALL README.DESKTOP THANKS ../help/html/iqnotes.html
     inst_pics.path = $(IQNOTES_PREFIX)/share/iqnotes
     inst_pics.files = ../pics/*
