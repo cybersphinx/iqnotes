@@ -1,60 +1,23 @@
 TEMPLATE = app
-CONFIG = qt warn_on pda
-#CONFIG = qt warn_on debug desktop
-DEFINES = TOOLBAR_BIG_ICONS
-pda:INCLUDEPATH += $(QPEDIR)/include
-DESTDIR = ../bin
-pda:DEPENDPATH += $(QPEDIR)/include
-pda:LIBS += -lqtopia -lqpe
+CONFIG += qtopiaapp
+CONFIG -= buildQuicklaunch
+
+# Set this to 1.5 to target the Sharp Zaurus.
+# Set this to 1.7 to target the Archos PMA400.
+# Set this to 2 to target a Qtopia 2.x device.
+# Leave this blank to use highest value the SDK's allows.
+# This prevents linking against libraries that aren't
+# present in older Qtopia releases. You will need to avoid
+# new functions in old classes too. You can target a
+# newer version and install on an older device if you also
+# copy the extra libraries to the device.
+QTOPIA_COMPAT_VER=1.5
+
+#DEFINES = TOOLBAR_BIG_ICONS
 TARGET = iqnotes
-SOURCES += main.cpp \
-           app.cpp \
-           notes.cpp \
-           defineEntry.cpp \
-           entry.cpp \
-           noteType.cpp \
-           writeDefinedEntry.cpp \
-           notesFile.cpp \
-           chooseEntry.cpp \
-           colorDialog.cpp \
-           qsketch.cpp \
-           writeSketchNote.cpp \
-           setTask.cpp \
-           setEvent.cpp \
-           sort.cpp \
-           choosePic.cpp \
-           rijndael.cpp \
-           md5.cpp \
-           preferences.cpp \
-           openFile.cpp \
-           fileName.cpp \
-           setReminder.cpp \
-           cfgFile.cpp 
-HEADERS += app.h \
-           notes.h \
-           defineEntry.h \
-           entry.h \
-           noteType.h \
-           writeDefinedEntry.h \
-           notesFile.h \
-           chooseEntry.h \
-           colorDialog.h \
-           qsketch.h \
-           writeSketchNote.h \
-           setTask.h \
-           setEvent.h \
-           sort.h \
-           choosePic.h \
-           rijndael.h \
-           md5.h \
-           preferences.h \
-           openFile.h \
-           fileName.h \
-           setReminder.h \
-           notesConfig.h \
-           cfgFile.h \
-           toolBarIcon.h 
-DISTFILES += AUTHORS \
+SOURCES = *.cpp
+HEADERS = *.h
+DISTFILES  = AUTHORS \
              COPYING \
              COPYRIGHT \
              INSTALL \
@@ -62,19 +25,26 @@ DISTFILES += AUTHORS \
              TODO \
              ChangeLog \
              make_arm 
-desktop:DEFINES = IQNOTES_PICDIR="\""$(IQNOTES_PREFIX)"/usr/share/iqnotes\""
-desktop:INTERFACES = desktop/ui/*.ui
-desktop:HEADERS += desktop/qpe/*.h
-desktop:SOURCES += desktop/qpe/*.cpp
-desktop:DEFINES += DESKTOP
-desktop:INCLUDEPATH = desktop desktop/ui
-desktop:DEPENDPATH = desktop desktop/ui
-#desktop:LIBS = -lfreetype
 
-pda:INTERFACES = aboutBase.ui          choosePicBase.ui     preferencesBase.ui  setTaskBase.ui            writeNoteBase.ui \
-  defineEntryBase.ui    iqnotesAlarmBase.ui  renameNoteBase.ui   sortBase.ui \
-  deleteConfirmBase.ui  noteNameBase.ui      searchBase.ui       sortTasksBase.ui \
-  fileNameBase.ui       noteTypeBase.ui      setEventBase.ui     startUpPasswdBase.ui \
-  chooseEntryBase.ui    openFileBase.ui      setReminderBase.ui  writeDefinedEntryBase.ui
-pda:LIBS += -luuid -ljpeg -lstdc++
-#pda:LIBS += -lstdc++
+INTERFACES = \
+pda/ui/aboutBase.ui \
+pda/ui/chooseEntryBase.ui \
+pda/ui/choosePicBase.ui \
+pda/ui/defineEntryBase.ui \
+pda/ui/deleteConfirmBase.ui \
+pda/ui/fileNameBase.ui \
+pda/ui/iqnotesAlarmBase.ui \
+pda/ui/noteNameBase.ui \
+pda/ui/noteTypeBase.ui \
+pda/ui/openFileBase.ui \
+pda/ui/preferencesBase.ui \
+pda/ui/renameNoteBase.ui \
+pda/ui/searchBase.ui \
+pda/ui/setEventBase.ui \
+pda/ui/setReminderBase.ui \
+pda/ui/setTaskBase.ui \
+pda/ui/sortBase.ui \
+pda/ui/sortTasksBase.ui \
+pda/ui/startUpPasswdBase.ui \
+pda/ui/writeDefinedEntryBase.ui \
+pda/ui/writeNoteBase.ui

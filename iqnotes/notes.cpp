@@ -588,13 +588,12 @@ NotesViewItem *NotesViewItem::firstSibling()
         lvi = lvi->firstChild();
     }
 
-    return dynamic_cast<NotesViewItem *>(lvi);
-
+    return (NotesViewItem *)(lvi);
 }
 
 NotesViewItem *NotesViewItem::lastChild()
 {
-    NotesViewItem *nvi = dynamic_cast<NotesViewItem *>(firstChild()), *last;
+    NotesViewItem *nvi = (NotesViewItem *)(firstChild()), *last;
     for (last = nvi; nvi; nvi = nvi->nextSibling())
     {
         last = nvi;
@@ -918,7 +917,7 @@ void Notes::clearTree()
 void Notes::expandTree()
 {
     QListView *currTree = searchTree ? searchTree : notesTree;
-    NotesViewItem *currItem = dynamic_cast<NotesViewItem *>(currTree->currentItem());
+    NotesViewItem *currItem = (NotesViewItem *)(currTree->currentItem());
 
     //  currTree->setUpdatesEnabled(false);
 
@@ -975,7 +974,7 @@ void Notes::taskListClose()
     if (taskTree)
     {
         if (taskTree->currentItem())
-            setCurrentItem(dynamic_cast<NotesViewItem *>(taskTree->currentItem())->getID());
+            setCurrentItem(((NotesViewItem *)taskTree->currentItem())->getID());
 
         delete taskTree;
         taskTree = 0;
@@ -1001,7 +1000,7 @@ void Notes::taskListWholeTree()
 void Notes::taskListCurrent()
 {
     if (notesTree->currentItem()->firstChild())
-        taskList(dynamic_cast<NotesViewItem *>(notesTree->currentItem()->firstChild()));
+        taskList((NotesViewItem *)(notesTree->currentItem()->firstChild()));
 }
 
 void Notes::taskList(NotesViewItem *startItem)
@@ -1034,7 +1033,7 @@ void Notes::taskList(NotesViewItem *startItem)
         return;
     }
 
-    sort(dynamic_cast<NotesViewItem *>(taskTree->firstChild()), taskListSC, true);
+    sort((NotesViewItem *)(taskTree->firstChild()), taskListSC, true);
 
     taskTree->setCurrentItem(taskTree->firstChild());
     taskTree->setFocus();
@@ -1063,13 +1062,13 @@ void Notes::taskListRecur(NotesViewItem *startItem)
     */
 
     if (!startItem)
-        startItem = dynamic_cast<NotesViewItem *>(notesTree->firstChild());
+        startItem = (NotesViewItem *)(notesTree->firstChild());
 
     for (NotesViewItem *curr = startItem->firstSibling(); curr; curr = curr->nextSibling())
     {
         if (curr->isTask())
         {
-            NotesViewItem *item = dynamic_cast<NotesViewItem *>(new NotesViewItem(taskTree));
+            NotesViewItem *item = (NotesViewItem *)(new NotesViewItem(taskTree));
             *item = *curr;
 
             // Let's make it last
@@ -1079,7 +1078,7 @@ void Notes::taskListRecur(NotesViewItem *startItem)
         }
 
         if (curr->firstChild())
-            taskListRecur(dynamic_cast<NotesViewItem *>(curr->firstChild()));
+            taskListRecur((NotesViewItem *)(curr->firstChild()));
     }
 }
 
@@ -1092,7 +1091,7 @@ void Notes::eventListClose()
     if (eventTree)
     {
         if (eventTree->currentItem())
-            setCurrentItem(dynamic_cast<NotesViewItem *>(eventTree->currentItem())->getID());
+            setCurrentItem(((NotesViewItem *)eventTree->currentItem())->getID());
 
         delete eventTree;
         eventTree = 0;
@@ -1346,15 +1345,6 @@ void Notes::createNotes()
 
     noteDetail = new NoteDetail(p);
 
-    /*
-    noteFormatedText = new QTextView(p, "noteData");
-    noteText = new QMultiLineEdit(p);
-    noteText->setReadOnly(true);
-    noteSketch = new QSketch(p);
-    noteSketch->setReadOnly();
-	noteSketch->setMoveMode(true);
-    */
-
     connect(notesTree, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(noteChanged(QListViewItem *)));
     connect(notesTree, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(editNote(QListViewItem *)));
     connect(notesTree, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(editNote(QListViewItem *)));
@@ -1408,6 +1398,12 @@ void Notes::setVerticalLayout(bool verticalL)
 {
 	verticalLayout = verticalL;
 	setViewType = HALF_VIEW;
+#ifdef DESKTOP
+    if (verticalLayout)
+	    splitter->setOrientation(QSplitter::Vertical);
+    else
+	    splitter->setOrientation(QSplitter::Horizontal);
+#endif
 	repaint();
 }
 
@@ -1605,21 +1601,15 @@ void Notes::paintEvent(QPaintEvent *pe)
     {
 		if (verticalLayout)
 		{
-#ifdef DESKTOP
-			splitter->setOrientation(QSplitter::Vertical);
-#else
+#ifndef DESKTOP
             noteDetail->setGeometry(QRect(0, hh, w, hh));
-		
 			notesTree->setGeometry(QRect(0, 0, w, hh));
 #endif
 		}
 		else
 		{
-#ifdef DESKTOP
-			splitter->setOrientation(QSplitter::Horizontal);
-#else
+#ifndef DESKTOP
 			noteDetail->setGeometry(QRect(ww, 0, ww, h));
-		
 			notesTree->setGeometry(QRect(0, 0, ww, h));
 #endif
 		}
@@ -1632,16 +1622,9 @@ void Notes::paintEvent(QPaintEvent *pe)
 
         QListView *currTree = getCurrentTree();
         if (currTree != notesTree)
-        {
             currTree->setGeometry(notesTree->geometry());
-        }
         currTree->show();
         
-        /* if (!notesTree->childCount())
-        {
-            noteText->show();
-        } */
-
         noteDetail->show();
         noteChanged(currTree->currentItem());
     }
@@ -1651,7 +1634,6 @@ void Notes::paintEvent(QPaintEvent *pe)
 
 #ifndef DESKTOP
         noteDetail->setGeometry(QRect(0, 0, 0, 0));
-
         notesTree->setGeometry(QRect(0, 0, w, h));
 #else
         if (viewType == HALF_VIEW)
@@ -1660,9 +1642,7 @@ void Notes::paintEvent(QPaintEvent *pe)
 
         QListView *currTree = getCurrentTree();
         if (currTree != notesTree)
-        {
             currTree->setGeometry(notesTree->geometry());
-        }
 
         currTree->show();
     }
@@ -1680,14 +1660,7 @@ void Notes::paintEvent(QPaintEvent *pe)
 #endif
         
         if (currTree != notesTree)
-        {
             currTree->setGeometry(notesTree->geometry());
-        }
-
-        /* if (!notesTree->childCount())
-        {
-            noteText->show();
-        } */
 
 #ifndef DESKTOP
         noteDetail->setGeometry(QRect(0, 0, w, h));
@@ -1862,15 +1835,7 @@ bool Notes::setReminder()
     if (!sr.exec())
         return false;
         
-//    currentItem->setReminder(Reminder(sr.getDateTime(), sr.Alarm->isChecked()));
     currentItem->setReminder(Reminder(sr.getDateTime(), false));
-	// set alarm
-    /*
-	if (sr.Alarm->isChecked())
-	{
-		AlarmServer::addAlarm(sr.getDateTime(), QCString("QPE/Application/iqnotes-alarm"), QCString(currentItem->text(0)));
-	}
-    */
     
     return true;
 }
@@ -2286,20 +2251,20 @@ void Notes::noteChanged(QListViewItem *lvi)
     if (viewType == HIDE_NOTE)
         return;
 
-    QRect g = noteDetail->geometry();
+    /* QRect g = noteDetail->geometry();
     QValueList<int> sizes = splitter->sizes();
     for (uint i = 1; i < sizes.count(); i++)
         if (splitter->orientation() != Qt::Vertical)
             sizes[i] = g.width();
         else
-            sizes[i] = g.height();
+            sizes[i] = g.height(); */
 #endif
 
     noteDetail->setNoteData(nvi->getNoteData());
 
     getCurrentTree()->setFocus();
 #ifdef DESKTOP
-    splitter->setSizes(sizes);
+    // splitter->setSizes(sizes);
 #endif
 }
 

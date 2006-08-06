@@ -73,24 +73,24 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 	menu = new QPEMenuBar(this);
 
     int fileID;
-	fileID = menu->insertItem("File", filePopupMenu);
+	fileID = menu->insertItem(tr("File"), filePopupMenu);
 	
 #ifndef DEMO
-    newID = filePopupMenu->insertItem("New", this, SLOT(newFile()), SHIFT+Key_N);
-    openID = filePopupMenu->insertItem("Open", this, SLOT(openFile()), SHIFT+Key_O);
-    saveID = filePopupMenu->insertItem("Save", this, SLOT(saveFile()), SHIFT+Key_S);
+    newID = filePopupMenu->insertItem(tr("New"), this, SLOT(newFile()), SHIFT+Key_N);
+    openID = filePopupMenu->insertItem(tr("Open"), this, SLOT(openFile()), SHIFT+Key_O);
+    saveID = filePopupMenu->insertItem(tr("Save"), this, SLOT(saveFile()), SHIFT+Key_S);
     // file->insertItem("Save as", this, SLOT(saveAsFile()));
-    closeID = filePopupMenu->insertItem("Close", this, SLOT(closeFileMenu()));
+    closeID = filePopupMenu->insertItem(tr("Close"), this, SLOT(closeFileMenu()));
     filePopupMenu->insertSeparator();
 #endif
 	
-    filePopupMenu->insertItem("Quit", this, SLOT(goodBye()));
+    filePopupMenu->insertItem(tr("Quit"), this, SLOT(goodBye()));
 
     // Tree menu
     treePopupMenu = new QPopupMenu(this);
-    treeID = menu->insertItem("Tree", treePopupMenu);
+    treeID = menu->insertItem(tr("Tree"), treePopupMenu);
 
-    searchA = new QAction("Search", ToolBarIcon::prepare("iqnotes/find"), QString::null, Key_F, this, 0 );
+    searchA = new QAction(tr("Search"), ToolBarIcon::prepare("iqnotes/find"), QString::null, Key_F, this, 0 );
     connect(searchA, SIGNAL(activated()), this, SLOT(search()));
     //  searchA->addTo(toolbar);
     searchA->addTo(treePopupMenu);
@@ -100,48 +100,48 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     treePopupMenu->insertSeparator();
 
-    quickAddA = new QAction("Quick add", ToolBarIcon::prepare("iqnotes/quick_add"), QString::null, Key_Q, this, 0 );
+    quickAddA = new QAction(tr("Quick add"), ToolBarIcon::prepare("iqnotes/quick_add"), QString::null, Key_Q, this, 0 );
     connect(quickAddA, SIGNAL(activated()), this, SLOT(quickAdd()));
     quickAddA->addTo(toolbar);
     quickAddA->addTo(treePopupMenu);
 
-    addBeforeA = new QAction("Add before", ToolBarIcon::prepare("iqnotes/add_before"), QString::null, 0, this, 0 );
+    addBeforeA = new QAction(tr("Add before"), ToolBarIcon::prepare("iqnotes/add_before"), QString::null, 0, this, 0 );
     connect(addBeforeA, SIGNAL(activated()), this, SLOT(addBefore()));
     addBeforeA->addTo(toolbar);
     addBeforeA->addTo(treePopupMenu);
 
-    addAfterA = new QAction("Add after", ToolBarIcon::prepare("iqnotes/add_after"), QString::null, Key_A, this, 0 );
+    addAfterA = new QAction(tr("Add after"), ToolBarIcon::prepare("iqnotes/add_after"), QString::null, Key_A, this, 0 );
     connect(addAfterA, SIGNAL(activated()), this, SLOT(addAfter()));
     addAfterA->addTo(toolbar);
     addAfterA->addTo(treePopupMenu);
 
-    addChildA = new QAction("Add child", ToolBarIcon::prepare("iqnotes/add_child"), QString::null, Key_E, this, 0 );
+    addChildA = new QAction(tr("Add child"), ToolBarIcon::prepare("iqnotes/add_child"), QString::null, Key_E, this, 0 );
     connect(addChildA, SIGNAL(activated()), this, SLOT(addChild()));
     addChildA->addTo(toolbar);
     addChildA->addTo(treePopupMenu);
 
     treePopupMenu->insertSeparator();
-    sortID = treePopupMenu->insertItem("Sort", this, SLOT(sort()));
+    sortID = treePopupMenu->insertItem(tr("Sort"), this, SLOT(sort()));
     treePopupMenu->insertSeparator();
 
-    expandTreeID = treePopupMenu->insertItem("Expand tree", this, SLOT(expandTree()));
-    collapseTreeID = treePopupMenu->insertItem("Collapse tree", this, SLOT(collapseTree()));
+    expandTreeID = treePopupMenu->insertItem(tr("Expand tree"), this, SLOT(expandTree()));
+    collapseTreeID = treePopupMenu->insertItem(tr("Collapse tree"), this, SLOT(collapseTree()));
 
     treePopupMenu->insertSeparator();
 
     taskListPopupMenu = new QPopupMenu(this);
-    taskListPopupMenu->insertItem("From whole tree", this, SLOT(taskListWholeTree()));
-    taskListPopupMenu->insertItem("From current note down", this, SLOT(taskListCurrent()));
+    taskListPopupMenu->insertItem(tr("From whole tree"), this, SLOT(taskListWholeTree()));
+    taskListPopupMenu->insertItem(tr("From current note down"), this, SLOT(taskListCurrent()));
 
     eventListPopupMenu = new QPopupMenu(this);
-    eventListPopupMenu->insertItem("From whole tree", this, SLOT(eventListWholeTree()));
-    eventListPopupMenu->insertItem("From current note down", this, SLOT(eventListCurrent()));
+    eventListPopupMenu->insertItem(tr("From whole tree"), this, SLOT(eventListWholeTree()));
+    eventListPopupMenu->insertItem(tr("From current note down"), this, SLOT(eventListCurrent()));
 
-    taskListID = treePopupMenu->insertItem("Task list", taskListPopupMenu);
-    eventListID = treePopupMenu->insertItem("Event list", eventListPopupMenu);
+    taskListID = treePopupMenu->insertItem(tr("Task list"), taskListPopupMenu);
+    eventListID = treePopupMenu->insertItem(tr("Event list"), eventListPopupMenu);
 
     treePopupMenu->insertSeparator();
-    reminderID = treePopupMenu->insertItem("Reminder", this, SLOT(showReminder()));
+    reminderID = treePopupMenu->insertItem(tr("Reminder"), this, SLOT(showReminder()));
 
     toolbar->addSeparator();
 
@@ -152,79 +152,79 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 
     // Note menu
     notePopupMenu = new QPopupMenu(this);
-    noteID = menu->insertItem("Note", notePopupMenu);
+    noteID = menu->insertItem(tr("Note"), notePopupMenu);
 
-    renameNoteID = notePopupMenu->insertItem("Rename", this, SLOT(renameNote()), Key_R);
+    renameNoteID = notePopupMenu->insertItem(tr("Rename"), this, SLOT(renameNote()), Key_R);
 
-    editA = new QAction("Edit", ToolBarIcon::prepare("iqnotes/edit"), QString::null, Key_Return, this, 0 );
-    editA->setToolTip("Edit note");
+    editA = new QAction(tr("Edit"), ToolBarIcon::prepare("iqnotes/edit"), QString::null, Key_Return, this, 0 );
+    editA->setToolTip(tr("Edit note"));
     connect(editA, SIGNAL(activated()), this, SLOT(editNote()));
     editA->addTo(toolbar);
     editA->addTo(notePopupMenu);
 
-    cutA = new QAction("Cut", ToolBarIcon::prepare("iqnotes/bin"), QString::null, Key_X, this, 0 );
-    cutA->setToolTip("Cut note");
+    cutA = new QAction(tr("Cut"), ToolBarIcon::prepare("iqnotes/bin"), QString::null, Key_X, this, 0 );
+    cutA->setToolTip(tr("Cut note"));
     connect(cutA, SIGNAL(activated()), this, SLOT(cutNote()));
     cutA->addTo(toolbar);
     cutA->addTo(notePopupMenu);
 
     copyNotePopupMenu = new QPopupMenu(this);
-    copyNotePopupMenu->insertItem("Only current note", this, SLOT(copyNoteOnlyCurrent()));
-    copyNotePopupMenu->insertItem("Current note and down", this, SLOT(copyNoteCurrentAndDown()));
-    copyNoteID = notePopupMenu->insertItem("Copy", copyNotePopupMenu);
+    copyNotePopupMenu->insertItem(tr("Only current note"), this, SLOT(copyNoteOnlyCurrent()));
+    copyNotePopupMenu->insertItem(tr("Current note and down"), this, SLOT(copyNoteCurrentAndDown()));
+    copyNoteID = notePopupMenu->insertItem(tr("Copy"), copyNotePopupMenu);
 
     pasteNotePopupMenu = new QPopupMenu(this);
-    pasteNotePopupMenu->insertItem("Before", this, SLOT(pasteNoteBefore()));
-    pasteNotePopupMenu->insertItem("After", this, SLOT(pasteNoteAfter()), SHIFT+Key_A);
-    pasteNotePopupMenu->insertItem("As child", this, SLOT(pasteNoteChild()), SHIFT+Key_E);
-    pasteNoteID = notePopupMenu->insertItem("Paste", pasteNotePopupMenu);
+    pasteNotePopupMenu->insertItem(tr("Before"), this, SLOT(pasteNoteBefore()));
+    pasteNotePopupMenu->insertItem(tr("After"), this, SLOT(pasteNoteAfter()), SHIFT+Key_A);
+    pasteNotePopupMenu->insertItem(tr("As child"), this, SLOT(pasteNoteChild()), SHIFT+Key_E);
+    pasteNoteID = notePopupMenu->insertItem(tr("Paste"), pasteNotePopupMenu);
 
     notePopupMenu->insertSeparator();
 
-    setPictureA = new QAction("Set picture", ToolBarIcon::prepare("iqnotes/set_picture"), QString::null, CTRL+Key_P, this, 0);
-    setPictureA->setToolTip("Set picture");
+    setPictureA = new QAction(tr("Set picture"), ToolBarIcon::prepare("iqnotes/set_picture"), QString::null, CTRL+Key_P, this, 0);
+    setPictureA->setToolTip(tr("Set picture"));
     connect(setPictureA, SIGNAL(activated()), this, SLOT(setPicture()));
     //setPictureA->addTo(toolbar);
     setPictureA->addTo(notePopupMenu);
 
     notePopupMenu->insertSeparator();
 
-    setTaskA = new QAction("Set task", ToolBarIcon::prepare("iqnotes/set_task"), QString::null, CTRL+Key_T, this, 0);
-    setTaskA->setToolTip("Set task");
+    setTaskA = new QAction(tr("Set task"), ToolBarIcon::prepare("iqnotes/set_task"), QString::null, CTRL+Key_T, this, 0);
+    setTaskA->setToolTip(tr("Set task"));
     connect(setTaskA, SIGNAL(activated()), this, SLOT(setTask()));
     //setTaskA->addTo(toolbar);
     setTaskA->addTo(notePopupMenu);
-    setEventA = new QAction("Set event", ToolBarIcon::prepare("iqnotes/set_event"), QString::null, CTRL+Key_E, this, 0);
-    setEventA->setToolTip("Set event");
+    setEventA = new QAction(tr("Set event"), ToolBarIcon::prepare("iqnotes/set_event"), QString::null, CTRL+Key_E, this, 0);
+    setEventA->setToolTip(tr("Set event"));
     connect(setEventA, SIGNAL(activated()), this, SLOT(setEvent()));
     //setEventA->addTo(toolbar);
     setEventA->addTo(notePopupMenu);
-    unsetTaskEventID = notePopupMenu->insertItem("Unset", this, SLOT(unsetTaskEvent()));
+    unsetTaskEventID = notePopupMenu->insertItem(tr("Unset"), this, SLOT(unsetTaskEvent()));
 
     notePopupMenu->insertSeparator();
-    setReminderID = notePopupMenu->insertItem("Set reminder", this, SLOT(setReminder()));
-    unsetReminderID = notePopupMenu->insertItem("Unset reminder", this, SLOT(unsetReminder()));
+    setReminderID = notePopupMenu->insertItem(tr("Set reminder"), this, SLOT(setReminder()));
+    unsetReminderID = notePopupMenu->insertItem(tr("Unset reminder"), this, SLOT(unsetReminder()));
 
     // View menu
     viewPopupMenu = new QPopupMenu(this);
-    viewID = menu->insertItem("View", viewPopupMenu);
+    viewID = menu->insertItem(tr("View"), viewPopupMenu);
 
     toolbar->addSeparator();
 
-    hideNoteA = new QAction("Hide note", ToolBarIcon::prepare("iqnotes/hide_note"), QString::null, Key_1, this, 0 );
-    hideNoteA->setToolTip("Hide note");
+    hideNoteA = new QAction(tr("Hide note"), ToolBarIcon::prepare("iqnotes/hide_note"), QString::null, Key_1, this, 0 );
+    hideNoteA->setToolTip(tr("Hide note"));
     connect(hideNoteA, SIGNAL(activated()), this, SLOT(hideNote()));
     hideNoteA->addTo(toolbar);
     hideNoteA->addTo(viewPopupMenu);
 
-    hideTreeA = new QAction("Hide tree", ToolBarIcon::prepare("iqnotes/hide_tree"), QString::null, Key_2, this, 0 );
-    hideTreeA->setToolTip("Hide tree");
+    hideTreeA = new QAction(tr("Hide tree"), ToolBarIcon::prepare("iqnotes/hide_tree"), QString::null, Key_2, this, 0 );
+    hideTreeA->setToolTip(tr("Hide tree"));
     connect(hideTreeA, SIGNAL(activated()), this, SLOT(hideTree()));
     hideTreeA->addTo(toolbar);
     hideTreeA->addTo(viewPopupMenu);
 
-    halfViewA = new QAction("Half view", ToolBarIcon::prepare("iqnotes/half_view"), QString::null, Key_3, this, 0 );
-    halfViewA->setToolTip("Half view");
+    halfViewA = new QAction(tr("Half view"), ToolBarIcon::prepare("iqnotes/half_view"), QString::null, Key_3, this, 0 );
+    halfViewA->setToolTip(tr("Half view"));
     connect(halfViewA, SIGNAL(activated()), this, SLOT(halfView()));
     halfViewA->addTo(toolbar);
     halfViewA->addTo(viewPopupMenu);
@@ -237,21 +237,21 @@ App::App(QWidget* parent, const char* name, WFlags fl) : QMainWindow(parent, nam
 	
     // Options menu
     optionsPopupMenu = new QPopupMenu(this);
-    optionsID = menu->insertItem("Options", optionsPopupMenu);
+    optionsID = menu->insertItem(tr("Options"), optionsPopupMenu);
 
-    optionsPopupMenu->insertItem("Define new entry", this, SLOT(defineNewEntry()));
-    optionsPopupMenu->insertItem("Change entry", this, SLOT(changeEntry()));
-    optionsPopupMenu->insertItem("Delete entry", this, SLOT(deleteEntry()));
+    optionsPopupMenu->insertItem(tr("Define new entry"), this, SLOT(defineNewEntry()));
+    optionsPopupMenu->insertItem(tr("Change entry"), this, SLOT(changeEntry()));
+    optionsPopupMenu->insertItem(tr("Delete entry"), this, SLOT(deleteEntry()));
 
     optionsPopupMenu->insertSeparator();
 
-    optionsPopupMenu->insertItem("Preferences", this, SLOT(preferenc()));
+    optionsPopupMenu->insertItem(tr("Preferences"), this, SLOT(preferenc()));
 
     // Help menu
     helpPopupMenu = new QPopupMenu(this);
-    menu->insertItem("Help", helpPopupMenu);
+    menu->insertItem(tr("Help"), helpPopupMenu);
 
-    helpPopupMenu->insertItem("About", this, SLOT(about()));
+    helpPopupMenu->insertItem(tr("About"), this, SLOT(about()));
 
     addToolBar(toolbar);
 
@@ -644,7 +644,7 @@ void App::isNotEmptyNoteTree()
 void App::taskListShown()
 {
     treePopupMenu->removeItem(taskListID);
-    taskListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close task list", notes, SLOT(taskListClose()), 0, -1, 11);
+    taskListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), tr("Close task list"), notes, SLOT(taskListClose()), 0, -1, 11);
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(taskListClose()));
@@ -674,7 +674,7 @@ void App::taskListShown()
 void App::taskListClosed()
 {
     treePopupMenu->removeItem(taskListID);
-    taskListID = taskListID = treePopupMenu->insertItem("Task list", taskListPopupMenu, -1, 11);
+    taskListID = taskListID = treePopupMenu->insertItem(tr("Task list"), taskListPopupMenu, -1, 11);
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
@@ -704,7 +704,7 @@ void App::taskListClosed()
 void App::eventListShown()
 {
     treePopupMenu->removeItem(eventListID);
-    eventListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close event list", notes, SLOT(eventListClose()), 0, -1, 12);
+    eventListID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), tr("Close event list"), notes, SLOT(eventListClose()), 0, -1, 12);
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(eventListClose()));
@@ -734,7 +734,7 @@ void App::eventListShown()
 void App::eventListClosed()
 {
     treePopupMenu->removeItem(eventListID);
-    eventListID = treePopupMenu->insertItem("Event list", eventListPopupMenu, -1, 12);
+    eventListID = treePopupMenu->insertItem(tr("Event list"), eventListPopupMenu, -1, 12);
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
@@ -808,7 +808,7 @@ void App::searchTreeClosed()
 void App::reminderShown()
 {
     treePopupMenu->removeItem(reminderID);
-    reminderID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), "Close reminder", notes, SLOT(reminderClose()));
+    reminderID = treePopupMenu->insertItem(ToolBarIcon::prepare("iqnotes/close_search_tree"), tr("Close reminder"), notes, SLOT(reminderClose()));
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/close_search_tree"));
     connect(multiTB, SIGNAL(clicked()), notes, SLOT(reminderClose()));
@@ -837,7 +837,7 @@ void App::reminderShown()
 void App::reminderClosed()
 {
     treePopupMenu->removeItem(reminderID);
-    reminderID = treePopupMenu->insertItem("Reminder", this, SLOT(showReminder()));
+    reminderID = treePopupMenu->insertItem(tr("Reminder"), this, SLOT(showReminder()));
     multiTB->disconnect();
     multiTB->setIconSet(ToolBarIcon::prepare("iqnotes/find"));
     connect(multiTB, SIGNAL(clicked()), this, SLOT(search()));
@@ -903,12 +903,6 @@ bool App::openTree(const QString &file)
             this,       SLOT(setBackupLocation(bool, const QString &)));
     connect(&handler, SIGNAL(notesShowReminderAtStartUpLoaded(bool)),
             this,       SLOT(setNotesShowReminderAtStartUp(bool)));
-//  connect(&handler, SIGNAL(notesWordWrapLoaded(bool)),
-//          this,       SLOT(setNotesWordWrap(bool)));
-//  connect(&handler, SIGNAL(notesRootNodeDecorationLoaded(bool)),
-//          this,       SLOT(setNotesRootNodeDecoration(bool)));
-//  connect(&handler, SIGNAL(notesShowScrollBarsLoaded(bool)),
-//          this,       SLOT(setNotesShowScrollBars(bool)));
     connect(&handler, SIGNAL(entryLoaded(Entry *)),
             this,       SLOT(addEntry(Entry *)));
     connect(&handler, SIGNAL(noteLoaded(const QString &, QList<QString> *,
@@ -1015,7 +1009,7 @@ bool App::openTree(const QString &file)
             free(rijnData);
             free(rijnDataDecrypted);
 
-            QMessageBox::critical(this, "Bad password", "Please,\ntype correct password.");
+            QMessageBox::critical(this, tr("Bad password"), tr("Please,\ntype correct password."));
 
             return false;
         }
@@ -1054,7 +1048,7 @@ bool App::saveTree()
         
         if (!backupDir.exists())
         {
-            QMessageBox::critical(this, "Invalid directory", "Please, enter the existing\ndirectory in backup location.", 0, 0);
+            QMessageBox::critical(this, tr("Invalid directory"), tr("Please, enter the existing\ndirectory in backup location."), 0, 0);
             return false;
         }
     }
@@ -1154,7 +1148,7 @@ void App::setModified(bool m)
             setCaption("IQNotes :: " + currentFile + "*");
 #ifndef DEMO
         else
-            setCaption("IQNotes :: (untitled)*");
+            setCaption(tr("IQNotes :: (untitled)*"));
 #endif
     }
     else
@@ -1167,7 +1161,7 @@ void App::setModified(bool m)
             setCaption("IQNotes :: " + currentFile);
 #ifndef DEMO
         else
-            setCaption("IQNotes :: (untitled)");
+            setCaption(tr("IQNotes :: (untitled)"));
 #endif
     }
 }
@@ -1192,7 +1186,7 @@ void App::newFile()
     currentFile = "";
     setModified(false);
 #ifndef DEMO
-    setCaption("IQNotes :: (untitled)");
+    setCaption(tr("IQNotes :: (untitled)"));
 #else
 	setCaption("IQNotes :: DEMO");
 #endif
@@ -1262,7 +1256,7 @@ bool App::closeFile()
 
     if (modified)
     {
-        int r = QMessageBox::warning(this, "Warning", "Your data is not saved.\n Do you want to save?", QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::Cancel | QMessageBox::Escape);
+        int r = QMessageBox::warning(this, tr("Warning"), tr("Your data is not saved.\n Do you want to save?"), QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::Cancel | QMessageBox::Escape);
         
         if (r == QMessageBox::Yes)
         {
@@ -1306,7 +1300,7 @@ bool App::foreignNodeWarning()
     if (!foreignDeletedNode)
         return true;
 
-    int r = QMessageBox::warning(this, "Foreign note", "You are adding note from another\ndata file. This is potentially danger\naction.\nPlease, see help for more info.\nDo you want to proceed?", QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
+    int r = QMessageBox::warning(this, tr("Foreign note"), tr("You are adding note from another\ndata file. This is potentially danger\naction.\nPlease, see help for more info.\nDo you want to proceed?"), QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
     
     if (r == QMessageBox::Yes)
         return true;

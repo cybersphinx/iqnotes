@@ -329,7 +329,7 @@ public:
     NotesViewItem *firstSibling();
     NotesViewItem *nextSibling()
     {
-        return dynamic_cast<NotesViewItem *>(QListViewItem::nextSibling());
+        return (NotesViewItem *)(QListViewItem::nextSibling());
     }
     NotesViewItem *lastChild();
     NotesViewItem *lastSibling();
